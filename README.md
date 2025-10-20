@@ -12,13 +12,13 @@
 
 | 구분 | 학습 기간 | 주요 주제 | 정리 링크 |
 |------|------------|------------|------------|
-| **UX 1** | 10월 ~ 12월 초 | 💻 **UI5 Programming (HTML, JavaScript)**<br>기초 문법 및 실습 위주 학습 | [📘 UX1 정리 보기](./UX1/README.md) |
-| **ABAP 1** | 11월 ~ 12월 초 | ⚙️ **Foundation, Dictionary, Screen**<br>ABAP 기본 구조와 화면 구성 | [📘 ABAP1 정리 보기](./ABAP1/README.md) |
-| **ABAP 2** | 12월 ~ 1월 | 🧩 **Report, Database Updates, Object**<br>리포트, DB 연동, 객체지향 ABAP | [📘 ABAP2 정리 보기](./ABAP2/README.md) |
-| **ABAP 3** | 1월 ~ 2월 | 🧠 **ABAP for HANA, CDS View, New Syntax**<br>HANA 기반 최신 ABAP 문법 및 CDS View 실습 | [📘 ABAP3 정리 보기](./ABAP3/README.md) |
-| **UX 2+3** | 2월 ~ 3월 | 🌐 **Gateway + Fiori**<br>OData 연결 및 Fiori Launchpad 구현 | [📘 UX2+3 정리 보기](./UX23/README.md) |
-| **Project** | 3월 ~ 7월 | 🚀 **ABAP + UI5/Fiori 통합 개발 프로젝트**<br>실무 중심 팀 프로젝트 수행 | [📘 프로젝트 정리 보기](./Project/README.md) |
-| **Job Fair** | 7월 | 🎓 **특강 + 수료식 + 취업 상담** | [📘 Job Fair 기록 보기](./JobFair/README.md) |
+| **UX 1** | 10월 ~ 12월 초 | 💻 **UI5 Programming (HTML, JavaScript)**<br>기초 문법 및 실습 위주 학습 | [UX1 정리 보기](https://idanakyoung.github.io/sapcode/ux1) |
+| **ABAP 1** | 11월 ~ 12월 초 | ⚙️ **Foundation, Dictionary, Screen**<br>ABAP 기본 구조와 화면 구성 | [ABAP1 정리 보기](https://idanakyoung.github.io/sapcode/abap1) |
+| **ABAP 2** | 12월 ~ 1월 | 🧩 **Report, Database Updates, Object**<br>리포트, DB 연동, 객체지향 ABAP | [ABAP2 정리 보기](https://idanakyoung.github.io/sapcode/abap2) |
+| **ABAP 3** | 1월 ~ 2월 | 🧠 **ABAP for HANA, CDS View, New Syntax**<br>HANA 기반 최신 ABAP 문법 및 CDS View 실습 | [ABAP3 정리 보기](https://idanakyoung.github.io/sapcode/abap3) |
+| **UX 2+3** | 2월 ~ 3월 | 🌐 **Gateway + Fiori**<br>OData 연결 및 Fiori Launchpad 구현 | [UX2+3 정리 보기](https://idanakyoung.github.io/sapcode/ux23) |
+| **Project** | 3월 ~ 7월 | 🚀 **ABAP + UI5/Fiori 통합 개발 프로젝트**<br>실무 중심 팀 프로젝트 수행 | [Project 정리 보기](https://idanakyoung.github.io/sapcode/project) |
+| **Job Fair** | 7월 | 🎓 **특강 + 수료식 + 취업 상담** | [Job Fair 기록 보기](https://idanakyoung.github.io/sapcode/jobfair) |
 
 ---
 
