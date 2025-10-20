@@ -28,7 +28,7 @@
 📅 10월  | UX1 시작 (UI5 / HTML / JS)
 📅 11월  | ABAP1 병행 시작
 📅 12월  | ABAP2 진입
-📅 12월   | ABAP1 마무리 / 중간 멘토링
+📅 12월  | ABAP1 마무리 / 중간 멘토링
 📅 1월   | ABAP3 시작 (CDS, HANA)
 📅 2월   | UX2+3 시작 (Fiori / Gateway)
 📅 3~7월 | 팀 프로젝트 (통합 개발)
