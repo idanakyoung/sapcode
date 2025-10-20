@@ -2,17 +2,22 @@ title: SAP CODE 아카데미
 description: SAP CODE 아카데미 학습 정리 사이트
 
 remote_theme: just-the-docs/just-the-docs
-
-# 👉 github.io 사이트 주소와 리포지토리 경로
-url: https://idanakyoung.github.io
-baseurl: /sapcode
-
-# (중요) 원격 테마 플러그인 사용
 plugins:
   - jekyll-remote-theme
 
-# 옵션
+url: https://idanakyoung.github.io
+baseurl: /sapcode
+
+# 🔹 여기부터 커스터마이징
+color_scheme: sapcode         # 아래에서 만드는 나만의 팔레트 이름
+logo: /assets/img/logo.png    # 없으면 자동으로 글자 로고
+favicon_ico: /assets/img/favicon.ico
+
 search_enabled: true
+back_to_top: true
+back_to_top_text: "맨 위로"
+heading_anchors: true
+
 aux_links:
   GitHub Repo: https://github.com/idanakyoung/sapcode
 footer_content: "© 2025 SAP CODE — 기록은 최고의 복습"
