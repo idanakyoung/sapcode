@@ -1,15 +1,27 @@
-// SAPCODE 전용 컬러 팔레트
-$body-background-color: #ffffff;
-$sidebar-color: #0b3b73;              // 좌측 바 배경
-$sidebar-text-color: #e6eef8;
-$sidebar-active-color: #ffda6b;       // 현재 페이지 표시
-$search-background-color: #0a2e5a;
+// 🌸 SAPCODE 핑크 테마 컬러 팔레트
 
-$link-color: #0b74de;
-$link-visited-color: #0b74de;
+// 기본 배경
+$body-background-color: #fff8fb;
+
+// 사이드바 (왼쪽 메뉴)
+$sidebar-color: #ff8fb1;
+$sidebar-text-color: #fff9fa;
+$sidebar-active-color: #fff0f5;
+$search-background-color: #ffb6c1;
+
+// 링크, 버튼, 강조 색
+$link-color: #e75480;          // 진한 로즈 핑크
+$link-visited-color: #e75480;
 $btn-primary-color: #ffffff;
-$btn-primary-bg: #0b74de;
-$btn-primary-border: #0b74de;
+$btn-primary-bg: #e75480;
+$btn-primary-border: #e75480;
 
-$code-background-color: #f6f8fa;
-$feedback-color: #e8f4ff;
+// 코드/박스 배경
+$code-background-color: #fff0f6;
+$feedback-color: #ffe5ec;
+
+// 본문 텍스트
+$body-text-color: #3a0a18;
+
+// 그림자, 경계선
+$border-color: #ffc2d1;
