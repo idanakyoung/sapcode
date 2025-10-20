@@ -1,27 +1,25 @@
-// 🌸 SAPCODE 핑크 테마 컬러 팔레트
+---
+---
 
-// 기본 배경
-$body-background-color: #fff8fb;
+/* 🌸 SAPCODE 핑크 테마 오버라이드 */
+:root {
+  --body-background-color: #fff8fb;
+  --sidebar-color: #ff8fb1;
+  --sidebar-text-color: #fff9fa;
+  --sidebar-active-color: #fff0f5;
+  --search-background-color: #ffb6c1;
 
-// 사이드바 (왼쪽 메뉴)
-$sidebar-color: #ff8fb1;
-$sidebar-text-color: #fff9fa;
-$sidebar-active-color: #fff0f5;
-$search-background-color: #ffb6c1;
+  --link-color: #e75480;
+  --link-visited-color: #e75480;
+  --btn-primary-color: #ffffff;
+  --btn-primary-bg: #e75480;
+  --btn-primary-border: #e75480;
 
-// 링크, 버튼, 강조 색
-$link-color: #e75480;          // 진한 로즈 핑크
-$link-visited-color: #e75480;
-$btn-primary-color: #ffffff;
-$btn-primary-bg: #e75480;
-$btn-primary-border: #e75480;
+  --code-background-color: #fff0f6;
+  --feedback-color: #ffe5ec;
+  --body-text-color: #3a0a18;
+  --border-color: #ffc2d1;
+}
 
-// 코드/박스 배경
-$code-background-color: #fff0f6;
-$feedback-color: #ffe5ec;
-
-// 본문 텍스트
-$body-text-color: #3a0a18;
-
-// 그림자, 경계선
-$border-color: #ffc2d1;
+/* 헤더 타이틀도 확실히 핑크로 */
+.site-title, .site-title:visited { color: #e75480 !important; }
