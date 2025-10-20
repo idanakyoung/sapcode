@@ -4,6 +4,7 @@ description: SAP CODE 아카데미 학습 정리 사이트
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
+  - jekyll-sass-converter
 
 url: https://idanakyoung.github.io
 baseurl: /sapcode
