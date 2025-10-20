@@ -1,10 +1,12 @@
-# sapcode
 # 🌟 SAP CODE 아카데미 공부 정리
 
-> **기간:** 2025.10.21 ~ 2026.07.15 (9개월 / 180일 / 1,440시간)  
-> **목표:** ABAP + UI5/Fiori 통합 개발 역량 강화 및 실무형 프로젝트 완성
+> 💼 **기간:** 2025.10.21 ~ 2026.07.15 (9개월 / 180일 / 1,440시간)  
+> 🎯 **목표:** ABAP + UI5/Fiori 통합 개발 역량 강화 및 실무형 프로젝트 완성  
 
----
+[![Made with Markdown](https://img.shields.io/badge/MD-Markdown-blue?logo=markdown)](https://daringfireball.net/projects/markdown/)  
+[![SAP ABAP](https://img.shields.io/badge/SAP-ABAP-0FAAFF?logo=sap)](https://developers.sap.com/topics/abap.html)
+[![UI5](https://img.shields.io/badge/SAP-UI5-009FDA?logo=sap)](https://ui5.sap.com)
+
 
 ## 🗓️ 학습 로드맵
 
