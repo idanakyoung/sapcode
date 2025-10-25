@@ -1,17 +1,32 @@
-🎓 JavaScript Lesson 5
-Lesson 5. Control Flow (조건문 · 반복문)
+# 🎓 JavaScript Lesson 5
 
-🗓️ 학습 주제: 자바스크립트의 흐름 제어 (조건문, switch, 반복문, 삼항 연산자)
-✏️ 작성자: 구나경
+# Lesson 5. Control Flow (조건문 · 반복문)
 
-🧠 개념 정리
-🔸 제어문(Control Flow)
+> 🗓️ 학습 주제: 자바스크립트의 흐름 제어 (조건문, switch, 반복문, 삼항 연산자)
+> 
+> 
+> ✏️ 작성자: **구나경**
+> 
 
-프로그램의 흐름을 제어하는 문장 구조로,
-조건에 따라 분기하거나 반복 동작을 수행하게 한다.
+---
 
-🧩 1️⃣ 조건문 (Conditional Statements)
-📌 if / else if / else 문
+## 🧠 **개념 정리**
+
+### 🔸 제어문(Control Flow)
+
+> 프로그램의 흐름을 제어하는 문장 구조로,
+> 
+> 
+> 조건에 따라 분기하거나 반복 동작을 수행하게 한다.
+> 
+
+---
+
+## 🧩 1️⃣ 조건문 (Conditional Statements)
+
+### 📌 if / else if / else 문
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,18 +55,20 @@ Lesson 5. Control Flow (조건문 · 반복문)
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-if : 조건식이 true일 때 실행
+- `if` : 조건식이 true일 때 실행
+- `else if` : 다른 조건 확인
+- `else` : 위 조건이 모두 거짓일 때 실행
+- 논리 연산자 `&&`(AND), `||`(OR) 조합 가능
 
-else if : 다른 조건 확인
+---
 
-else : 위 조건이 모두 거짓일 때 실행
+### 📌 실습 – 현재 시간에 따라 오전/오후/저녁 구분
 
-논리 연산자 &&(AND), ||(OR) 조합 가능
-
-📌 실습 – 현재 시간에 따라 오전/오후/저녁 구분
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,15 +91,20 @@ else : 위 조건이 모두 거짓일 때 실행
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-Date() 객체의 getHours()는 0~23 시간 반환
+- `Date()` 객체의 `getHours()`는 **0~23** 시간 반환
+- **조건 순서 중요!** 작은 범위부터 비교
 
-조건 순서 중요! 작은 범위부터 비교
+---
 
-🧭 2️⃣ switch 문 (다중 분기문)
-📘 예시 1 — 홀수/짝수 판별
+## 🧭 2️⃣ switch 문 (다중 분기문)
+
+### 📘 예시 1 — 홀수/짝수 판별
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,14 +129,18 @@ Date() 객체의 getHours()는 0~23 시간 반환
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-break 생략 시 다음 case도 실행됨 (fall-through)
+- `break` 생략 시 다음 case도 실행됨 (fall-through)
+- `default`: 어떤 case에도 해당하지 않을 때 실행
 
-default: 어떤 case에도 해당하지 않을 때 실행
+---
 
-📘 예시 2 — 월별 계절 구분
+### 📘 예시 2 — 월별 계절 구분
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -150,14 +176,18 @@ default: 어떤 case에도 해당하지 않을 때 실행
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-getMonth()는 0~11 반환 → 반드시 +1
+- `getMonth()`는 0~11 반환 → 반드시 `+1`
+- 여러 `case`를 묶으면 범위처럼 활용 가능
 
-여러 case를 묶으면 범위처럼 활용 가능
+---
 
-📘 예시 3 — 점수에 따른 학점 출력
+### 📘 예시 3 — 점수에 따른 학점 출력
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -226,15 +256,20 @@ getMonth()는 0~11 반환 → 반드시 +1
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-switch(true) 패턴은 조건식을 여러 개 case로 평가할 때 자주 사용됨
+- `switch(true)` 패턴은 **조건식을 여러 개 case로 평가**할 때 자주 사용됨
+- `parseInt(input / 10)` → 90~99: 9, 80~89: 8
 
-parseInt(input / 10) → 90~99: 9, 80~89: 8
+---
 
-🔁 3️⃣ 반복문 (Loop Statements)
-📘 while 문
+## 🔁 3️⃣ 반복문 (Loop Statements)
+
+### 📘 while 문
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>While Loop</title></head>
@@ -252,14 +287,18 @@ parseInt(input / 10) → 90~99: 9, 80~89: 8
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-반복 전 조건 검사
+- 반복 전 조건 검사
+- `i++` 증감식 누락 시 무한 루프 발생 가능
 
-i++ 증감식 누락 시 무한 루프 발생 가능
+---
 
-📘 do...while 문
+### 📘 do...while 문
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>Do While Loop</title></head>
@@ -278,14 +317,18 @@ i++ 증감식 누락 시 무한 루프 발생 가능
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-조건 뒤에서 검사, 최소 1회 실행
+- 조건 **뒤에서 검사**, 최소 1회 실행
+- while은 “먼저 검사”, do while은 “나중 검사”
 
-while은 “먼저 검사”, do while은 “나중 검사”
+---
 
-📘 for 문
+### 📘 for 문
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>For Loop</title></head>
@@ -300,14 +343,18 @@ while은 “먼저 검사”, do while은 “나중 검사”
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-세 부분 구성: 초기식; 조건식; 증감식
+- 세 부분 구성: `초기식; 조건식; 증감식`
+- 조건식이 false면 반복 종료
 
-조건식이 false면 반복 종료
+---
 
-📘 for...in 문 (객체/배열 반복)
+### 📘 for...in 문 (객체/배열 반복)
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>For In Loop</title></head>
@@ -332,14 +379,18 @@ while은 “먼저 검사”, do while은 “나중 검사”
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-for...in은 객체의 프로퍼티 이름 또는 배열의 인덱스 순회
+- `for...in`은 **객체의 프로퍼티 이름** 또는 **배열의 인덱스** 순회
+- 값 자체를 순회하려면 **`for...of` (ES6)** 사용
 
-값 자체를 순회하려면 for...of (ES6) 사용
+---
 
-🧱 4️⃣ 삼항(조건) 연산자 응용
+## 🧱 4️⃣ 삼항(조건) 연산자 응용
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>Ternary Operator</title></head>
@@ -352,27 +403,37 @@ for...in은 객체의 프로퍼티 이름 또는 배열의 인덱스 순회
 </body>
 </html>
 
+```
 
-🧠 포인트
+🧠 **포인트**
 
-조건 ? 참일 때 : 거짓일 때
+- `조건 ? 참일 때 : 거짓일 때`
+- 간단한 if문을 **한 줄로 축약**할 때 유용
+- 중첩 사용 가능하지만 가독성 주의
 
-간단한 if문을 한 줄로 축약할 때 유용
+---
 
-중첩 사용 가능하지만 가독성 주의
+## 🧠 **핵심 요약 정리표**
 
-🧠 핵심 요약 정리표
-구문	형태	특징
-if / else	if (조건) { } else { }	기본 조건 분기
-switch	switch(값) { case n: ... break; }	다중 분기 처리
-while	while(조건){}	조건 선검사 반복
-do...while	do { } while(조건)	조건 후검사 반복 (최소 1회 실행)
-for	for(초기; 조건; 증감)	일반적인 반복 구조
-for...in	for (key in obj)	객체 프로퍼티 순회
-for...of	for (val of arr)	배열 값 순회 (ES6+)
-삼항연산자	조건 ? A : B	한 줄 조건문
-🌈 한 줄 요약
+| 구문 | 형태 | 특징 |
+| --- | --- | --- |
+| if / else | `if (조건) { } else { }` | 기본 조건 분기 |
+| switch | `switch(값) { case n: ... break; }` | 다중 분기 처리 |
+| while | `while(조건){}` | 조건 선검사 반복 |
+| do...while | `do { } while(조건)` | 조건 후검사 반복 (최소 1회 실행) |
+| for | `for(초기; 조건; 증감)` | 일반적인 반복 구조 |
+| for...in | `for (key in obj)` | 객체 프로퍼티 순회 |
+| for...of | `for (val of arr)` | 배열 값 순회 (ES6+) |
+| 삼항연산자 | `조건 ? A : B` | 한 줄 조건문 |
 
-💬 조건문은 판단을, 반복문은 실행을 제어한다.
-if·switch로 분기 흐름을 만들고, while·for로 반복을 제어하면
-프로그램의 “흐름”을 완전히 컨트롤할 수 있다. 🚀
+---
+
+## 🌈 **한 줄 요약**
+
+> 💬 조건문은 판단을, 반복문은 실행을 제어한다.
+> 
+> 
+> if·switch로 분기 흐름을 만들고, while·for로 반복을 제어하면
+> 
+> 프로그램의 “흐름”을 완전히 컨트롤할 수 있다. 🚀
+>
