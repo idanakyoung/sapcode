@@ -1,4 +1,4 @@
-# 🎓 JavaScript  Lesson 1
+#🎓 JavaScript  Lesson 1
 
 # Lesson 1. JavaScript Language Basics
 
