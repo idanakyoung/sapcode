@@ -313,5 +313,178 @@ if (s) {
 }
 
 ```
+## 4-3: 가격 할인 계산기 (SAPUI5)
+1. 목표
+입력받은 가격과 할인율을 바탕으로 실제 할인된 가격을 계산하고, 결과를 화면에 표시하는 SAPUI5 애플리케이션을 구현합니다.
 
+2. 주요 기능
+가격 입력: 사용자가 원본 가격을 입력합니다.
+
+할인율 입력: 사용자가 할인율(0-100 사이의 숫자)을 입력합니다.
+
+계산 버튼: '계산' 버튼을 클릭하면 할인된 가격을 계산합니다.
+
+결과 표시: 계산된 '실가격'을 비활성화된 입력 필드에 표시합니다.
+
+유효성 검사:
+
+가격 또는 할인율이 비어있는지 확인합니다.
+
+입력값이 숫자인지 확인합니다.
+
+할인율이 0과 100 사이의 값인지 확인합니다.
+
+결과 알림: 계산 완료 후 MessageBox를 통해 할인된 가격을 사용자에게 알립니다.
+
+3. 코드 분석
+3.1. 뷰 (View - Main.view.xml)
+XML 뷰는 사용자 인터페이스(UI)를 정의합니다. sap.m 라이브러리의 컨트롤을 사용합니다.
+
+XML
+
+<mvc:View controllerName="code.quiz03.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <VBox class="sapUiSmallMargin">
+            <Label id="idlblPrice" text="가격" />
+            <Input id="idInpPrice" />
+
+            <Label id="idlblDis" text="할인율" />
+            <Input id="idInpDis" />
+
+            <Button id="idBtnSubmit"
+                    text="계산"
+                    press=".onSubmit"  class="sapUiSmallMarginBottom" />
+
+            <Label id="idlblToTal" text="실가격" />
+            <Input id="idInpToTal" value="" editable="false" /> </VBox>
+    </Page>
+</mvc:View>
+핵심 포인트:
+
+VBox: 컨트롤을 수직으로 정렬합니다.
+
+Label: 입력 필드에 대한 설명을 제공합니다.
+
+Input: 사용자로부터 값을 입력받거나(가격, 할인율) 결과를 표시(실가격)합니다.
+
+idInpToTal은 editable="false"로 설정되어 사용자가 직접 수정할 수 없습니다.
+
+Button: '계산' 동작을 트리거합니다.
+
+press=".onSubmit": 버튼을 누르면 Main.controller.js의 onSubmit 함수가 실행됨을 의미합니다.
+
+3.2. 컨트롤러 (Controller - Main.controller.js)
+컨트롤러는 뷰의 동작과 로직을 처리합니다.
+
+JavaScript
+
+sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox" // MessageBox 사용을 위해 모듈 추가
+], function (Controller, MessageBox) {
+    "use strict";
+
+    return Controller.extend("code.quiz03.controller.Main", {
+        
+        onInit() {
+            // 뷰가 초기화될 때 실행되는 함수 (현재는 비어있음)
+        },
+
+        onSubmit : function() {
+            // 1. 뷰에서 ID를 이용해 입력 컨트롤 값을 가져옴
+            var price = this.byId("idInpPrice").getValue();
+            var DisCountRate = this.byId("idInpDis").getValue();
+            var result;
+
+            // 2. 유효성 검사 (입력값이 비었는지 확인)
+            if (price === "" || DisCountRate === "") {
+                MessageBox.error("가격과 할인율을 모두 입력하세요.");
+                return; // 함수 종료
+            }
+
+            // 3. 유효성 검사 (숫자 여부 확인)
+            // isNaN() : "Is Not a Number?" -> 숫자가 아니면 true 반환
+            if (isNaN(price) || isNaN(DisCountRate)) {
+                MessageBox.error("가격이나 할인율에 유효한 숫자 값을 입력하세요.");
+                return; // 함수 종료
+            }
+
+            // 4. 유효성 검사 (할인율 범위: 0 ~ 100)
+            if (DisCountRate < 0 || DisCountRate > 100) {
+                MessageBox.error("할인율은 0과 100 사이의 값을 입력하세요.");
+                return; // 함수 종료
+            }
+
+            // 5. 실가격 계산 (JavaScript는 문자열로 값을 가져오므로 계산 시 숫자로 자동 형변환됨)
+            // 공식: 실가격 = 원가 * (1 - 할인율/100)
+            result = price * (1 - DisCountRate / 100);
+
+            // 6. 결과 표시
+            // "idInpToTal" ID를 가진 Input 컨트롤에 계산된 'result' 값을 설정
+            this.byId("idInpToTal").setValue(result);
+
+            // 7. MessageBox로 결과 알림
+            MessageBox.show("할인 적용 후 가격은 " + result + "원 입니다.", {
+                title: "할인 계산 결과",
+                icon: MessageBox.Icon.INFORMATION,
+                actions: [MessageBox.Action.OK],
+                emphasizedAction: MessageBox.Action.OK
+            });
+        }
+    });
+});
+핵심 포인트:
+
+sap.ui.define: 컨트롤러가 의존하는 모듈(Controller, MessageBox)을 정의합니다.
+
+this.byId("..."): 뷰(XML)에 정의된 컨트롤의 ID를 이용해 해당 컨트롤 객체에 접근합니다.
+
+.getValue(): Input 컨트롤에 입력된 값을 문자열(String) 형태로 가져옵니다.
+
+유효성 검사 (Validation):
+
+빈 값 체크: "" (빈 문자열)인지 확인합니다.
+
+숫자 체크: isNaN() (Is Not a Number) 함수를 사용해 숫자로 변환 가능한 값인지 확인합니다.
+
+범위 체크: 할인율이 0 미만이거나 100 초과인지 확인합니다.
+
+return;: 유효성 검사에 실패하면 MessageBox를 띄우고 onSubmit 함수를 즉시 종료하여 더 이상 계산 로직이 실행되지 않도록 합니다.
+
+계산 로직: result = price * (1 - DisCountRate / 100);
+
+getValue()로 가져온 값은 문자열이지만, 사칙연산(*, /, -)을 만나면 JavaScript가 자동으로 숫자(Number) 타입으로 변환하여 계산합니다.
+
+.setValue(result): Input 컨트롤에 계산된 result 값을 설정하여 화면에 표시합니다.
+
+MessageBox.show(...): 사용자에게 계산 결과를 팝업창으로 보여줍니다.
+
+4. 실행 흐름 (요약)
+사용자가 '가격'과 '할인율'을 입력한다.
+
+사용자가 '계산' 버튼을 누른다 (press=".onSubmit").
+
+Main.controller.js의 onSubmit 함수가 실행된다.
+
+컨트롤러가 byId로 '가격'(idInpPrice)과 '할인율'(idInpDis) 입력 필드의 값을 가져온다 (getValue).
+
+[유효성 검사]
+
+값이 비어있으면 MessageBox.error 표시 후 종료.
+
+값이 숫자가 아니면 MessageBox.error 표시 후 종료.
+
+할인율이 0~100 범위 밖이면 MessageBox.error 표시 후 종료.
+
+[계산]
+
+price * (1 - DisCountRate / 100) 공식을 통해 result 값을 계산한다.
+
+[결과 표시]
+
+byId로 '실가격'(idInpToTal) 입력 필드를 찾아 setValue(result)로 값을 설정한다.
+
+MessageBox.show로 계산 결과를 팝업으로 알려준다.
 ---
