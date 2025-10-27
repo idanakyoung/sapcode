@@ -138,6 +138,9 @@ sap.ui.define([
 
 ### 🧠 핵심 포인트 (요약표)
 
+<img width="1920" height="900" alt="image" src="https://github.com/user-attachments/assets/b68b45a4-b7e3-474c-9897-fd80dbbdc2ea" />
+
+
 | 항목 | 내용 |
 | --- | --- |
 | 입력 | `idInpFInt`, `idInpOp`, `idInpSInt` |
