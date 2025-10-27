@@ -21,7 +21,9 @@
 - `sap.m.MessageBox`로 결과 표시
 
 ### 🧠 핵심 포인트 (요약표)
-<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/94ce7468-0029-47ad-9644-2948ddaeb049" />
+
+<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/3147a55d-67cd-463c-9691-3e3b317ff1f6" />
+
 
 | 항목 | 내용 |
 | --- | --- |
