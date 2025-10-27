@@ -312,6 +312,7 @@ if (s) {
   s.setText(total);
 }
 
+```
 ---
 
 ## 🟡 4-3. 할인율 계산기 (Discounted Price Calculator)
