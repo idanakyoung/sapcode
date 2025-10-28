@@ -679,6 +679,8 @@ sap.ui.define([
 - 여러 필드를 **한 행(Row)에 나열**하는 방법
 - 날짜/이미지 등 다양한 필드 조합 실습
 
+<img width="1778" height="721" alt="image" src="https://github.com/user-attachments/assets/0d0cb5a5-a3e1-4af7-9b43-6f0d2f72e603" />
+
 ---
 
 ## 📖 핵심 개념
@@ -859,6 +861,8 @@ Row1:  Image        | [ 380×220 이미지 ]
 - `headerToolbar`와 `ToolbarSpacer`로 액션 정렬
 - Panel 내부에 **단일 필드 배치** vs **SimpleForm로 폼 구성** 비교
 
+<img width="1782" height="643" alt="image" src="https://github.com/user-attachments/assets/6d82a568-6dc3-4be5-9153-c341c7bc913a" />
+
 ---
 
 ## 💻 XML View
@@ -981,7 +985,7 @@ Row1:  Image        | [ 380×220 이미지 ]
 # 🧩 **Lesson 5-7: SimpleForm + Panel(툴바) 종합 실습**
 
 > 조건 영역(SimpleForm)과 상세 영역(Panel + Toolbar + SimpleForm)을 합쳐 검색·저장·삭제 흐름을 구현한다.
-> 
+
 
 ---
 
@@ -991,6 +995,8 @@ Row1:  Image        | [ 380×220 이미지 ]
 - `ToolbarSpacer`로 헤더 버튼 정렬하기
 - 날짜/이메일/텍스트 필드 검증 포인트 익히기
 - 이벤트 핸들러(`onSearch`, `onSave`, `onDelete`) 설계
+
+<img width="1726" height="744" alt="image" src="https://github.com/user-attachments/assets/145e8e12-3f9a-479c-8aca-58461efd2d09" />
 
 ---
 
