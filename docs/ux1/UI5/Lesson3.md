@@ -1047,6 +1047,13 @@ var oBtn = document.getElementById("idBtnSubmit"); // undefined
 
 ```
 
+## 정리 — `:` 붙이는 경우 vs 안 붙이는 경우
+
+| 구분 | 예시 | 의미 | 용도 |
+| --- | --- | --- | --- |
+| `:` 붙임 | `xmlns:mvc="sap.ui.core.mvc"` | 별칭(namespace prefix)을 지정함 | 여러 라이브러리를 동시에 쓸 때 |
+| `:` 없음 | `xmlns="sap.m"` | 기본(default) 네임스페이스 | 가장 자주 쓰는 라이브러리를 기본으로 설정 |
+
 ---
 
 ## 🧠 Lesson 3-4 요약
