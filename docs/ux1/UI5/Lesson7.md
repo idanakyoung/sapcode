@@ -91,6 +91,9 @@ Element → 특정 객체 전체
 - **Property Binding** 을 통해 View에서 모델 데이터 표시
 - **CheckBox selected** 속성처럼 Boolean 값 바인딩 익히기
 
+<img width="1812" height="784" alt="image" src="https://github.com/user-attachments/assets/7ea88efe-d3d9-4a34-911b-8860c82ab2e2" />
+
+
 ---
 
 ## 🧩 실습 구성
@@ -207,6 +210,9 @@ sap.ui.define([
 - XML View에서 **모델 이름(name)** 을 지정하여 바인딩
 - **버튼 이벤트(onPress)** 로 모델 속성 변경 (양방향 확인)
 - **절대경로 방식(`name>/속성`)** 을 이용한 데이터 접근
+
+<img width="1760" height="885" alt="image" src="https://github.com/user-attachments/assets/d9c62f58-c203-463c-be77-e694306256fe" />
+
 
 ---
 
@@ -352,6 +358,9 @@ sap.ui.define([
 - `RadioButton`의 `groupName`으로 **상호 배타 선택** + 모델 값 반영 이해
 - 텍스트에 고정 문구 + 값 섞을 때 **표현식 바인딩(Expression Binding)** 쓰기
 
+<img width="1812" height="784" alt="image" src="https://github.com/user-attachments/assets/fb50e29c-01ee-4bce-a746-d434e9f6e5a0" />
+
+
 ---
 
 ## 💻 Controller (그대로 OK)
@@ -464,6 +473,9 @@ sap.ui.define([
 - **named model**(`"name"`)을 View에 붙이고
 - `SimpleForm` 안에서 **절대경로 바인딩**으로 각 Input과 연결
 - 버튼은 UI만 있고 이벤트는 아직 없음(원하면 `onCreate` 만들어줄게)
+
+<img width="1657" height="713" alt="image" src="https://github.com/user-attachments/assets/f8300278-edb6-4146-900c-6bbad67d9ee1" />
+
 
 ---
 
