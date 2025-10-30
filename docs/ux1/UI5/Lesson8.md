@@ -749,8 +749,7 @@ sap.ui.define([
 ## 📝 스니펫 모음
 
 - **프로그램 정렬/필터**
-
-- ```jsx
+```xml
 var oTable = this.byId("idTab1");
 var oBinding = oTable.getBinding("rows");
 
@@ -761,3 +760,5 @@ oBinding.filter([ new sap.ui.model.Filter("land", sap.ui.model.FilterOperator.EQ
 oBinding.sort([ new sap.ui.model.Sorter("name", false) ]);
 
 ```
+
+
