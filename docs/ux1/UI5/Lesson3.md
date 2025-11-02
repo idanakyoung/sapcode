@@ -596,10 +596,12 @@ sap.ui.define([
 
 ```
 - 체크박스가 체크되면 → `"Yes"`로 변경
-![image.png](attachment:4c69e5c6-4797-47e7-b3a5-c558d7777d9c:image.png)
+<img width="426" height="234" alt="image" src="https://github.com/user-attachments/assets/7545e3a3-998b-4953-99e8-4c4b13d2a3da" />
 
 - 체크가 해제되면 → `"No"`로 변경
-![image.png](attachment:bf988506-0f42-49bb-9823-8a00d4a72996:image.png)
+<img width="434" height="207" alt="image" src="https://github.com/user-attachments/assets/1c8a8d94-173f-4f77-b962-5c8922213e9d" />
+
+
 ---
 
 ## 5) 핵심 포인트 & 주의사항
