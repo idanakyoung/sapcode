@@ -798,3 +798,98 @@ sap.ui.define([
 </core:FragmentDefinition>
 
 ```
+
+# 🔧 SAPUI5 그래프 동기화 오류 수정 정리
+
+## 문제 현상
+
+도넛 차트에서 `2025` → `2026` 순으로 클릭 시,
+
+기존에 생성된 `2025년 월별 차트`까지 **모두 2026 데이터로 바뀌는 문제 발생**.
+
+---
+
+## 원인 분석
+
+1. **도넛 차트의 다중 선택(multi-select)** 기능 때문에
+    
+    여러 조각이 동시에 선택되어 `selectData` 이벤트가 누적 호출됨.
+    
+2. 동적으로 추가된 연도별 차트들이 **같은 OData 모델 컨텍스트를 공유**해서
+    
+    나중에 바인딩된 값으로 전부 리렌더링됨.
+    
+3. 차트에 **고유 ID가 부여되지 않아** 구분 없이 동일 객체처럼 갱신됨.
+
+---
+
+## 수정 내용 요약
+
+### 1️⃣ 도넛 차트의 선택 모드 단일화
+
+`onRowPress` 내부에서 도넛 차트의 VizProperty에
+
+단일 선택 모드(`single`) 추가.
+
+```jsx
+// onRowPress 마지막 부분에 추가
+oViz2.setVizProperties({
+  // ...기존 속성
+  interaction: {
+    selectability: { mode: "single" } // ✅ 단일 선택 모드
+  }
+});
+
+```
+
+---
+
+### 2️⃣ 동적으로 생성되는 차트에 View의 모델 명시적으로 주입
+
+자동 상속 대신, 명확하게 부모 모델을 전달하여
+
+각 차트가 독립된 컨텍스트로 데이터 바인딩하도록 수정.
+
+```jsx
+// onYearSliceSelect 내부
+const oYearViz = new sap.viz.ui5.controls.VizFrame(sChartId, {
+  vizType: "column",
+  width: "100%",
+  height: "300px"
+});
+
+// ✅ 모델 명시적으로 지정
+oYearViz.setModel(this.getView().getModel());
+
+```
+
+---
+
+### 3️⃣ 도넛 선택 후 선택 상태 즉시 초기화
+
+다음 클릭 시 이전 선택이 남지 않도록
+
+`vizSelection([], { clearSelection: true })` 추가.
+
+```jsx
+// onYearSliceSelect 마지막 줄에 추가
+this.byId("idVizFrame2").vizSelection([], { clearSelection: true });
+
+```
+
+---
+
+### 4️⃣ 연도별 고유 ID로 차트 구분 (중복 생성 방지)
+
+각 연도별 차트에 ID를 부여하여
+
+기존 차트가 덮어쓰이지 않게 고정.
+
+```jsx
+// 고유 ID 부여
+const sChartId = this.createId("idVizYear_" + sYear);
+
+// 이미 존재하는 차트면 재생성 방지
+if (sap.ui.getCore().byId(sChartId)) return;
+
+```
