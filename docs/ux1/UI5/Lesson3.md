@@ -200,8 +200,6 @@ sap.ui.define([
 | 컨트롤러 | 선택 사항이지만 연결 시 파일 준비 권장 |
 | 레이아웃 | `App > Page > content` 구조 권장 |
 
-> 다음 3-2에서는 **Model 바인딩(JSONModel)**을 추가해서 XMLView와 데이터 연결을 실습합니다. 😉
-> 
 
 ---
 
@@ -491,7 +489,7 @@ sap.ui.define([
 
 # Lesson 3-3 – Controller 이벤트 바인딩(Checkbox) + Component 부트스트랩
 
-> ComponentSupport로 앱을 올리고, XMLView → Controller에서 CheckBox의 select 이벤트를 처리하는 예제입니다. i18n 타이틀과 컴포넌트 구조(필수 파일)를 함께 정리했어요.
+> ComponentSupport로 앱을 올리고, XMLView → Controller에서 CheckBox의 select 이벤트를 처리하는 예제입니다.
 > 
 
 ## 📁 폴더 구조 예시
@@ -735,7 +733,7 @@ onSelect: function(){
 > 이번 레슨은 Controller의 이벤트 핸들링(버튼 press)과 sap.m.MessageBox 사용을 중심으로 다룹니다.
 > 
 > 
-> 사용자가 Input 필드에 이름을 입력하고 `Submit` 버튼을 누르면 MessageBox로 인사 문구를 표시하는 예제예요 👋
+> 사용자가 Input 필드에 이름을 입력하고 `Submit` 버튼을 누르면 MessageBox로 인사 문구를 표시하는 예제입니다.
 > 
 
 ---
@@ -893,7 +891,7 @@ onSubmit: function() {
 
 ```
 
-> ✅ 장점: 입력값과 버튼 활성화 상태를 모델로 관리해 더 깔끔한 패턴을 구성할 수 있습니다.
+> 장점: 입력값과 버튼 활성화 상태를 모델로 관리해 더 깔끔한 패턴을 구성할 수 있습니다.
 > 
 
 ---
@@ -904,7 +902,7 @@ SAPUI5의 `sap.m.MessageBox.show()`는
 
 사용자에게 **정보, 경고, 오류, 질문** 등을 표시할 수 있는 **모달 대화 상자(Message Dialog)**를 생성합니다.
 
-아래는 일반적인 호출 예시와 함께 각 속성 설명입니다 👇
+아래는 일반적인 호출 예시와 함께 각 속성 설명입니다 
 
 ```jsx
 sap.ui.define(["sap/m/MessageBox"], function (MessageBox) {
@@ -1013,7 +1011,7 @@ SAPUI5는 **가상 DOM(View 구조)** 위에서 렌더링되기 때문에
 
 브라우저의 HTML `id`와 SAPUI5의 컨트롤 ID가 다릅니다.
 
-SAPUI5 내부에서는 다음과 같이 **ID가 자동 변환**돼요 👇
+SAPUI5 내부에서는 다음과 같이 **ID가 자동 변환**돼요 
 
 ```
 XMLView: id="App"
@@ -1026,7 +1024,7 @@ Input: id="idInpName"
 
 그래서 일반 `document.getElementById()`로는 찾을 수 없어요.
 
-`byId()`는 SAPUI5가 자동으로 View ID 네임스페이스를 계산해서 정확히 찾아주는 함수예요 ✅
+`byId()`는 SAPUI5가 자동으로 View ID 네임스페이스를 계산해서 정확히 찾아주는 함수예요 
 
 ---
 
