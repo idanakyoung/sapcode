@@ -193,7 +193,10 @@ sap.ui.define([
 
 ### ⚙️ **2. Controller 핵심 로직 흐름**
 
-![image.png](attachment:a2eab6bd-25dc-4ed5-a046-a64e1152925e:image.png)
+<img width="557" height="389" alt="image" src="https://github.com/user-attachments/assets/bb1de2b8-c386-4314-83aa-5fdaa33a9635" />
+<img width="452" height="720" alt="image" src="https://github.com/user-attachments/assets/2db74917-abae-4bf9-aadc-b525337dd2c5" />
+- 리스트 데이터 중 하나 클릭 시 아래와 같이 메세지 토스트 뜸
+<img width="432" height="174" alt="image" src="https://github.com/user-attachments/assets/f953c75a-dfb5-4ee3-b26a-92fbf096d76e" />
 
 ```jsx
 // ① 초기 데이터 구성 및 모델 등록
@@ -278,7 +281,7 @@ onItemPress(oEvent) {
 - `Input` 두 값 + 선택 연산자로 계산
 - 결과를 `Input`(읽기 전용)에 표시하고 `MessageBox`로 피드백
 
-![image.png](attachment:5c3d2325-c605-4ebf-8569-14574ade0e19:image.png)
+<img width="1014" height="855" alt="image" src="https://github.com/user-attachments/assets/53051b9f-b140-42fa-a5c7-c1c4c3d8f8c0" />
 
 ---
 
