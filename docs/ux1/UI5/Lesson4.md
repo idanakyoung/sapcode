@@ -460,5 +460,3 @@ this.byId("idInpToTal").setValue(new Intl.NumberFormat().format(result));
 ```
 
 
-```
-
