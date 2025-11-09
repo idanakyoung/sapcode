@@ -195,7 +195,9 @@ sap.ui.define([
 
 <img width="557" height="389" alt="image" src="https://github.com/user-attachments/assets/bb1de2b8-c386-4314-83aa-5fdaa33a9635" />
 <img width="452" height="720" alt="image" src="https://github.com/user-attachments/assets/2db74917-abae-4bf9-aadc-b525337dd2c5" />
+
 - 리스트 데이터 중 하나 클릭 시 아래와 같이 메세지 토스트 뜸
+  
 <img width="432" height="174" alt="image" src="https://github.com/user-attachments/assets/f953c75a-dfb5-4ee3-b26a-92fbf096d76e" />
 
 ```jsx
@@ -279,9 +281,15 @@ onItemPress(oEvent) {
 
 - `ComboBox`의 `selectedKey`로 연산자 선택
 - `Input` 두 값 + 선택 연산자로 계산
-- 결과를 `Input`(읽기 전용)에 표시하고 `MessageBox`로 피드백
+- 결과를 `Input`(읽기 전용)에 표시하고 `MessageBox`로
 
-<img width="1014" height="855" alt="image" src="https://github.com/user-attachments/assets/53051b9f-b140-42fa-a5c7-c1c4c3d8f8c0" />
+<img width="1321" height="717" alt="image" src="https://github.com/user-attachments/assets/44195e8c-4b31-433c-bda3-f7e49b321e3c" />
+
+- 오류용 UI
+  
+<img width="1329" height="747" alt="image" src="https://github.com/user-attachments/assets/62b64959-6524-42b6-bb3b-ab5be9d0eeda" />
+
+<img width="752" height="716" alt="image" src="https://github.com/user-attachments/assets/7045ea33-8215-4d33-88a7-1a5c73d598a2" />
 
 ---
 
@@ -375,6 +383,236 @@ onSubmit: function () {
 
 ---
 
+### 사칙연산 코드 전체 
+
+1) 텍스트로 연산자 받기
+   - 컨트롤러
+   ```jsx
+   sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox"
+   ], function (Controller,MessageBox) {
+    "use strict";
+
+    return Controller.extend("quiz0201.controller.Main", {
+        onInit() {},
+        onSubmit : function () {
+            var firstValue = this.byId("idInpFInt").getValue();
+            var operation = this.byId("idInpOp").getValue().trim(); // 연산자는 문자열로 가져옴
+            var secondValue = this.byId("idInpSInt").getValue();
+            
+            // 숫자 값만 parseFloat()으로 변환
+            var first = parseFloat(firstValue);
+            var second = parseFloat(secondValue);
+            
+            var result;
+
+            // 유효성 검사 (숫자 입력 확인)
+            if (isNaN(first) || isNaN(second)) {
+                MessageBox.error("숫자1과 숫자2에 유효한 숫자 값을 입력하세요.");
+                return;
+            }
+
+            // 유효성 검사 (연산자 기호 확인)
+            if (!['+', '-', '*', '/'].includes(operation)) {
+                MessageBox.error("연산자 기호(+, -, *, /)를 올바르게 입력하세요.");
+                return;
+            }
+            switch (operation) {
+                case '+':
+                    result = first + second;
+                    break;
+                case '-':
+                    result = first - second;
+                    break;
+                case '*':
+                    result = first * second;
+                    break;
+                case '/':
+                    if (second === 0) {
+                        MessageBox.error("0으로 나눌 수 없습니다.");
+                        return;
+                    }
+                    result = first / second;
+                    break;
+                default:
+                    // 이전에 연산자 유효성 검사를 했으므로 여기에 도달할 일은 없지만, 안전을 위해 추가
+                    MessageBox.error("올바르지 않은 연산자입니다.");
+                    return;
+            }
+
+            var total = "최종 값은 " + result + " 입니다.";
+
+            // MessageBox로 결과 표시
+            MessageBox.show(total, {
+                title: "Total Display Message Box",
+                icon: MessageBox.Icon.INFORMATION,
+                actions: [MessageBox.Action.OK],
+                emphasizedAction: MessageBox.Action.OK
+    
+    });
+    }
+    });
+    })
+    ```
+
+   - 메인뷰
+   ```jsx
+   <mvc:View controllerName="code.quiz0201.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <Label id="idlblFInt" text="숫자1"></Label>
+        <Input id="idInpFInt"></Input>
+        <Label id="idlblOp" text="연산자(+,-,*,/)"></Label>
+        <Input id="idInpOp"></Input>
+        <Label id="idlbSInt" text="숫자2"></Label>
+        <Input id="idInpSInt"></Input>
+        
+        <Button id = "idBtnSubmit" text= "계산" press = ".onSubmit"></Button>
+    </Page>
+    </mvc:View>
+   ```
+
+4) 콤보박스로 연산자 받기
+   - 컨트롤러
+ ```jsx
+    sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel"
+], function (Controller,MessageBox,JSONModel) {
+    "use strict";
+
+    return Controller.extend("quiz0202.controller.Main", {
+        onInit() {
+            var oData = {
+                // 기본 키는 첫번째 인덱스의 값 지정
+                selCode : "+",
+                // sCode는 실제로 실행되는 값, sName에서 드롭박스 내에서 고르는 보여주는 값
+                sList : [
+                    { sCode : "+", sName : " 덧셈 , + " },
+                    { sCode : "-", sName : " 뺄셈 , - " },
+                    { sCode : "*", sName : " 곱셈 , X " },
+                    { sCode : "/", sName : " 나눗셈 , / " } 
+                ]
+            }
+            
+            var oModel = new JSONModel()
+            oModel.setData(oData)
+            this.getView().setModel(oModel)
+
+        },
+        onSubmit : function () {
+            var firstValue = this.byId("idInpFInt").getValue();
+            // var operation = this.byId("idInpOp").getValue().trim(); // 연산자는 문자열로 가져옴
+            // 콤보박스 사용 시 getvalue 대신에 getSelectedKey 사용해야 값을 렌더링할 수 있음
+            var operation = this.byId("idComboOp").getSelectedKey();
+            var secondValue = this.byId("idInpSInt").getValue();
+            
+            // 숫자 값만 parseFloat()으로 변환 / parseFloat:문자열(string)을 실수(float) 숫자로 변환하는 자바스크립트 내장 함수
+            var first = parseFloat(firstValue);
+            var second = parseFloat(secondValue);
+            
+            var result;
+
+            // 유효성 검사 (숫자 입력 확인)
+            if (isNaN(first) || isNaN(second)) {
+                MessageBox.error("숫자1과 숫자2에 유효한 숫자 값을 입력하세요.");
+                return;
+            }
+
+            // 유효성 검사 (연산자 기호 확인)
+            if (!['+', '-', '*', '/'].includes(operation)) {
+                MessageBox.error("연산자 기호(+, -, *, /)를 올바르게 입력하세요.");
+                return;
+            }
+            switch (operation) {
+                case '+':
+                    result = first + second;
+                    break;
+                case '-':
+                    result = first - second;
+                    break;
+                case '*':
+                    result = first * second;
+                    break;
+                case '/':
+                    if (second === 0) {
+                        MessageBox.error("0으로 나눌 수 없습니다.");
+                        return;
+                    }
+                    result = first / second;
+                    break;
+                default:
+                    // 이전에 연산자 유효성 검사를 했으므로 여기에 도달할 일은 없지만, 안전을 위해 추가
+                    MessageBox.error("올바르지 않은 연산자입니다.");
+                    return;
+            }
+                var total = "최종 값은 " + result + " 입니다.";
+                this.byId("idInpres").setValue(result);
+
+            // MessageBox로 결과 표시
+                MessageBox.show(total, {
+                title: "Total Display Message Box",
+                icon: MessageBox.Icon.INFORMATION,
+                actions: [MessageBox.Action.OK],
+                emphasizedAction: MessageBox.Action.OK
+
+            
+            
+    });
+    }
+    });
+    })
+  ```
+  - 뷰
+```jsx
+    <mvc:View controllerName="code.quiz0202.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+
+        <VBox id="idVBox" class="sapUiSmallMargin" alignItems="Center" width="100%">
+
+        <HBox id="idHBox1" class="sapUiSmallMarginBottom">
+        <Label id="idlblFInt" text="Number 1"></Label>
+        <Input id="idInpFInt"></Input>
+        </HBox>
+        
+        <!-- <Label id="idlblOp" text="연산자(+,-,*,/)"></Label> -->
+        <!-- <Input id="idInpOp"></Input> -->
+
+        <HBox id="idHBox2" class="sapUiSmallMarginBottom">
+        <Label id="idlblOp" text="Select Operation" />
+        <ComboBox id="idComboOp"
+            items="{path: '/sList'}"
+            selectedKey="{/selCode}">
+            <core:Item id ="idItem" key="{sCode}" text="{sName}"></core:Item>
+        </ComboBox>
+        </HBox>
+
+        <HBox id="idHBox3" class="sapUiSmallMarginBottom">
+        <Label id="idlblSInt" text="Number 2"></Label>
+        <Input id="idInpSInt"></Input>
+        </HBox>
+
+        <Button id = "idBtnSubmit" text= "Calculation" press = ".onSubmit"></Button>
+
+        <HBox id="idHBox4" class="sapUiSmallMarginBottom">
+        <Label id="idlblres" text="Result"></Label>
+        <Input id="idInpres" enabled="false"></Input>
+        </HBox>
+
+        </VBox>
+
+        </Page>
+        </mvc:View>
+ ```
+
+---
+
 ### ⚠️ 흔한 실수 & 빠른 개선 팁
 
 - **네임스페이스 불일치**
@@ -422,7 +660,7 @@ onSubmit: function () {
 
 ## 🧩 컨트롤러 핵심 (code.unit10l0203.controller.Main)
 
-![image.png](attachment:752ca886-be0b-4245-8545-a86a1b896054:image.png)
+<img width="1014" height="855" alt="image" src="https://github.com/user-attachments/assets/53051b9f-b140-42fa-a5c7-c1c4c3d8f8c0" />
 
 ```jsx
 sap.ui.define([
@@ -611,7 +849,7 @@ oBinding.filter([ new sap.ui.model.Filter("city", "Contains", sQuery) ]);
 - `sap.ui.table.Table`에서 `rows="{/Company}"` 방식으로 **집계 바인딩** 적용
 - 컬럼별 **정렬/필터** 속성 세팅하고, **자동 폭 맞춤**(auto resize)까지 구현
 
-![image.png](attachment:56f0791d-a84b-41f8-9a1a-98d404261fb6:image.png)
+<img width="1000" height="714" alt="image" src="https://github.com/user-attachments/assets/5b6b4e22-f8d9-4253-9bd9-f7483089a066" />
 
 ## 🧱 데이터/모델 구조
 
@@ -619,17 +857,6 @@ oBinding.filter([ new sap.ui.model.Filter("city", "Contains", sQuery) ]);
 - 스키마: `{ name, city, land, postcode }`
 - 컨트롤: `sap.ui.table.Table` + `t:Column` + `m:Text`
 
-## ❗️이름 맞추기 체크
-
-- 지금 네 코드에서 컨트롤러는 `code.unit10l0203.controller.Main`, 뷰는 `code.unit10l0204.controller.Main`로 달라.
-    
-    → 둘 중 하나로 **통일**해야 이벤트/바인딩 정상 동작해.
-    
-    - 옵션 A: 컨트롤러 네임스페이스를 `code.unit10l0204.controller.Main`로 변경
-    - 옵션 B: 뷰의 `controllerName`을 `code.unit10l0203.controller.Main`로 변경
-
-> 아래 스니펫은 컨트롤러/뷰 모두 unit10l0204로 통일한 버전이야. 필요하면 네 프로젝트에 맞춰 숫자만 바꿔.
-> 
 
 ## 🧩 컨트롤러 (code.unit10l0204.controller.Main)
 
