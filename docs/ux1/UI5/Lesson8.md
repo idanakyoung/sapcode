@@ -57,6 +57,8 @@
 
 ### 💻 **3. 실습 코드**
 
+<img width="374" height="366" alt="image" src="https://github.com/user-attachments/assets/f96ffb4c-caeb-497b-97ce-db3132beee76" />
+
 ![image.png](attachment:aa614854-940a-487e-a225-b581f3f401ff:image.png)
 
 ### 🪶 **View (Main.view.xml)**
