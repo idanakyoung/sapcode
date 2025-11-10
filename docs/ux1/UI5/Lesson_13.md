@@ -12,15 +12,16 @@
     - `VizFrame(donut)` 차트 데이터 필터링 및 퍼센트 라벨 표시
     - 데이터 예시 1
     
-    ![image.png](attachment:76cdbe62-10bd-478f-b10b-334f69bdd304:image.png)
-    
+   <img width="1660" height="1184" alt="image" src="https://github.com/user-attachments/assets/9391c20c-4dbc-4107-bbcb-a252d2b18b45" />
+
     - 데이터 예시 2
     
-    ![image.png](attachment:f67719c6-a8ad-48cd-98d8-9553a7bca076:image.png)
+   <img width="1667" height="1182" alt="image" src="https://github.com/user-attachments/assets/c677ce6d-613a-4562-bf84-20a42e34e7b9" />
     
     - 데이터 예시 3
     
-    ![image.png](attachment:5c7be8bb-12da-4bec-b0a5-5260a179297c:image.png)
+    <img width="1654" height="1174" alt="image" src="https://github.com/user-attachments/assets/60e636ba-079c-4417-a880-cde97a361dea" />
+
     
 
 ---
@@ -36,9 +37,9 @@
 > 
 > - 결과창
 > 
-> ![image.png](attachment:146dd366-815c-494f-9dc2-1522238ef611:image.png)
+> <img width="2266" height="1306" alt="image" src="https://github.com/user-attachments/assets/6c7c17d4-e291-4c23-975d-0d509f6701e1" />
 > 
-> ![image.png](attachment:69512fac-db50-46f9-ae38-204f5ea225c3:image.png)
+> <img width="1926" height="1062" alt="image" src="https://github.com/user-attachments/assets/3da48c6b-c17e-4637-aeae-f44baee8cb1b" />
 > 
 
 ---
