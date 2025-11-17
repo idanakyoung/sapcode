@@ -652,3 +652,114 @@
         ![image.png](attachment:7ae176cd-fc86-4aa9-802c-6b4cd3d39e78:image.png)
         
         ![image.png](attachment:baf012ff-87fc-42ca-a688-18a8cb632428:image.png)
+
+    3. 다른 방법들
+        1. **WHILE 반복문 버전** (가장 깔끔)
+        
+        ```abap
+        REPORT ZQUIZ_04_G01.
+        
+        PARAMETERS pa_num TYPE i.
+        DATA gv_result TYPE i.
+        DATA lv_idx TYPE i VALUE 1.
+        
+        IF pa_num <= 10.
+          WRITE: '10 이상의 값을 입력해주세요.'.
+          EXIT.
+        ENDIF.
+        
+        WHILE lv_idx <= pa_num.
+        
+          IF lv_idx MOD 2 = 0.
+            gv_result = gv_result + lv_idx.
+          ENDIF.
+        
+          lv_idx = lv_idx + 1.
+        
+        ENDWHILE.
+        
+        WRITE: '짝수 합계 결과:', gv_result.
+        
+        ```
+        
+        2. **DO…VARYING 버전** (형 변환할 때 많이 쓰는 방식)
+        
+        ```abap
+        REPORT ZQUIZ_04_G01.
+        
+        PARAMETERS pa_num TYPE i.
+        DATA gv_result TYPE i.
+        DATA lv_even TYPE i VALUE 2.
+        
+        IF pa_num <= 10.
+          WRITE: '10 이상의 값을 입력해주세요.'.
+          EXIT.
+        ENDIF.
+        
+        DO.
+          IF lv_even > pa_num.
+            EXIT.
+          ENDIF.
+        
+          gv_result = gv_result + lv_even.
+          lv_even = lv_even + 2.
+        
+        ENDDO.
+        
+        WRITE: '짝수 합계 결과:', gv_result.
+        
+        ```
+        
+        3. **LOOP AT 내장 테이블 버전** (실무 스타일)
+        
+        ```abap
+        REPORT ZQUIZ_04_G01.
+        
+        PARAMETERS pa_num TYPE i.
+        DATA gv_result TYPE i.
+        DATA: lt_nums TYPE STANDARD TABLE OF i,
+              lv_num  TYPE i.
+        
+        IF pa_num <= 10.
+          WRITE: '10 이상의 값을 입력해주세요.'.
+          EXIT.
+        ENDIF.
+        
+        " 1~pa_num 까지 테이블 생성
+        DO pa_num TIMES.
+          APPEND sy-index TO lt_nums.
+        ENDDO.
+        
+        " LOOP로 짝수 더하기
+        LOOP AT lt_nums INTO lv_num.
+          IF lv_num MOD 2 = 0.
+            gv_result = gv_result + lv_num.
+          ENDIF.
+        ENDLOOP.
+        
+        WRITE: '짝수 합계 결과:', gv_result.
+        
+        ```
+        
+        4. **FOR 구문 + REDUCE (최신 ABAP)**
+        
+        ```abap
+        REPORT ZQUIZ_04_G01.
+        
+        PARAMETERS pa_num TYPE i.
+        DATA gv_result TYPE i.
+        
+        IF pa_num <= 10.
+          WRITE: '10 이상의 값을 입력해주세요.'.
+          EXIT.
+        ENDIF.
+        
+        gv_result = REDUCE i(
+          INIT x = 0
+          FOR n = 1 UNTIL n > pa_num
+          WHERE ( n MOD 2 = 0 )
+          NEXT x = x + n ).
+        
+        WRITE: '짝수 합계 결과:', gv_result.
+        
+        ```
