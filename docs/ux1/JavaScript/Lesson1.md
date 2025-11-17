@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Lesson 1 - 자바스크립트 기초"
+grand_parent: "UX1 — UI5 Programming"
+parent: "JavaScript"
+nav_order: 1
+---
+
 #🎓 JavaScript  Lesson 1
 
 # Lesson 1. JavaScript Language Basics
