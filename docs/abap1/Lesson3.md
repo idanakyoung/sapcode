@@ -1,4 +1,4 @@
-# 🧭 Lesson 3 - Basic ABAP Language Elements (2)
+# 🧭 Lesson 3 -  Basic ABAP Language Elements (2) 및 Modularization Techniques in ABAP (1)
 
 # 🔵 Unit 1.  Using Basic ABAP Statementss (2)
 
