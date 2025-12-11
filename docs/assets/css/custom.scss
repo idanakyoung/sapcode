@@ -2,7 +2,6 @@
 ---
 
 /* 🌸 SAPCODE 핑크 테마 오버라이드 */
-
 :root {
   --body-background-color: #fff8fb;
   --sidebar-color: #ff8fb1;
@@ -20,4 +19,99 @@
   --feedback-color: #ffe5ec;
   --body-text-color: #3a0a18;
   --border-color: #ffc2d1;
+}
+
+/* 기본 글꼴/여백 */
+body {
+  font-family: "Nanum Gothic", sans-serif;
+  color: var(--body-text-color);
+  background: var(--body-background-color);
+}
+
+/* 링크 스타일 */
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* 본문 컨테이너 */
+.page-content {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* 코드 블록 */
+pre, code {
+  background: var(--code-background-color);
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  border: 1px solid var(--btn-primary-border);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+/* ================================
+   📘 SAP Help 스타일: 좌측 목차 + 우측 본문
+   ================================ */
+
+.page-layout {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* 좌측 네비게이션 영역 */
+.page-nav {
+  flex: 0 0 220px;
+  border-right: 1px solid #e3e3e3;
+  padding-right: 1rem;
+  font-size: 0.95rem;
+}
+
+.page-nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.page-nav li {
+  margin: 0.4rem 0;
+}
+
+/* 네비 안 링크 */
+.page-nav a {
+  text-decoration: none;
+  color: var(--sidebar-text-color);
+  background: var(--sidebar-color);
+  padding: 4px 6px;
+  border-radius: 4px;
+  display: block;
+}
+
+.page-nav a:hover {
+  background: var(--sidebar-active-color);
+  color: #000;
+}
+
+/* 우측 본문 */
+.page-main {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.6rem;
 }
