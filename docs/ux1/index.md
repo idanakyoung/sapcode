@@ -39,7 +39,7 @@ SAP CODE 아카데미 **UX1 과정**에서는 다음을 학습합니다:
 - HTML / CSS / JavaScript 기본 문법
 - SAP UI5 View / Controller 구조 이해
 - Model / DataBinding / Routing 등 UI 핵심 개념
-- 실습 기반 UI 개발 과정
+- 실습 기반 UI 개발
 
 좌측 메뉴에서 원하는 Lesson을 선택하세요.
 
