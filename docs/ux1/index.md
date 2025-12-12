@@ -72,21 +72,31 @@ body { background: radial-gradient(circle at top left, #ffe6f5 0, #fff7fb 40%, #
 
         <h3>① JavaScript Track</h3>
         <ul class="portal-list">
-          <li>JS Lesson 1 — 기본 문법</li>
-          <li>JS Lesson 2 — 조건문 / 반복문</li>
-          <li>JS Lesson 3 — 함수</li>
-          <li>JS Lesson 4 — 객체</li>
-          <li>JS Lesson 5 — DOM / 이벤트</li>
+         <li>JS 1 — <a href="{{ '/ux1/JavaScript/Lesson1' | relative_url }}">Lesson 1 · 기본 문법</a></li>
+          <li>JS 2 — <a href="{{ '/ux1/JavaScript/Lesson2' | relative_url }}">Lesson 2 · 조건문 / 반복문</a></li>
+          <li>JS 3 — <a href="{{ '/ux1/JavaScript/Lesson3' | relative_url }}">Lesson 3 · 함수</a></li>
+          <li>JS 4 — <a href="{{ '/ux1/JavaScript/Lesson4' | relative_url }}">Lesson 4 · 객체</a></li>
+          <li>JS 5 — <a href="{{ '/ux1/JavaScript/Lesson5' | relative_url }}">Lesson 5 · DOM / 이벤트</a></li>
         </ul>
 
         <h3>② SAP UI5 Track</h3>
         <ul class="portal-list">
-          <li>Lesson 1 — View / Controller 구조</li>
-          <li>Lesson 2 — 데이터 바인딩 (Property / Aggregation)</li>
-          <li>Lesson 3 — Routing · 네비게이션</li>
-          <li>Lesson 4 — Model 개념 (JSONModel 등)</li>
-          <li>Lesson 5~9 — XML View, Table, Formatter, Fragment</li>
-          <li>Lesson 10+ — OData, Chart, 실제 문제 해결 사례</li>
+          <li>UI5 1 — <a href="{{ '/ux1/UI5/Lesson1' | relative_url }}">Lesson 1 · View / Controller</a></li>
+          <li>UI5 2 — <a href="{{ '/ux1/UI5/Lesson2' | relative_url }}">Lesson 2 · 데이터 바인딩</a></li>
+          <li>UI5 3 — <a href="{{ '/ux1/UI5/Lesson3' | relative_url }}">Lesson 3 · Routing</a></li>
+          <li>UI5 4 — <a href="{{ '/ux1/UI5/Lesson4' | relative_url }}">Lesson 4 · 모델(Model)</a></li>
+          <li>UI5 5 — <a href="{{ '/ux1/UI5/Lesson5' | relative_url }}">Lesson 5 · JSONModel</a></li>
+          <li>UI5 6 — <a href="{{ '/ux1/UI5/Lesson6' | relative_url }}">Lesson 6 · XML View</a></li>
+          <li>UI5 7 — <a href="{{ '/ux1/UI5/Lesson7' | relative_url }}">Lesson 7 · Table Control</a></li>
+          <li>UI5 8 — <a href="{{ '/ux1/UI5/Lesson8' | relative_url }}">Lesson 8 · Formatter</a></li>
+          <li>UI5 9 — <a href="{{ '/ux1/UI5/Lesson9' | relative_url }}">Lesson 9 · Fragment</a></li>
+          <li>UI5 10 — <a href="{{ '/ux1/UI5/Lesson_10' | relative_url }}">Lesson 10</a></li>
+          <li>UI5 11 — <a href="{{ '/ux1/UI5/Lesson_11' | relative_url }}">Lesson 11</a></li>
+          <li>UI5 12 — <a href="{{ '/ux1/UI5/Lesson_12' | relative_url }}">Lesson 12</a></li>
+          <li>UI5 13 — <a href="{{ '/ux1/UI5/Lesson_13' | relative_url }}">Lesson 13</a></li>
+          <li>UI5 14 — <a href="{{ '/ux1/UI5/Lesson_14' | relative_url }}">Lesson 14</a></li>
+          <li>UI5 15 — <a href="{{ '/ux1/UI5/Lesson_15' | relative_url }}">Lesson 15</a></li>
+          <li>UI5 16 — <a href="{{ '/ux1/UI5/Lesson_16' | relative_url }}">Lesson 16</a></li>
         </ul>
       </section>
 
