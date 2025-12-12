@@ -1,146 +1,218 @@
 ---
 ---
+// 🌸 SAPCODE 전체 UI 커스텀 스타일
+// docs/assets/css/custom.scss
 
-/* 🌸 SAPCODE 핑크 테마 오버라이드 */
+// 색 팔레트
 :root {
-  --body-background-color: #fff8fb;
-  --sidebar-color: #ff8fb1;
-  --sidebar-text-color: #fff9fa;
-  --sidebar-active-color: #fff0f5;
-  --search-background-color: #ffb6c1;
+  --bg-main:        #fff7fb;
+  --bg-page:        #ffffff;
+  --bg-card:        #ffffff;
+  --border-card:    #ffd6ec;
+  --shadow-soft:    0 10px 24px rgba(255, 143, 180, 0.18);
 
-  --link-color: #e75480;
-  --btn-primary-bg: #e75480;
-  --btn-primary-color: #fff;
+  --text-main:      #20232a;
+  --text-sub:       #5f6472;
+  --text-muted:     #9a9fb0;
 
-  --code-background-color: #fff0f6;
-  --body-text-color: #3a0a18;
-  --border-color: #ffc2d1;
+  --accent:         #ff7eb8;
+  --accent-dark:    #e15696;
+  --accent-soft:    #ffe4f1;
+
+  --link:           #0066cc;
+  --link-hover:     #004b99;
+
+  --border-soft:    #e6e6f0;
 }
 
+// 기본 바디 스타일
 body {
-  background: var(--body-background-color);
-  color: var(--body-text-color);
-}
-
-/* ------------------------------
-   SAP Help Portal UI Layout
---------------------------------*/
-
-.page-layout {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-/* Left Navigation */
-.page-nav {
-  flex: 0 0 240px;
-  border-right: 1px solid var(--border-color);
-  padding-right: 1rem;
-  font-size: 0.95rem;
-}
-
-.page-nav ul {
-  list-style: none;
-  padding-left: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-main);
+  background: radial-gradient(circle at top left, #ffeef8 0, #fff7fb 45%, #ffffff 100%);
   margin: 0;
 }
 
-.page-nav li {
-  margin: 0.3rem 0;
+// 상단 헤더 (파란 sapcode 부분 포함)
+.site-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
 }
 
-.page-nav a {
-  display: block;
-  background: var(--sidebar-color);
-  color: var(--sidebar-text-color);
-  padding: 6px 8px;
-  border-radius: 6px;
+.site-header .site-title {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.site-header .site-title a {
+  color: #0f62fe;
   text-decoration: none;
 }
 
-.page-nav a:hover {
-  background: var(--sidebar-active-color);
-  color: #000;
-}
-
-/* Right Content */
-.page-main {
-  flex: 1;
-  font-size: 1rem;
-  line-height: 1.6rem;
-}
-
-/* ================================
- * UX1 Track 카드 레이아웃
- * ==============================*/
-
-.ux-track-layout {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.ux-track-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 1.2rem 1.4rem;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
-  border: 1px solid #ffd6e5;
-}
-
-.ux-track-card header h2 {
-  margin: 0 0 0.3rem 0;
-}
-
-.ux-track-card header p {
-  margin: 0.1rem 0 0.6rem 0;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.ux-tag {
-  display: inline-block;
-  padding: 2px 8px;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  border-radius: 999px;
-  background: #ffe8f2;
-  color: #c2185b;
-  font-size: 0.75rem;
-}
-
-.ux-lesson-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0.6rem 0 0 0;
-}
-
-.ux-lesson-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0.25rem 0;
-}
-
-.ux-lesson-list a {
-  text-decoration: none;
-}
-
-.ux-lesson-list a:hover {
+.site-header .site-title a:hover {
   text-decoration: underline;
 }
 
-.ux-lesson-list .badge {
-  display: inline-block;
-  min-width: 54px;
-  padding: 2px 8px;
-  font-size: 0.75rem;
-  border-radius: 999px;
-  background: #ff8fb4;
-  color: #fff;
-  text-align: center;
+// 페이지 전체 폭 / 카드 느낌
+.page-content {
+  max-width: 1080px;
+  margin: 2.5rem auto 4rem;
+  padding: 0 1.5rem;
 }
 
+.page {
+  background: var(--bg-page);
+  border-radius: 18px;
+  padding: 2.2rem 2.6rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-card);
+}
+
+// 모바일일 때 padding 줄이기
+@media (max-width: 768px) {
+  .page-content {
+    margin-top: 1.4rem;
+  }
+  .page {
+    padding: 1.5rem 1.5rem;
+  }
+}
+
+// 제목들
+h1, h2, h3, h4 {
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #1c1f2e;
+}
+
+h1 {
+  font-size: 2.1rem;
+  margin-bottom: 1.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent-soft);
+  padding-bottom: 0.4rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--text-sub);
+  margin: 0.35rem 0 0.6rem;
+}
+
+// 인용문 (위에 기간/목표 박스 같은 것)
+blockquote {
+  border-left: 4px solid var(--accent);
+  background: #fffafd;
+  padding: 0.75rem 1.2rem;
+  margin: 1rem 0 1.4rem;
+  color: var(--text-sub);
+}
+
+// 링크
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+// 리스트
+ul, ol {
+  padding-left: 1.3rem;
+}
+
+ul li, ol li {
+  margin: 0.15rem 0;
+}
+
+// 코드 블럭 & 인라인 코드
+code {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  background: #f7f2ff;
+  border-radius: 4px;
+  padding: 0.15rem 0.3rem;
+  font-size: 0.9em;
+}
+
+pre {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  background: #111827;
+  color: #e5e7eb;
+  overflow-x: auto;
+  border: 1px solid #0f172a;
+}
+
+// 표(로드맵 요약 테이블 등)
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+table thead {
+  background: #fff1f8;
+}
+
+th, td {
+  border: 1px solid var(--border-soft);
+  padding: 0.55rem 0.6rem;
+  text-align: left;
+}
+
+th {
+  font-weight: 700;
+  color: #303446;
+}
+
+// 체크리스트 스타일
+.task-list-item {
+  list-style: none;
+}
+
+.task-list-item input[type="checkbox"] {
+  margin-right: 0.4rem;
+}
+
+// 깔끔한 구분선
+hr {
+  border: 0;
+  border-top: 1px dashed #e1d7ff;
+  margin: 2rem 0 1.6rem;
+}
+
+// “학습 목차” 같은 소개 문구를 조금 부드럽게
+.page > p:first-of-type {
+  margin-top: 0.25rem;
+}
+
+// 깔끔한 섹션 카드(원하면 index 안에서 div.section-card로 감싸서 사용 가능)
+.section-card {
+  border-radius: 14px;
+  border: 1px solid var(--border-card);
+  background: #ffffff;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1rem;
+}
+.section-card h3 {
+  margin-top: 0;
+}
