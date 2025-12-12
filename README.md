@@ -15,15 +15,16 @@ title: SAP CODE 아카데미 공부 정리
 
 ## 학습 목차
 
-> 과정명을 클릭하면 해당 정리 페이지로 이동합니다.
+> 과정명을 클릭하면 정리 페이지로 이동합니다.
 
-- [UX1 정리]({{ '/ux1/' | relative_url }}) — UI5 Programming (HTML, JS)
-- [ABAP1 정리]({{ '/abap1/' | relative_url }}) — Dictionary · Screen · 기초 구조
-- [ABAP2 정리]({{ '/abap2/' | relative_url }}) — Report · DB Update · OO
-- [ABAP3 정리]({{ '/abap3/' | relative_url }}) — HANA · CDS · New Syntax
-- [UX2+3 정리]({{ '/ux23/' | relative_url }}) — Gateway · Fiori
-- [Project 정리]({{ '/project/' | relative_url }}) — 통합 프로젝트
-- [Job Fair 기록]({{ '/jobfair/' | relative_url }}) — 수료 및 취업 준비
+- [UX1 정리](https://idanakyoung.github.io/sapcode/ux1/) — **UI5 Programming (HTML/JS)**
+- [ABAP1 정리](https://idanakyoung.github.io/sapcode/abap1/) — **Dictionary / Screen / 기본 구조**
+- [ABAP2 정리](https://idanakyoung.github.io/sapcode/abap2/) — **Report / DB Update / OO**
+- [ABAP3 정리](https://idanakyoung.github.io/sapcode/abap3/) — **CDS / HANA / New Syntax**
+- [UX2+3 정리](https://idanakyoung.github.io/sapcode/ux23/) — **Gateway / Fiori**
+- [Project 정리](https://idanakyoung.github.io/sapcode/project/) — **팀 프로젝트**
+- [Job Fair 기록](https://idanakyoung.github.io/sapcode/jobfair/) — **수료 / 취업 준비**
+
 
 ---
 
