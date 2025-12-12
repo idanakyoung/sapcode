@@ -2,47 +2,46 @@
 title: UX1 — UI5 Programming (HTML/JS)
 ---
 
-# UX1 — UI5 Programming (HTML/JS)
+# 🎨 UX1 — UI5 Programming (HTML/JS)
 
-<div class="page-layout">
+> HTML/CSS/JavaScript 기초부터 SAP UI5까지 한 번에 정리하는 과정입니다.  
+> 실습 중심으로 UI 개발 감각을 다지는 것을 목표로 합니다.
 
-<nav class="page-nav">
+<div class="ux-track-layout">
 
-### JavaScript
-<ul>
-  <li><a href="{{ '/ux1/JavaScript/Lesson1' | relative_url }}">Lesson 1 — 기본 문법</a></li>
-  <li><a href="{{ '/ux1/JavaScript/Lesson2' | relative_url }}">Lesson 2 — 조건문 / 반복문</a></li>
-  <li><a href="{{ '/ux1/JavaScript/Lesson3' | relative_url }}">Lesson 3 — 함수</a></li>
-  <li><a href="{{ '/ux1/JavaScript/Lesson4' | relative_url }}">Lesson 4 — 객체</a></li>
-  <li><a href="{{ '/ux1/JavaScript/Lesson5' | relative_url }}">Lesson 5 — DOM / 이벤트</a></li>
-</ul>
+  <!-- JavaScript 트랙 -->
+  <section class="ux-track-card">
+    <header>
+      <h2>🟦 JavaScript Track</h2>
+      <p>JS 기본 문법을 복습하면서 UI5에서 쓰이는 핵심 개념을 정리합니다.</p>
+      <span class="ux-tag">기초 문법</span>
+      <span class="ux-tag">함수</span>
+      <span class="ux-tag">DOM</span>
+    </header>
 
-### SAP UI5
-<ul>
-  <li><a href="{{ '/ux1/UI5/Lesson1' | relative_url }}">Lesson 1 — View / Controller</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson2' | relative_url }}">Lesson 2 — 데이터 바인딩</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson3' | relative_url }}">Lesson 3 — Routing</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson4' | relative_url }}">Lesson 4 — 모델(Model)</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson5' | relative_url }}">Lesson 5 — JSONModel</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson6' | relative_url }}">Lesson 6 — XML View</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson7' | relative_url }}">Lesson 7 — Table Control</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson8' | relative_url }}">Lesson 8 — Formatter</a></li>
-  <li><a href="{{ '/ux1/UI5/Lesson9' | relative_url }}">Lesson 9 — Fragment</a></li>
-</ul>
+    <ul class="ux-lesson-list">
+      <li>
+        <span class="badge">JS 1</span>
+        <a href="{{ '/ux1/JavaScript/Lesson1' | relative_url }}">Lesson 1 — 기본 문법</a>
+      </li>
+      <li>
+        <span class="badge">JS 2</span>
+        <a href="{{ '/ux1/JavaScript/Lesson2' | relative_url }}">Lesson 2 — 조건문 / 반복문</a>
+      </li>
+      <li>
+        <span class="badge">JS 3</span>
+        <a href="{{ '/ux1/JavaScript/Lesson3' | relative_url }}">Lesson 3 — 함수</a>
+      </li>
+      <li>
+        <span class="badge">JS 4</span>
+        <a href="{{ '/ux1/JavaScript/Lesson4' | relative_url }}">Lesson 4 — 객체</a>
+      </li>
+      <li>
+        <span class="badge">JS 5</span>
+        <a href="{{ '/ux1/JavaScript/Lesson5' | relative_url }}">Lesson 5 — DOM / 이벤트</a>
+      </li>
+    </ul>
+  </section>
 
-</nav>
-
-<main class="page-main">
-
-SAP CODE 아카데미 **UX1 과정**에서는 다음을 학습합니다:
-
-- HTML / CSS / JavaScript 기본 문법
-- SAP UI5 View / Controller 구조 이해
-- Model / DataBinding / Routing 등 UI 핵심 개념
-- 실습 기반 UI 개발
-
-좌측 메뉴에서 원하는 Lesson을 선택하세요.
-
-</main>
-
-</div>
+  <!-- SAP UI5 트랙 -->
+  <section c
