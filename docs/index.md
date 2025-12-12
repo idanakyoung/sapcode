@@ -189,7 +189,7 @@ body {
 
       <!-- 학습 목차 -->
       <section class="portal-card">
-        <h2>📚 학습 목차</h2>
+        <h2> 학습 목차</h2>
         <p class="portal-small">각 과정 이름을 클릭하면 상세 정리 페이지로 이동합니다.</p>
 
         <ul class="portal-list">
@@ -205,7 +205,7 @@ body {
 
       <!-- 과정별 로드맵 -->
       <section class="portal-card">
-        <h2>🗺️ 과정별 로드맵 요약</h2>
+        <h2> 과정별 로드맵 요약</h2>
 
         <table class="portal-table">
           <thead>
@@ -284,7 +284,7 @@ body {
 
       <!-- 체크리스트 -->
       <section class="portal-card portal-side-card">
-        <h2>✅ 학습 진행 체크리스트</h2>
+        <h2> 학습 진행 체크리스트</h2>
         <ul class="portal-checklist">
           <li>[ ] UX1 전체 Lesson 정리</li>
           <li>[ ] ABAP1 Dictionary / Screen 실습</li>
