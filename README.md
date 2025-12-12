@@ -1,118 +1,54 @@
 ---
-title: SAP CODE 아카데미
-layout: single
-classes: wide
+title: SAP CODE 아카데미 공부 정리
 ---
 
-# 🌟 SAP CODE 아카데미 학습 포털
+# 🌟 SAP CODE 아카데미 공부 정리
 
-환영합니다!  
-아래 학습 모듈을 클릭하면 해당 과정 페이지로 이동합니다.
+> **기간** 2025.10.21 ~ 2026.07.15 (9개월 / 180일 / 1,440시간)  
+> **목표** ABAP + UI5/Fiori 통합 개발 역량 강화 및 실무형 프로젝트 완성
+> 
+[![Made with Markdown](https://img.shields.io/badge/MD-Markdown-blue?logo=markdown)](https://daringfireball.net/projects/markdown/)  
+[![SAP ABAP](https://img.shields.io/badge/SAP-ABAP-0FAAFF?logo=sap)](https://developers.sap.com/topics/abap.html)
+[![UI5](https://img.shields.io/badge/SAP-UI5-009FDA?logo=sap)](https://ui5.sap.com)
 
----
-
-<style>
-.portal-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.portal-card {
-  padding: 1.5rem;
-  border-radius: 14px;
-  background: #ffffff;
-  border: 2px solid #ffd6e5;
-  box-shadow: 0 8px 16px rgba(255, 143, 180, 0.15);
-  text-align: center;
-  transition: 0.25s;
-}
-
-.portal-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 22px rgba(255, 143, 180, 0.25);
-}
-
-.portal-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #d6206f;
-  margin-bottom: 0.8rem;
-}
-
-.portal-desc {
-  font-size: 0.9rem;
-  color: #444;
-  margin-bottom: 1.2rem;
-}
-
-.portal-btn {
-  display: inline-block;
-  padding: 8px 14px;
-  border-radius: 8px;
-  background: #ff8fb4;
-  color: #fff !important;
-  font-weight: 600;
-  text-decoration: none !important;
-}
-</style>
-
-<div class="portal-grid">
-
-  <div class="portal-card">
-    <div class="portal-title">UX1 — UI5 Programming</div>
-    <div class="portal-desc">HTML · JS · UI5 기본기 학습</div>
-    <a class="portal-btn" href="{{ '/ux1/' | relative_url }}">바로 가기</a>
-  </div>
-
-  <div class="portal-card">
-    <div class="portal-title">ABAP1 — Foundation</div>
-    <div class="portal-desc">Dictionary · Screen · 기본 구조</div>
-    <a class="portal-btn" href="{{ '/abap1/' | relative_url }}">바로 가기</a>
-  </div>
-
-  <div class="portal-card">
-    <div class="portal-title">ABAP2 — Report/DB</div>
-    <div class="portal-desc">리포트 · DB 업데이트 · 객체</div>
-    <a class="portal-btn" href="{{ '/abap2/' | relative_url }}">바로 가기</a>
-  </div>
-
-  <div class="portal-card">
-    <div class="portal-title">ABAP3 — HANA/CDS</div>
-    <div class="portal-desc">CDS View · New Syntax</div>
-    <a class="portal-btn" href="{{ '/abap3/' | relative_url }}">바로 가기</a>
-  </div>
-
-  <div class="portal-card">
-    <div class="portal-title">UX 2+3 — Gateway/Fiori</div>
-    <div class="portal-desc">OData + Launchpad 실습</div>
-    <a class="portal-btn" href="{{ '/ux23/' | relative_url }}">바로 가기</a>
-  </div>
-
-  <div class="portal-card">
-    <div class="portal-title">Project — Final</div>
-    <div class="portal-desc">ABAP + UI5 통합 프로젝트</div>
-    <a class="portal-btn" href="{{ '/project/' | relative_url }}">바로 가기</a>
-  </div>
-
-  <div class="portal-card">
-    <div class="portal-title">Job Fair</div>
-    <div class="portal-desc">최종 발표 · 포트폴리오</div>
-    <a class="portal-btn" href="{{ '/jobfair/' | relative_url }}">바로 가기</a>
-  </div>
-
-</div>
 
 ---
 
-# 📅 Monthly Timeline
+## 📚 학습 목차
+
+> 과정명을 클릭하면 해당 정리 페이지로 이동합니다.
+
+- [UX1 정리]({{ '/ux1/' | relative_url }}) — UI5 Programming (HTML, JS)
+- [ABAP1 정리]({{ '/abap1/' | relative_url }}) — Dictionary · Screen · 기초 구조
+- [ABAP2 정리]({{ '/abap2/' | relative_url }}) — Report · DB Update · OO
+- [ABAP3 정리]({{ '/abap3' | relative_url }}) — HANA · CDS · New Syntax
+- [UX2+3 정리]({{ '/ux23' | relative_url }}) — Gateway · Fiori
+- [Project 정리]({{ '/project' | relative_url }}) — 통합 프로젝트
+- [Job Fair 기록]({{ '/jobfair' | relative_url }}) — 수료 및 취업 준비
+
+---
+
+## 🗺️ 과정별 로드맵 요약
+
+| 과정 | 기간(예정) | 주요 내용 | 결과물 / 학습 증거 |
+|------|-----------|----------|--------------------|
+| **UX1** | 10월 ~ 12월 초 | HTML/CSS/JS 기본 문법, SAP UI5 View/Controller, DataBinding, Routing | UI5 예제 화면, JS 실습 코드, Lesson별 정리 문서 |
+| **ABAP1** | 11월 ~ 12월 초 | ABAP 기본 문법, Data Dictionary, Table/Structure, Screen Programming(PBO/PAI) | DDIC 테이블/뷰 정의, 모듈풀 프로그램, Screen 예제 |
+| **ABAP2** | 12월 ~ 1월 | Report Program, Internal Table, Open SQL, ABAP OO 기초 | Select Report, ALV Report, OO 예제 클래스 |
+| **ABAP3** | 1월 ~ 2월 | ABAP for HANA, CDS View, New Syntax, AMDP 개념 | CDS View 정의, HANA 기반 조회 프로그램 |
+| **UX2+3** | 2월 ~ 3월 | OData Service, SAP Gateway, Fiori Launchpad 등록 | 간단한 Fiori 앱, OData Service 구현 |
+| **Project** | 3월 ~ 7월 | ABAP + UI5/Fiori를 활용한 통합 업무 시나리오 구현 | 팀 프로젝트 결과물, 화면 설계서, 기술 문서 |
+| **Job Fair** | 7월 | 포트폴리오 정리, 모의 인터뷰, 기업 설명회 | 발표 자료, 포트폴리오 사이트, 피드백 기록 |
+
+---
+
+## 📅 월별 진행 일정
 
 ```text
 10월  | UX1 시작 (UI5 / HTML / JS)
 11월  | ABAP1 병행 시작
-12월  | ABAP2 진입 + 중간멘토링
-1월   | ABAP3 시작 (CDS/HANA)
-2월   | UX2+3 — Gateway/Fiori
-3~7월 | 팀 프로젝트
-7월   | Job Fair · 수료식
+12월  | ABAP2 진입, ABAP1 마무리 / 중간 멘토링
+1월   | ABAP3 시작 (CDS, HANA)
+2월   | UX2+3 시작 (Fiori / Gateway)
+3~7월 | 팀 프로젝트 (ABAP + UI5 통합 개발)
+7월   | Job Fair, 최종 발표, 수료식
