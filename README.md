@@ -13,7 +13,7 @@ title: SAP CODE 아카데미 공부 정리
 
 ---
 
-## 📚 학습 목차
+## 학습 목차
 
 > 과정명을 클릭하면 해당 정리 페이지로 이동합니다.
 
@@ -27,7 +27,7 @@ title: SAP CODE 아카데미 공부 정리
 
 ---
 
-## 🗺️ 과정별 로드맵 요약
+## 과정별 로드맵 요약
 
 | 과정 | 기간(예정) | 주요 내용 | 결과물 / 학습 증거 |
 |------|-----------|----------|--------------------|
@@ -55,7 +55,7 @@ title: SAP CODE 아카데미 공부 정리
 
 ---
 
-##🛠 기술 스택 정리
+##  기술 스택 정리
 영역	기술	비고
 Frontend	HTML, CSS, JavaScript, SAP UI5	UI 화면 개발, 이벤트 처리
 Backend	SAP ABAP, HANA, CDS View	비즈니스 로직, DB 처리
@@ -65,10 +65,12 @@ Tools	Eclipse ADT, SAP GUI, GitHub, Notion	개발 및 문서화, 형상관리
 
 ---
 
-##👤 About
+##  About
 
 작성자 idanakyoung
 
 프로젝트 SAP CODE 아카데미 학습 기록
 목표 학습 기록 + 포트폴리오 아카이브
+
+---
 
