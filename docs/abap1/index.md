@@ -283,16 +283,38 @@ body {
 
     <!-- 오른쪽(사이드) -->
     <aside>
-
-      <section class="portal-card">
-        <h2>✅ 실습 체크리스트</h2>
-        <ul class="portal-checklist">
-          <li>[ ] 나만의 Transparent Table 하나 설계</li>
-          <li>[ ] Domain / Data Element 각각 1개 이상 생성</li>
-          <li>[ ] 간단한 조회 Screen (100번 Dynpro) 만들기</li>
-          <li>[ ] PBO 초기값 세팅 + PAI에서 LEAVE TO SCREEN 처리</li>
-        </ul>
-      </section>
+        <section class="portal-card">
+          <h2>📈 이해도 / 진행 상태</h2>
+        
+          <div class="meter">
+            <div class="meter-label">
+              <span>ABAP 기본 문법</span>
+              <span><strong>30%</strong></span>
+            </div>
+            <div class="meter-bar" style="--value: 30%;"></div>
+          </div>
+        
+          <div class="meter">
+            <div class="meter-label">
+              <span>DDIC (Dictionary)</span>
+              <span><strong>20%</strong></span>
+            </div>
+            <div class="meter-bar" style="--value: 20%;"></div>
+          </div>
+        
+          <div class="meter">
+            <div class="meter-label">
+              <span>Screen (Dynpro)</span>
+              <span><strong>10%</strong></span>
+            </div>
+            <div class="meter-bar" style="--value: 10%;"></div>
+          </div>
+        
+          <p class="meter-hint">
+            퍼센트는 여기만 수정하면 돼요 👉 <code>--value: 60%;</code><br>
+            (숫자 텍스트 60%도 같이 바꾸면 깔끔!)
+          </p>
+        </section>    
 
       <section class="portal-card">
         <h2>🔗 참고</h2>
