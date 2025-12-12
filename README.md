@@ -1,138 +1,118 @@
-# 🌟 SAP CODE 아카데미 공부 정리
+---
+title: SAP CODE 아카데미
+layout: single
+classes: wide
+---
 
-> 💼 **기간:** 2025.10.21 ~ 2026.07.15 (9개월 / 180일 / 1,440시간)  
-> 🎯 **목표:** ABAP + UI5/Fiori 통합 개발 역량 강화 및 실무형 프로젝트 완성  
+# 🌟 SAP CODE 아카데미 학습 포털
 
-[![Made with Markdown](https://img.shields.io/badge/MD-Markdown-blue?logo=markdown)](https://daringfireball.net/projects/markdown/)  
-[![SAP ABAP](https://img.shields.io/badge/SAP-ABAP-0FAAFF?logo=sap)](https://developers.sap.com/topics/abap.html)
-[![UI5](https://img.shields.io/badge/SAP-UI5-009FDA?logo=sap)](https://ui5.sap.com)
-
-
-# 🌟 SAP CODE 아카데미 공부 정리
-
-> 💼 **기간:** 2025.10.21 ~ 2026.07.15 (9개월 / 180일 / 1,440시간)  
-> 🎯 **목표:** ABAP + UI5/Fiori 통합 개발 역량 강화 및 실무형 프로젝트 완성  
-
-[![Made with Markdown](https://img.shields.io/badge/MD-Markdown-blue?logo=markdown)](https://daringfireball.net/projects/markdown/)  
-[![SAP ABAP](https://img.shields.io/badge/SAP-ABAP-0FAAFF?logo=sap)](https://developers.sap.com/topics/abap.html)
-[![UI5](https://img.shields.io/badge/SAP-UI5-009FDA?logo=sap)](https://ui5.sap.com)
-
-
-## 🗓️ 학습 로드맵
-
-| 구분 | 학습 기간 | 주요 주제 | 정리 링크 |
-|------|------------|------------|------------|
-| **UX 1** | 10월 ~ 12월 초 | 💻 **UI5 Programming (HTML, JavaScript)**<br>기초 문법 및 실습 위주 학습 | [UX1 정리 보기](https://idanakyoung.github.io/sapcode/ux1/) |
-| **ABAP 1** | 11월 ~ 12월 초 | ⚙️ **Foundation, Dictionary, Screen**<br>ABAP 기본 구조와 화면 구성 | [ABAP1 정리 보기](https://idanakyoung.github.io/sapcode/abap1) |
-| **ABAP 2** | 12월 ~ 1월 | 🧩 **Report, Database Updates, Object**<br>리포트, DB 연동, 객체지향 ABAP | [ABAP2 정리 보기](https://idanakyoung.github.io/sapcode/abap2) |
-| **ABAP 3** | 1월 ~ 2월 | 🧠 **ABAP for HANA, CDS View, New Syntax**<br>HANA 기반 최신 ABAP 문법 및 CDS View 실습 | [ABAP3 정리 보기](https://idanakyoung.github.io/sapcode/abap3) |
-| **UX 2+3** | 2월 ~ 3월 | 🌐 **Gateway + Fiori**<br>OData 연결 및 Fiori Launchpad 구현 | [UX2+3 정리 보기](https://idanakyoung.github.io/sapcode/ux23) |
-| **Project** | 3월 ~ 7월 | 🚀 **ABAP + UI5/Fiori 통합 개발 프로젝트**<br>실무 중심 팀 프로젝트 수행 | [Project 정리 보기](https://idanakyoung.github.io/sapcode/project) |
-| **Job Fair** | 7월 | 🎓 **특강 + 수료식 + 취업 상담** | [Job Fair 기록 보기](https://idanakyoung.github.io/sapcode/jobfair) |
+환영합니다!  
+아래 학습 모듈을 클릭하면 해당 과정 페이지로 이동합니다.
 
 ---
 
-## 📈 월별 진행 일정표
+<style>
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.portal-card {
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 2px solid #ffd6e5;
+  box-shadow: 0 8px 16px rgba(255, 143, 180, 0.15);
+  text-align: center;
+  transition: 0.25s;
+}
+
+.portal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 22px rgba(255, 143, 180, 0.25);
+}
+
+.portal-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #d6206f;
+  margin-bottom: 0.8rem;
+}
+
+.portal-desc {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 1.2rem;
+}
+
+.portal-btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #ff8fb4;
+  color: #fff !important;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+</style>
+
+<div class="portal-grid">
+
+  <div class="portal-card">
+    <div class="portal-title">UX1 — UI5 Programming</div>
+    <div class="portal-desc">HTML · JS · UI5 기본기 학습</div>
+    <a class="portal-btn" href="{{ '/ux1/' | relative_url }}">바로 가기</a>
+  </div>
+
+  <div class="portal-card">
+    <div class="portal-title">ABAP1 — Foundation</div>
+    <div class="portal-desc">Dictionary · Screen · 기본 구조</div>
+    <a class="portal-btn" href="{{ '/abap1/' | relative_url }}">바로 가기</a>
+  </div>
+
+  <div class="portal-card">
+    <div class="portal-title">ABAP2 — Report/DB</div>
+    <div class="portal-desc">리포트 · DB 업데이트 · 객체</div>
+    <a class="portal-btn" href="{{ '/abap2/' | relative_url }}">바로 가기</a>
+  </div>
+
+  <div class="portal-card">
+    <div class="portal-title">ABAP3 — HANA/CDS</div>
+    <div class="portal-desc">CDS View · New Syntax</div>
+    <a class="portal-btn" href="{{ '/abap3/' | relative_url }}">바로 가기</a>
+  </div>
+
+  <div class="portal-card">
+    <div class="portal-title">UX 2+3 — Gateway/Fiori</div>
+    <div class="portal-desc">OData + Launchpad 실습</div>
+    <a class="portal-btn" href="{{ '/ux23/' | relative_url }}">바로 가기</a>
+  </div>
+
+  <div class="portal-card">
+    <div class="portal-title">Project — Final</div>
+    <div class="portal-desc">ABAP + UI5 통합 프로젝트</div>
+    <a class="portal-btn" href="{{ '/project/' | relative_url }}">바로 가기</a>
+  </div>
+
+  <div class="portal-card">
+    <div class="portal-title">Job Fair</div>
+    <div class="portal-desc">최종 발표 · 포트폴리오</div>
+    <a class="portal-btn" href="{{ '/jobfair/' | relative_url }}">바로 가기</a>
+  </div>
+
+</div>
+
+---
+
+# 📅 Monthly Timeline
 
 ```text
-📅 10월  | UX1 시작 (UI5 / HTML / JS)
-📅 11월  | ABAP1 병행 시작
-📅 12월  | ABAP2 진입
-📅 12월  | ABAP1 마무리 / 중간 멘토링
-📅 1월   | ABAP3 시작 (CDS, HANA)
-📅 2월   | UX2+3 시작 (Fiori / Gateway)
-📅 3~7월 | 팀 프로젝트 (통합 개발)
-📅 7월   | Job Fair 및 수료식
-```
----
-
-## 학습 진행 단계 — 시각적 마일스톤 표시
-
-```markdown
-## 🧱 학습 단계별 체크리스트
-
-- [ ] 1️⃣ 1:1 상담 및 목표 설정  
-- [ ] 2️⃣ Basic Session (UI5 + ABAP 기초 완성)  
-- [ ] 3️⃣ 중간 피드백 및 프로젝트 조편성  
-- [ ] 4️⃣ 컨설턴트 리뷰 및 중간 평가  
-- [ ] 5️⃣ 프로젝트 결과 발표  
-- [ ] 6️⃣ Job Fair + 수료식 🎓  
-```
----
-
-## 🛠️ 사용 기술 스택
-
-| 영역 | 기술 | 설명 |
-|------|------|------|
-| 🧩 **Frontend** | HTML / CSS / JavaScript / SAP UI5 | UI5 컴포넌트 및 이벤트 처리 |
-| ⚙️ **Backend** | SAP ABAP / HANA / CDS View | DB 처리 및 Business Logic |
-| 🔗 **Integration** | OData / SAP Gateway | 프론트-백엔드 연동 |
-| 🧰 **Tools** | Eclipse ADT / SAP GUI / GitHub / Notion | 개발 및 문서화 도구 |
----
-
-## 🧑‍💻 About
-
-> 📚 **작성자:** [idanakyoung](https://github.com/idanakyoung)  
-> 💬 **프로젝트:** SAP CODE 아카데미 학습 기록  
-> 🕓 **기간:** 2025.10.21 ~ 2026.07.15  
-> 🎯 **목표:** 학습 기록 + 포트폴리오 아카이브  
-
----
-
-> ✨ *꾸준한 기록은 최고의 성장 전략이다.*  
-> 🚀 *Today’s Code becomes Tomorrow’s Skill.*
-
-
-
----
-
-## 📈 월별 진행 일정표
-
-```text
-📅 10월  | UX1 시작 (UI5 / HTML / JS)
-📅 11월  | ABAP1 병행 시작
-📅 12월  | ABAP2 진입
-📅 12월  | ABAP1 마무리 / 중간 멘토링
-📅 1월   | ABAP3 시작 (CDS, HANA)
-📅 2월   | UX2+3 시작 (Fiori / Gateway)
-📅 3~7월 | 팀 프로젝트 (통합 개발)
-📅 7월   | Job Fair 및 수료식
-```
----
-
-## 학습 진행 단계 — 시각적 마일스톤 표시
-
-```markdown
-## 🧱 학습 단계별 체크리스트
-
-- [ ] 1️⃣ 1:1 상담 및 목표 설정  
-- [ ] 2️⃣ Basic Session (UI5 + ABAP 기초 완성)  
-- [ ] 3️⃣ 중간 피드백 및 프로젝트 조편성  
-- [ ] 4️⃣ 컨설턴트 리뷰 및 중간 평가  
-- [ ] 5️⃣ 프로젝트 결과 발표  
-- [ ] 6️⃣ Job Fair + 수료식 🎓  
-```
----
-
-## 🛠️ 사용 기술 스택
-
-| 영역 | 기술 | 설명 |
-|------|------|------|
-| 🧩 **Frontend** | HTML / CSS / JavaScript / SAP UI5 | UI5 컴포넌트 및 이벤트 처리 |
-| ⚙️ **Backend** | SAP ABAP / HANA / CDS View | DB 처리 및 Business Logic |
-| 🔗 **Integration** | OData / SAP Gateway | 프론트-백엔드 연동 |
-| 🧰 **Tools** | Eclipse ADT / SAP GUI / GitHub / Notion | 개발 및 문서화 도구 |
----
-
-## 🧑‍💻 About
-
-> 📚 **작성자:** [idanakyoung](https://github.com/idanakyoung)  
-> 💬 **프로젝트:** SAP CODE 아카데미 학습 기록  
-> 🕓 **기간:** 2025.10.21 ~ 2026.07.15  
-> 🎯 **목표:** 학습 기록 + 포트폴리오 아카이브  
-
----
-
-> ✨ *꾸준한 기록은 최고의 성장 전략이다.*  
-> 🚀 *Today’s Code becomes Tomorrow’s Skill.*
-
+10월  | UX1 시작 (UI5 / HTML / JS)
+11월  | ABAP1 병행 시작
+12월  | ABAP2 진입 + 중간멘토링
+1월   | ABAP3 시작 (CDS/HANA)
+2월   | UX2+3 — Gateway/Fiori
+3~7월 | 팀 프로젝트
+7월   | Job Fair · 수료식
