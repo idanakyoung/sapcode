@@ -215,19 +215,19 @@ body {
       </table>
     </div>
 
-    <div class="card">
-      <h2>📚 주요 개념</h2>
-      <ul class="list">
-        <li>New ABAP Syntax (DATA, VALUE, LET, etc.)</li>
-        <li>CDS View 정의 및 Annotation</li>
-        <li>AMDP (ABAP Managed Database Procedure)</li>
-        <li>Open SQL 향상 기능</li>
-        <li>UI 연계 (CDS → OData → UI)</li>
-      </ul>
-    </div>
-
     <!-- RIGHT -->
     <aside style="display:flex; flex-direction:column; gap:1rem;">
+
+      <div class="card">
+        <h2>📚 주요 개념</h2>
+        <ul class="list">
+          <li>New ABAP Syntax (DATA, VALUE, LET, etc.)</li>
+          <li>CDS View 정의 및 Annotation</li>
+          <li>AMDP (ABAP Managed Database Procedure)</li>
+          <li>Open SQL 향상 기능</li>
+          <li>UI 연계 (CDS → OData → UI)</li>
+        </ul>
+      </div>
 
       <div class="card">
         <h2>🔥 이해도 진행도 </h2>
