@@ -180,6 +180,10 @@ body{
             <tr><td class="col-tag">7</td><td><a href="{{ '/studies/abap1/Lesson7' | relative_url }}">Lesson 7</a></td><td>PBO / PAI</td></tr>
             <tr><td class="col-tag">8</td><td><a href="{{ '/studies/abap1/Lesson8' | relative_url }}">Lesson 8</a></td><td>Flow Logic</td></tr>
             <tr><td class="col-tag">9</td><td><a href="{{ '/studies/abap1/Lesson9' | relative_url }}">Lesson 9</a></td><td>정리</td></tr>
+            <tr><td class="col-tag">10</td><td><a href="{{ '/studies/abap1/Lesson_10' | relative_url }}">Lesson 10</a></td><td>정리</td></tr>
+            <tr><td class="col-tag">11</td><td><a href="{{ '/studies/abap1/Lesson_11' | relative_url }}">Lesson 11</a></td><td>정리</td></tr>
+            <tr><td class="col-tag">12</td><td><a href="{{ '/studies/abap1/Lesson_12' | relative_url }}">Lesson 12</a></td><td>정리</td></tr>
+            <tr><td class="col-tag">13</td><td><a href="{{ '/studies/abap1/Lesson_13' | relative_url }}">Lesson 13</a></td><td>정리</td></tr>
           </table>
       
       <br>
