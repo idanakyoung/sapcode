@@ -239,7 +239,7 @@ body{
        
       </div>
 
-             <div class="card">
+     <div class="card">
          <h2>🧠 개념/용어 정리</h2>
           <ul class="list">
             <li><strong>View</strong>: 화면(UI)을 담당하는 영역</li>
