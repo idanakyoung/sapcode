@@ -168,9 +168,7 @@ body{
 
   <div class="uxhead">
     <div class="topnav">
-      <a href="{{ '/' | relative_url }}">← 홈</a>
-      ·
-      <a href="{{ '/studies/ux1/' | relative_url }}">UX1</a>
+      <a href="{{ '/' | relative_url }}">← SAP CODE 메인으로</a>
     </div>
     <h1>🎨 UX1 — UI5 Programming (HTML/JS)</h1>
     <p>HTML / JavaScript 기초부터 SAP UI5까지 정리한 과정입니다.</p>
@@ -194,14 +192,25 @@ body{
       <br>
 
       <div class="kicker">② SAP UI5 Track</div>
-      <table class="tbl">
-        <tr><td class="col-tag">UI5 1</td><td><a href="{{ '/studies/ux1/UI5/Lesson1' | relative_url }}">Lesson 1</a></td><td>View / Controller</td></tr>
-        <tr><td class="col-tag">UI5 2</td><td><a href="{{ '/studies/ux1/UI5/Lesson2' | relative_url }}">Lesson 2</a></td><td>데이터 바인딩</td></tr>
-        <tr><td class="col-tag">UI5 3</td><td><a href="{{ '/studies/ux1/UI5/Lesson3' | relative_url }}">Lesson 3</a></td><td>Routing</td></tr>
-        <tr><td class="col-tag">UI5 4</td><td><a href="{{ '/studies/ux1/UI5/Lesson4' | relative_url }}">Lesson 4</a></td><td>Model</td></tr>
-        <tr><td class="col-tag">UI5 5</td><td><a href="{{ '/studies/ux1/UI5/Lesson5' | relative_url }}">Lesson 5</a></td><td>JSONModel</td></tr>
-      </table>
-    </div>
+        <table class="tbl">
+          <tr><td class="col-tag">UI5 1</td><td><a href="{{ '/studies/ux1/UI5/Lesson1' | relative_url }}">Lesson 1</a></td><td>View / Controller</td></tr>
+          <tr><td class="col-tag">UI5 2</td><td><a href="{{ '/studies/ux1/UI5/Lesson2' | relative_url }}">Lesson 2</a></td><td>데이터 바인딩</td></tr>
+          <tr><td class="col-tag">UI5 3</td><td><a href="{{ '/studies/ux1/UI5/Lesson3' | relative_url }}">Lesson 3</a></td><td>Routing</td></tr>
+          <tr><td class="col-tag">UI5 4</td><td><a href="{{ '/studies/ux1/UI5/Lesson4' | relative_url }}">Lesson 4</a></td><td>Model</td></tr>
+          <tr><td class="col-tag">UI5 5</td><td><a href="{{ '/studies/ux1/UI5/Lesson5' | relative_url }}">Lesson 5</a></td><td>JSONModel</td></tr>
+          <tr><td class="col-tag">UI5 6</td><td><a href="{{ '/studies/ux1/UI5/Lesson6' | relative_url }}">Lesson 6</a></td><td>XML View</td></tr>
+          <tr><td class="col-tag">UI5 7</td><td><a href="{{ '/studies/ux1/UI5/Lesson7' | relative_url }}">Lesson 7</a></td><td>Table Control</td></tr>
+          <tr><td class="col-tag">UI5 8</td><td><a href="{{ '/studies/ux1/UI5/Lesson8' | relative_url }}">Lesson 8</a></td><td>Formatter</td></tr>
+          <tr><td class="col-tag">UI5 9</td><td><a href="{{ '/studies/ux1/UI5/Lesson9' | relative_url }}">Lesson 9</a></td><td>Fragment</td></tr>
+          <tr><td class="col-tag">UI5 10</td><td><a href="{{ '/studies/ux1/UI5/Lesson10' | relative_url }}">Lesson 10</a></td><td>심화 주제 1</td></tr>
+          <tr><td class="col-tag">UI5 11</td><td><a href="{{ '/studies/ux1/UI5/Lesson11' | relative_url }}">Lesson 11</a></td><td>심화 주제 2</td></tr>
+          <tr><td class="col-tag">UI5 12</td><td><a href="{{ '/studies/ux1/UI5/Lesson12' | relative_url }}">Lesson 12</a></td><td>심화 주제 3</td></tr>
+          <tr><td class="col-tag">UI5 13</td><td><a href="{{ '/studies/ux1/UI5/Lesson13' | relative_url }}">Lesson 13</a></td><td>심화 주제 4</td></tr>
+          <tr><td class="col-tag">UI5 14</td><td><a href="{{ '/studies/ux1/UI5/Lesson14' | relative_url }}">Lesson 14</a></td><td>심화 주제 5</td></tr>
+          <tr><td class="col-tag">UI5 15</td><td><a href="{{ '/studies/ux1/UI5/Lesson15' | relative_url }}">Lesson 15</a></td><td>심화 주제 6</td></tr>
+          <tr><td class="col-tag">UI5 16</td><td><a href="{{ '/studies/ux1/UI5/Lesson16' | relative_url }}">Lesson 16</a></td><td>심화 주제 7</td></tr>
+        </table>
+        </div>
 
     <!-- RIGHT -->
     <aside style="display:flex; flex-direction:column; gap:1rem;">
