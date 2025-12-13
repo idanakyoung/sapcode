@@ -168,7 +168,23 @@ body{
 
     <!-- LEFT -->
     <div class="card">
-      <h2>📚 학습 구성</h2>
+
+      <h2>✏️ 학습 구성 <span class="badge">Lesson Index</span></h2>
+      <table class="tbl">
+        <tr><td class="col-tag">1</td><td><a href="{{ '/studies/abap1/Lesson1' | relative_url }}">Lesson 1</a></td><td>기초 문법</td></tr>
+        <tr><td class="col-tag">2</td><td><a href="{{ '/studies/abap1/Lesson2' | relative_url }}">Lesson 2</a></td><td>실습</td></tr>
+        <tr><td class="col-tag">3</td><td><a href="{{ '/studies/abap1/Lesson3' | relative_url }}">Lesson 3</a></td><td>구조화</td></tr>
+        <tr><td class="col-tag">4</td><td><a href="{{ '/studies/abap1/Lesson4' | relative_url }}">Lesson 4</a></td><td>DDIC 기초</td></tr>
+        <tr><td class="col-tag">5</td><td><a href="{{ '/studies/abap1/Lesson5' | relative_url }}">Lesson 5</a></td><td>DDIC 심화</td></tr>
+        <tr><td class="col-tag">6</td><td><a href="{{ '/studies/abap1/Lesson6' | relative_url }}">Lesson 6</a></td><td>Screen</td></tr>
+        <tr><td class="col-tag">7</td><td><a href="{{ '/studies/abap1/Lesson7' | relative_url }}">Lesson 7</a></td><td>PBO / PAI</td></tr>
+        <tr><td class="col-tag">8</td><td><a href="{{ '/studies/abap1/Lesson8' | relative_url }}">Lesson 8</a></td><td>Flow Logic</td></tr>
+        <tr><td class="col-tag">9</td><td><a href="{{ '/studies/abap1/Lesson9' | relative_url }}">Lesson 9</a></td><td>정리</td></tr>
+      </table>
+      
+      <br>
+      
+      <h2>📈 주요 개념</h2>
 
       <div class="kicker">① ABAP 기본 문법</div>
       <ul class="list">
@@ -190,21 +206,7 @@ body{
         <li>PBO / PAI / Flow Logic</li>
         <li>OK_CODE / MODULE 구조</li>
       </ul>
-
-      <br>
-
-      <h2>✏️ 학습 구성 <span class="badge">Lesson Index</span></h2>
-      <table class="tbl">
-        <tr><td class="col-tag">1</td><td><a href="{{ '/studies/abap1/Lesson1' | relative_url }}">Lesson 1</a></td><td>기초 문법</td></tr>
-        <tr><td class="col-tag">2</td><td><a href="{{ '/studies/abap1/Lesson2' | relative_url }}">Lesson 2</a></td><td>실습</td></tr>
-        <tr><td class="col-tag">3</td><td><a href="{{ '/studies/abap1/Lesson3' | relative_url }}">Lesson 3</a></td><td>구조화</td></tr>
-        <tr><td class="col-tag">4</td><td><a href="{{ '/studies/abap1/Lesson4' | relative_url }}">Lesson 4</a></td><td>DDIC 기초</td></tr>
-        <tr><td class="col-tag">5</td><td><a href="{{ '/studies/abap1/Lesson5' | relative_url }}">Lesson 5</a></td><td>DDIC 심화</td></tr>
-        <tr><td class="col-tag">6</td><td><a href="{{ '/studies/abap1/Lesson6' | relative_url }}">Lesson 6</a></td><td>Screen</td></tr>
-        <tr><td class="col-tag">7</td><td><a href="{{ '/studies/abap1/Lesson7' | relative_url }}">Lesson 7</a></td><td>PBO / PAI</td></tr>
-        <tr><td class="col-tag">8</td><td><a href="{{ '/studies/abap1/Lesson8' | relative_url }}">Lesson 8</a></td><td>Flow Logic</td></tr>
-        <tr><td class="col-tag">9</td><td><a href="{{ '/studies/abap1/Lesson9' | relative_url }}">Lesson 9</a></td><td>정리</td></tr>
-      </table>
+      
     </div>
 
     <!-- RIGHT -->
