@@ -178,7 +178,7 @@ body{
 
     <!-- LEFT -->
     <div class="card">
-      <h2>📚 학습 구성 <span class="badge">Lesson Index</span></h2>
+      <h2>✏️ 학습 구성 <span class="badge">Lesson Index</span></h2>
 
       <div class="kicker">① JavaScript Track</div>
       <table class="tbl">
@@ -216,7 +216,7 @@ body{
     <aside style="display:flex; flex-direction:column; gap:1rem;">
 
       <div class="card">
-        <h2>📊 이해도 진행도</h2>
+        <h2>🔥 이해도 진행도 </h2>
         <div class="prow"><span>JavaScript</span><span class="pct">35%</span></div>
         <div class="meter"><span style="width:35%"></span></div>
 
@@ -225,7 +225,7 @@ body{
       </div>
 
       <div class="card">
-        <h2>🧩 이 과정에서 다루는 내용</h2>
+        <h2>💗 이 과정에서 다루는 내용</h2>
         <ul class="list">
           <li>JavaScript 핵심 문법</li>
           <li>SAP UI5 구조 이해</li>
