@@ -202,13 +202,13 @@ body{
           <tr><td class="col-tag">UI5 7</td><td><a href="{{ '/studies/ux1/UI5/Lesson7' | relative_url }}">Lesson 7</a></td><td>Table Control</td></tr>
           <tr><td class="col-tag">UI5 8</td><td><a href="{{ '/studies/ux1/UI5/Lesson8' | relative_url }}">Lesson 8</a></td><td>Formatter</td></tr>
           <tr><td class="col-tag">UI5 9</td><td><a href="{{ '/studies/ux1/UI5/Lesson9' | relative_url }}">Lesson 9</a></td><td>Fragment</td></tr>
-          <tr><td class="col-tag">UI5 10</td><td><a href="{{ '/studies/ux1/UI5/Lesson10' | relative_url }}">Lesson 10</a></td><td>심화 주제 1</td></tr>
-          <tr><td class="col-tag">UI5 11</td><td><a href="{{ '/studies/ux1/UI5/Lesson11' | relative_url }}">Lesson 11</a></td><td>심화 주제 2</td></tr>
-          <tr><td class="col-tag">UI5 12</td><td><a href="{{ '/studies/ux1/UI5/Lesson12' | relative_url }}">Lesson 12</a></td><td>심화 주제 3</td></tr>
-          <tr><td class="col-tag">UI5 13</td><td><a href="{{ '/studies/ux1/UI5/Lesson13' | relative_url }}">Lesson 13</a></td><td>심화 주제 4</td></tr>
-          <tr><td class="col-tag">UI5 14</td><td><a href="{{ '/studies/ux1/UI5/Lesson14' | relative_url }}">Lesson 14</a></td><td>심화 주제 5</td></tr>
-          <tr><td class="col-tag">UI5 15</td><td><a href="{{ '/studies/ux1/UI5/Lesson15' | relative_url }}">Lesson 15</a></td><td>심화 주제 6</td></tr>
-          <tr><td class="col-tag">UI5 16</td><td><a href="{{ '/studies/ux1/UI5/Lesson16' | relative_url }}">Lesson 16</a></td><td>심화 주제 7</td></tr>
+          <tr><td class="col-tag">UI5 10</td><td><a href="{{ '/studies/ux1/UI5/Lesson_10' | relative_url }}">Lesson 10</a></td><td>심화 주제 1</td></tr>
+          <tr><td class="col-tag">UI5 11</td><td><a href="{{ '/studies/ux1/UI5/Lesson_11' | relative_url }}">Lesson 11</a></td><td>심화 주제 2</td></tr>
+          <tr><td class="col-tag">UI5 12</td><td><a href="{{ '/studies/ux1/UI5/Lesson_12' | relative_url }}">Lesson 12</a></td><td>심화 주제 3</td></tr>
+          <tr><td class="col-tag">UI5 13</td><td><a href="{{ '/studies/ux1/UI5/Lesson_13' | relative_url }}">Lesson 13</a></td><td>심화 주제 4</td></tr>
+          <tr><td class="col-tag">UI5 14</td><td><a href="{{ '/studies/ux1/UI5/Lesson_14' | relative_url }}">Lesson 14</a></td><td>심화 주제 5</td></tr>
+          <tr><td class="col-tag">UI5 15</td><td><a href="{{ '/studies/ux1/UI5/Lesson_15' | relative_url }}">Lesson 15</a></td><td>심화 주제 6</td></tr>
+          <tr><td class="col-tag">UI5 16</td><td><a href="{{ '/studies/ux1/UI5/Lesson_16' | relative_url }}">Lesson 16</a></td><td>심화 주제 7</td></tr>
         </table>
         </div>
 
