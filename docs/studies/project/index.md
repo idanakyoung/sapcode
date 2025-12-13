@@ -3,102 +3,241 @@ title: Project — 통합 실무 프로젝트
 ---
 
 <style>
-:root{
-  --portal-bg:#fffaf2;--portal-card-bg:#ffffff;--portal-border:#ffe2b8;
-  --portal-shadow:0 12px 30px rgba(255,181,92,0.22);
-  --text-main:#222431;--text-sub:#5f6472;--text-muted:#9a9fb0;
-  --link:#d35400;--link-hover:#a84300;
+:root {
+  --bg1: #fff3e5;
+  --bg2: #ffffff;
+  --card: #ffffff;
+  --border: #ffe4c2;
+  --shadow: 0 14px 34px rgba(255, 173, 96, 0.18);
+  --text: #1f2230;
+  --sub: #5e6475;
+  --muted: #9aa0b2;
+  --link: #e17c00;
+  --grad: linear-gradient(90deg,
+    #ffbe7b 0%,
+    #ffc98f 25%,
+    #ffd7a8 55%,
+    #ffe4c2 78%,
+    #fff3e5 100%
+  );
 }
-body{background:radial-gradient(circle at top left,#ffe6bf 0,#fffaf2 45%,#ffffff 100%);}
-.portal{max-width:1100px;margin:2.2rem auto 3rem;padding:0 1.2rem;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;}
-.portal-header{background:var(--portal-card-bg);border-radius:18px;padding:1.8rem 2rem;box-shadow:var(--portal-shadow);border:1px solid var(--portal-border);margin-bottom:1.6rem;}
-.portal-title{font-size:1.9rem;font-weight:800;margin:0 0 .4rem;}
-.portal-sub{font-size:.95rem;color:var(--text-sub);margin:.1rem 0;}
-.portal-grid{display:grid;grid-template-columns:2.1fr 1fr;gap:1.2rem;}
-.portal-card{background:var(--portal-card-bg);border-radius:16px;border:1px solid var(--portal-border);padding:1.4rem 1.6rem;box-shadow:0 8px 22px rgba(0,0,0,.03);}
-.portal-card h2{font-size:1.2rem;margin:0 0 .6rem;display:flex;align-items:center;gap:.4rem;}
-.portal-card h3{font-size:1rem;margin:.9rem 0 .4rem;}
-.portal-list{margin:.2rem 0 .4rem;padding-left:1rem;}
-.portal-list li{margin:.18rem 0;}
-.portal-small{font-size:.85rem;color:var(--text-muted);}
-.portal a{color:var(--link);text-decoration:none;}
-.portal a:hover{color:var(--link-hover);text-decoration:underline;}
-.portal-checklist{list-style:none;padding-left:0;font-size:.9rem;margin:.3rem 0 0;}
-.portal-checklist li{margin:.18rem 0;}
-@media(max-width:820px){.portal-grid{grid-template-columns:1fr;}}
+
+body {
+  background: radial-gradient(circle at 10% 0%, var(--bg1) 0, #fff8f2 40%, var(--bg2) 100%);
+}
+
+.uxwrap {
+  max-width: 1100px;
+  margin: 2rem auto 3rem;
+  padding: 0 1.1rem;
+  font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans KR", sans-serif;
+  color: var(--text);
+}
+
+.uxhead {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem 1.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.uxhead h1 {
+  margin: 0.2rem 0 0.35rem;
+  font-size: 1.85rem;
+  font-weight: 850;
+}
+
+.uxhead p {
+  margin: 0.2rem 0;
+  color: var(--sub);
+}
+
+.topnav {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.topnav a {
+  color: var(--link);
+  text-decoration: none;
+}
+.topnav a:hover {
+  text-decoration: underline;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 920px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.04);
+  padding: 1.2rem 1.3rem;
+}
+
+.card h2 {
+  margin: 0 0 0.7rem;
+  font-size: 1.12rem;
+  font-weight: 800;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.badge {
+  font-size: 0.78rem;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff8f2;
+  color: var(--sub);
+}
+
+.tbl {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 228, 194, 0.9);
+  overflow: hidden;
+}
+
+.tbl th,
+.tbl td {
+  padding: 0.72rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 228, 194, 0.65);
+}
+.tbl th {
+  background: #fff4e6;
+  font-size: 0.88rem;
+  text-align: left;
+}
+.tbl tr:last-child td {
+  border-bottom: none;
+}
+.tbl .col-tag {
+  width: 92px;
+  font-weight: 800;
+}
+.tbl a {
+  color: var(--link);
+  text-decoration: none;
+}
+.tbl a:hover {
+  text-decoration: underline;
+}
+
+.list {
+  padding-left: 1.1rem;
+  color: var(--sub);
+}
+.list li {
+  margin: 0.25rem 0;
+}
+
+.meter {
+  height: 14px;
+  border-radius: 999px;
+  background: #eef0f6;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+.meter span {
+  display: block;
+  height: 100%;
+  background: var(--grad);
+}
+.prow {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+.pct {
+  font-weight: 850;
+}
+.note {
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 228, 194, 0.9);
+  background: #fffdf7;
+  font-size: 0.9rem;
+}
 </style>
 
-<div class="portal">
+<div class="uxwrap">
 
-  <header class="portal-header">
-    <p class="portal-small"><a href="https://idanakyoung.github.io/sapcode/">← SAP CODE 메인으로</a></p>
-    <h1 class="portal-title">🚀 Project — 통합 실무 프로젝트</h1>
-    <p class="portal-sub"><strong>목표</strong> ABAP 백엔드와 UI5/Fiori 프론트엔드를 모두 활용해,
-      실제 업무 시나리오를 풀어낼 수 있는 통합 애플리케이션 구축.</p>
-  </header>
+  <div class="uxhead">
+    <div class="topnav">
+      <a href="{{ '/' | relative_url }}">← SAP CODE 메인으로</a>
+    </div>
+    <h1>🚀 Project — 통합 실무 프로젝트</h1>
+    <p>지금까지 학습한 ABAP / UI5 / Gateway 기술을 통합하여 <strong>Business Application</strong> 을 완성합니다.</p>
+  </div>
 
-  <section class="portal-grid">
+  <div class="grid">
 
-    <div>
-
-      <section class="portal-card">
-        <h2>📚 프로젝트 개요</h2>
-        <ul class="portal-list">
-          <li>주제: 항공 예약 / 재고 / 주문 / 기타 도메인 중 택1 (예시)</li>
-          <li>백엔드: ABAP · Open SQL · CDS (필요 시)</li>
-          <li>프론트엔드: SAP UI5 또는 Fiori 요소</li>
-          <li>연동: OData Service (Gateway)</li>
-        </ul>
-
-        <h3>주요 산출물</h3>
-        <ul class="portal-list">
-          <li>기능 정의서 / 화면 설계서</li>
-          <li>테이블 설계 (DDIC 오브젝트)</li>
-          <li>ABAP 구현 코드 (Report, Module Pool, Class 등)</li>
-          <li>UI5/Fiori 화면, 라우팅 구조</li>
-          <li>테스트 시나리오 및 결과</li>
-        </ul>
-      </section>
-
-      <section class="portal-card">
-        <h2>📌 역할 분담 (예시)</h2>
-        <ul class="portal-list">
-          <li>Backend 담당: 테이블 설계, 비즈니스 로직, OData 구현</li>
-          <li>Frontend 담당: 화면 UX 설계, UI5 앱 구현</li>
-          <li>테스트/문서 담당: 테스트케이스, 발표 자료 정리</li>
-        </ul>
-      </section>
-
+    <!-- LEFT -->
+    <div class="card">
+      <h2>🗂️ Lesson Index <span class="badge">과정 구성</span></h2>
+      <table class="tbl">
+        <tr><td class="col-tag">PJ 1</td><td><a href="{{ '/studies/project/Lesson1' | relative_url }}">Lesson 1</a></td><td>요구사항 분석</td></tr>
+        <tr><td class="col-tag">PJ 2</td><td><a href="{{ '/studies/project/Lesson2' | relative_url }}">Lesson 2</a></td><td>데이터 모델 설계</td></tr>
+        <tr><td class="col-tag">PJ 3</td><td><a href="{{ '/studies/project/Lesson3' | relative_url }}">Lesson 3</a></td><td>CDS View & Annotation</td></tr>
+        <tr><td class="col-tag">PJ 4</td><td><a href="{{ '/studies/project/Lesson4' | relative_url }}">Lesson 4</a></td><td>OData 개발 (SEGW)</td></tr>
+        <tr><td class="col-tag">PJ 5</td><td><a href="{{ '/studies/project/Lesson5' | relative_url }}">Lesson 5</a></td><td>UI5 화면 구성</td></tr>
+        <tr><td class="col-tag">PJ 6</td><td><a href="{{ '/studies/project/Lesson6' | relative_url }}">Lesson 6</a></td><td>데이터 연결 및 테스트</td></tr>
+        <tr><td class="col-tag">PJ 7</td><td><a href="{{ '/studies/project/Lesson7' | relative_url }}">Lesson 7</a></td><td>디버깅 / 오류 처리</td></tr>
+        <tr><td class="col-tag">PJ 8</td><td><a href="{{ '/studies/project/Lesson8' | relative_url }}">Lesson 8</a></td><td>최종 배포 및 문서화</td></tr>
+      </table>
     </div>
 
-    <aside>
+    <!-- RIGHT -->
+    <aside style="display:flex; flex-direction:column; gap:1rem;">
 
-      <section class="portal-card">
-        <h2>✅ 진행 체크리스트</h2>
-        <ul class="portal-checklist">
-          <li>[ ] 요구사항 정의 및 범위 확정</li>
-          <li>[ ] 테이블/구조 설계 및 생성</li>
-          <li>[ ] 핵심 비즈니스 로직(ABAP) 개발</li>
-          <li>[ ] OData Service 구현 및 테스트</li>
-          <li>[ ] UI5/Fiori 화면 구현</li>
-          <li>[ ] 통합 테스트 및 버그 수정</li>
-          <li>[ ] 발표 자료 / 포트폴리오 정리</li>
+      <div class="card">
+        <h2>🔥 이해도 진행도</h2>
+        <div class="prow"><span>UI 개발</span><span class="pct">70%</span></div>
+        <div class="meter"><span style="width:70%"></span></div>
+
+        <div class="prow"><span>OData 연동</span><span class="pct">50%</span></div>
+        <div class="meter"><span style="width:50%"></span></div>
+
+        <div class="prow"><span>디버깅/테스트</span><span class="pct">20%</span></div>
+        <div class="meter"><span style="width:20%"></span></div>
+      </div>
+
+      <div class="card">
+        <h2>🧩 이 과정에서 다루는 내용</h2>
+        <ul class="list">
+          <li>CDS / OData / UI5를 연동한 실전 프로젝트</li>
+          <li>실제 업무에 가까운 요구사항 기반 개발</li>
+          <li>UI/UX 구현부터 백엔드 연동까지 실습</li>
         </ul>
-      </section>
+        <div class="note">
+          <code>SAP 개발 전체 플로우를 경험하며 실무 감각을 키우는 모듈</code>
+        </div>
+      </div>
 
-      <section class="portal-card">
-        <h2>🔗 참고</h2>
-        <p class="portal-small">
-          이 페이지에는 실제 프로젝트 결과 링크(스크린샷, 데모 URL, GitHub 소스 링크)를
-          추후 추가해 두면 포트폴리오로 활용하기 좋습니다.
-        </p>
-      </section>
+      <div class="card">
+        <h2>📎 참고 자료</h2>
+        <ul class="list">
+          <li><a href="https://experience.sap.com/fiori-design-web/" target="_blank">Fiori Design Guideline</a></li>
+          <li><a href="https://developers.sap.com/" target="_blank">SAP Developers</a></li>
+          <li><a href="https://sapui5.hana.ondemand.com/" target="_blank">SAPUI5 SDK</a></li>
+        </ul>
+      </div>
 
     </aside>
-
-  </section>
-
+  </div>
 </div>
-
-
-[↩ 홈으로](./)
