@@ -234,8 +234,9 @@ body{
         </ul>
 
         <div class="note">
-          <code>[← UX1로]({{ '/studies/ux1/' | relative_url }}) · [홈]({{ '/' | relative_url }})</code>
+          <code>JavaScript 기반 SAP UI5 프레임워크를 활용한 Business UI 개발</code>
         </div>
+        
       </div>
 
     </aside>
