@@ -10,14 +10,14 @@ baseurl: "/sapcode"
 
 # 🔹 상단 탭에 보여줄 페이지들 (SAP Help Portal 느낌)
 header_pages:
-  - index.md          # Home
-  - ux1/index.md      # UX1 과정
-  - abap1/index.md    # ABAP1 과정
-  - abap2/index.md    # ABAP2 과정
-  - ux23.md           # UX2-3
-  - project.md        # Project
-  - jobfair.md        # Job Fair
-  - abap3.md          # ABAP3 (원하면 제거해도 됨)
+  - index.md
+  - studies/ux1/index.md
+  - studies/abap1/index.md
+  - studies/abap2/index.md
+  - studies/abap3/index.md
+  - studies/ux23/index.md
+  - studies/project/index.md
+  - studies/jobfair/index.md
 
 markdown: kramdown
 kramdown:
