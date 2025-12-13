@@ -172,34 +172,31 @@ body {
 }
 </style>
 
-
 <div class="portal">
 
   <header class="portal-header">
     <h1 class="portal-title">🌼 SAP CODE 아카데미 공부 정리</h1>
     <p class="portal-sub"><strong>기간</strong> 2025.10.21 ~ 2026.07.15 (9개월 / 1,440시간)</p>
     <p class="portal-sub"><strong>목표</strong> ABAP + UI5/Fiori 통합 개발 역량 강화 및 실무형 프로젝트 완성</p>
-
   </header>
 
   <section class="portal-grid">
 
-    <!-- ===== 왼쪽 메인 영역 ===== -->
+    <!-- 왼쪽 메인 -->
     <div>
 
-      <!-- 학습 목차 -->
       <section class="portal-card">
         <h2> 학습 목차</h2>
         <p class="portal-small">각 과정 이름을 클릭하면 상세 정리 페이지로 이동합니다.</p>
 
         <ul class="portal-list">
-          <li>🎨 <strong>UX1</strong> — <a href="https://idanakyoung.github.io/sapcode/ux1/">UX1 정리</a> · UI5 Programming (HTML/JS)</li>
-          <li>⚙️ <strong>ABAP1</strong> — <a href="https://idanakyoung.github.io/sapcode/abap1/">ABAP1 정리</a> · Dictionary / Screen / 기본 구조</li>
-          <li>🧱 <strong>ABAP2</strong> — <a href="https://idanakyoung.github.io/sapcode/abap2/">ABAP2 정리</a> · Report / DB Update / OO</li>
-          <li>💾 <strong>ABAP3</strong> — <a href="https://idanakyoung.github.io/sapcode/abap3/">ABAP3 정리</a> · CDS / HANA / New Syntax</li>
-          <li>🌐 <strong>UX2+3</strong> — <a href="https://idanakyoung.github.io/sapcode/ux23/">UX2+3 정리</a> · Gateway / Fiori</li>
-          <li>🚀 <strong>Project</strong> — <a href="https://idanakyoung.github.io/sapcode/project/">Project 정리</a> · 통합 프로젝트</li>
-          <li>🎓 <strong>Job Fair</strong> — <a href="https://idanakyoung.github.io/sapcode/jobfair/">Job Fair 기록</a> · 수료 / 취업 준비</li>
+          <li>🎨 <strong>UX1</strong> — <a href="/sapcode/studies/ux1/">UX1 정리</a> · UI5 Programming (HTML/JS)</li>
+          <li>⚙️ <strong>ABAP1</strong> — <a href="/sapcode/studies/abap1/">ABAP1 정리</a> · Dictionary / Screen / 기본 구조</li>
+          <li>🧱 <strong>ABAP2</strong> — <a href="/sapcode/studies/abap2/">ABAP2 정리</a> · Report / DB Update / OO</li>
+          <li>💾 <strong>ABAP3</strong> — <a href="/sapcode/studies/abap3/">ABAP3 정리</a> · CDS / HANA / New Syntax</li>
+          <li>🌐 <strong>UX2+3</strong> — <a href="/sapcode/studies/ux23/">UX2+3 정리</a> · Gateway / Fiori</li>
+          <li>🚀 <strong>Project</strong> — <a href="/sapcode/studies/project/">Project 정리</a> · 통합 프로젝트</li>
+          <li>🎓 <strong>Job Fair</strong> — <a href="/sapcode/studies/jobfair/">Job Fair 기록</a> · 수료 / 취업 준비</li>
         </ul>
       </section>
 
@@ -265,10 +262,9 @@ body {
 
     </div>
 
-    <!-- ===== 오른쪽 사이드 영역 ===== -->
+    <!-- 오른쪽 사이드 -->
     <aside>
 
-      <!-- 월별 일정 -->
       <section class="portal-card portal-side-card">
         <h2>📅 월별 진행 일정</h2>
         <pre style="font-size:0.85rem; line-height:1.4; background:#111827; color:#e5e7eb; border-radius:10px; padding:0.7rem 0.9rem; border:1px solid #0f172a;">
@@ -282,7 +278,6 @@ body {
         </pre>
       </section>
 
-      <!-- 체크리스트 -->
       <section class="portal-card portal-side-card">
         <h2> 학습 진행 체크리스트</h2>
         <ul class="portal-checklist">
@@ -296,7 +291,6 @@ body {
         </ul>
       </section>
 
-      <!-- 기술 스택 -->
       <section class="portal-card portal-side-card">
         <h2>🛠 기술 스택</h2>
         <h3>Frontend</h3>
@@ -310,7 +304,5 @@ body {
       </section>
 
     </aside>
-
   </section>
-
 </div>
