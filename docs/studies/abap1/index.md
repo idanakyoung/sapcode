@@ -213,7 +213,7 @@ body{
     <aside style="display:flex; flex-direction:column; gap:1rem;">
 
       <div class="card">
-        <h2>🔥 이해도 진행도</h2>
+        <h2>💎 이해도 진행도</h2>
 
         <div class="prow"><span>ABAP 문법</span><span class="pct">30%</span></div>
         <div class="meter"><span style="width:30%"></span></div>
@@ -226,7 +226,7 @@ body{
       </div>
 
       <div class="card">
-        <h2>💗 이 과정에서 다루는 내용</h2>
+        <h2>💙 이 과정에서 다루는 내용</h2>
         <ul class="list">
           <li>ABAP 기본 문법과 구조</li>
           <li>Dictionary 기반 데이터 설계</li>
@@ -240,7 +240,7 @@ body{
       </div>
 
       <div class="card">
-        <h2>🧠 개념 / 용어 정리</h2>
+        <h2>🌐 개념 / 용어 정리</h2>
         <ul class="list">
           <li><strong>DDIC</strong>: SAP 데이터 사전</li>
           <li><strong>PBO</strong>: 화면 출력 전 처리</li>
