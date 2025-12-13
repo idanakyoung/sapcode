@@ -236,8 +236,10 @@ body{
         <div class="note">
           <code>JavaScript 기반 SAP UI5 프레임워크를 활용한 Business UI 개발</code>
         </div>
+       
+      </div>
 
-       <div class="card">
+             <div class="card">
          <h2>🧠 개념/용어 정리</h2>
           <ul class="list">
             <li><strong>View</strong>: 화면(UI)을 담당하는 영역</li>
@@ -255,8 +257,6 @@ body{
             <li><a href="https://flexboxfroggy.com/" target="_blank">Flexbox 연습 게임</a></li>
           </ul>
        </div>
-       
-      </div>
 
     </aside>
   </div>
