@@ -236,7 +236,26 @@ body{
         <div class="note">
           <code>JavaScript 기반 SAP UI5 프레임워크를 활용한 Business UI 개발</code>
         </div>
-        
+
+       <div class="card">
+         <h2>🧠 개념/용어 정리</h2>
+          <ul class="list">
+            <li><strong>View</strong>: 화면(UI)을 담당하는 영역</li>
+            <li><strong>Controller</strong>: View의 동작 로직을 정의하는 JS 파일</li>
+            <li><strong>Model</strong>: 데이터 구조와 바인딩 정보를 관리</li>
+            <li><strong>Binding</strong>: Model ↔ View 연결 방식</li>
+          </ul>
+       </div>
+
+      <div class="card">
+         <h2>📎 참고 자료 / 링크</h2>
+          <ul class="list">
+            <li><a href="https://sdk.openui5.org/" target="_blank">SAP UI5 공식 문서</a></li>
+            <li><a href="https://developer.mozilla.org/ko/" target="_blank">MDN Web Docs (JS/CSS)</a></li>
+            <li><a href="https://flexboxfroggy.com/" target="_blank">Flexbox 연습 게임</a></li>
+          </ul>
+       </div>
+       
       </div>
 
     </aside>
