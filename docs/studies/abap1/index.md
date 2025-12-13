@@ -3,329 +3,259 @@ title: ABAP1 — Foundation & Screen
 ---
 
 <style>
-:root {
-  --portal-bg: #f7fbff;
-  --portal-card-bg: #ffffff;
-  --portal-border: #cfe6ff;
-  --portal-shadow: 0 12px 30px rgba(84, 132, 255, 0.15);
-  --text-main: #222431;
-  --text-sub: #5f6472;
-  --text-muted: #9a9fb0;
-  --link: #0052a3;
-  --link-hover: #003a73;
+:root{
+  --bg1:#eef5ff;
+  --bg2:#ffffff;
+  --card:#ffffff;
+  --border:#cfe6ff;
+  --shadow:0 14px 34px rgba(84, 132, 255, .18);
+  --text:#1f2230;
+  --sub:#5e6475;
+  --muted:#9aa0b2;
+  --link:#0052a3;
+
+  --grad: linear-gradient(90deg,
+    #5aa9ff 0%,
+    #7bb7ff 40%,
+    #9fd3ff 100%
+  );
 }
 
-body {
-  background: radial-gradient(circle at top left, #e3f1ff 0, #f7fbff 45%, #ffffff 100%);
+body{
+  background: radial-gradient(circle at 10% 0%, var(--bg1) 0, #f5f9ff 40%, var(--bg2) 100%);
 }
 
-.portal {
-  max-width: 1100px;
-  margin: 2.2rem auto 3rem;
-  padding: 0 1.2rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Noto Sans KR", sans-serif;
+.wrap{
+  max-width:1100px;
+  margin:2rem auto 3rem;
+  padding:0 1.1rem;
+  font-family:system-ui,-apple-system,"Segoe UI","Noto Sans KR",sans-serif;
+  color:var(--text);
 }
 
-.portal-header {
-  background: var(--portal-card-bg);
-  border-radius: 18px;
-  padding: 1.8rem 2rem;
-  box-shadow: var(--portal-shadow);
-  border: 1px solid var(--portal-border);
-  margin-bottom: 1.6rem;
+.head{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:1.5rem 1.7rem;
+  margin-bottom:1.2rem;
 }
 
-.portal-title {
-  font-size: 1.9rem;
-  font-weight: 800;
-  margin: 0 0 0.4rem;
+.head h1{
+  margin:.2rem 0 .35rem;
+  font-size:1.85rem;
+  font-weight:850;
 }
 
-.portal-sub {
-  font-size: 0.95rem;
-  color: var(--text-sub);
-  margin: 0.1rem 0;
+.head p{ margin:.2rem 0; color:var(--sub); }
+
+.topnav{ font-size:.9rem; color:var(--muted); margin-bottom:.6rem; }
+.topnav a{ color:var(--link); text-decoration:none; }
+.topnav a:hover{ text-decoration:underline; }
+
+.grid{
+  display:grid;
+  grid-template-columns:2.2fr 1fr;
+  gap:1rem;
 }
 
-.portal-grid {
-  display: grid;
-  grid-template-columns: 2.1fr 1fr;
-  gap: 1.2rem;
+@media (max-width:920px){
+  .grid{ grid-template-columns:1fr; }
 }
 
-.portal-card {
-  background: var(--portal-card-bg);
-  border-radius: 16px;
-  border: 1px solid var(--portal-border);
-  padding: 1.4rem 1.6rem;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.03);
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 10px 26px rgba(0,0,0,.04);
+  padding:1.2rem 1.3rem;
 }
 
-.portal-card h2 {
-  font-size: 1.2rem;
-  margin: 0 0 0.6rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+.card h2{
+  margin:0 0 .7rem;
+  font-size:1.12rem;
+  font-weight:800;
+  display:flex;
+  gap:.45rem;
 }
 
-.portal-card h3 {
-  font-size: 1rem;
-  margin: 0.9rem 0 0.4rem;
+.small{ color:var(--muted); font-size:.88rem; }
+
+.tbl{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  border-radius:14px;
+  border:1px solid rgba(207,230,255,.9);
+  overflow:hidden;
 }
 
-.portal-list {
-  margin: 0.2rem 0 0.4rem;
-  padding-left: 1rem;
+.tbl th,.tbl td{
+  padding:.72rem .75rem;
+  border-bottom:1px solid rgba(207,230,255,.65);
 }
 
-.portal-list li {
-  margin: 0.18rem 0;
+.tbl th{
+  background:#eef5ff;
+  font-size:.88rem;
+  text-align:left;
 }
 
-.portal-small {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+.tbl tr:last-child td{ border-bottom:none; }
+
+.tbl .col-tag{
+  width:92px;
+  font-weight:800;
 }
 
-.portal a {
-  color: var(--link);
-  text-decoration: none;
+.tbl a{ color:var(--link); text-decoration:none; }
+.tbl a:hover{ text-decoration:underline; }
+
+.kicker{
+  font-size:.86rem;
+  font-weight:700;
+  color:var(--sub);
+  margin:.4rem 0 .6rem;
 }
 
-.portal a:hover {
-  color: var(--link-hover);
-  text-decoration: underline;
+.meter{
+  height:14px;
+  border-radius:999px;
+  background:#eef0f6;
+  border:1px solid rgba(0,0,0,.06);
+  overflow:hidden;
 }
 
-.portal-checklist {
-  list-style: none;
-  padding-left: 0;
-  font-size: 0.9rem;
-  margin: 0.3rem 0 0;
+.meter span{
+  display:block;
+  height:100%;
+  background:var(--grad);
 }
 
-.portal-checklist li {
-  margin: 0.18rem 0;
+.prow{
+  display:flex;
+  justify-content:space-between;
+  margin:.5rem 0;
 }
 
-/* 테이블 꾸미기 */
-.portal-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.6rem;
-  font-size: 0.95rem;
-  overflow: hidden;
-  border-radius: 12px;
+.pct{ font-weight:850; }
+
+.note{
+  margin-top:.8rem;
+  padding:.8rem;
+  border-radius:14px;
+  border:1px dashed rgba(207,230,255,.9);
+  background:#f5f9ff;
+  font-size:.9rem;
 }
 
-.portal-table th,
-.portal-table td {
-  border: 1px solid rgba(207, 230, 255, 0.9);
-  padding: 0.7rem 0.75rem;
-  vertical-align: top;
-}
-
-.portal-table th {
-  background: rgba(227, 241, 255, 0.6);
-  text-align: left;
-  font-weight: 700;
-}
-
-.portal-table td small {
-  color: var(--text-muted);
-}
-
-@media (max-width: 820px) {
-  .portal-grid {
-    grid-template-columns: 1fr;
-  }
-}
+.list{ padding-left:1.1rem; color:var(--sub); }
+.list li{ margin:.25rem 0; }
 </style>
 
-<div class="portal">
+<div class="wrap">
 
-  <header class="portal-header">
-    <p class="portal-small">
+  <div class="head">
+    <div class="topnav">
       <a href="{{ '/' | relative_url }}">← SAP CODE 메인으로</a>
-    </p>
-    <h1 class="portal-title">⚙️ ABAP1 — Foundation / Dictionary / Screen</h1>
-    <p class="portal-sub">
-      <strong>목표</strong> ABAP 언어 기초 + Data Dictionary + Screen Programming(PBO/PAI) 핵심 흐름을 이해하고 실습으로 남기기.
-    </p>
-  </header>
+    </div>
+    <h1>⚙️ ABAP1 — Foundation & Screen</h1>
+    <p>ABAP 기본 문법부터 Data Dictionary, Screen Programming까지 정리한 과정입니다.</p>
+  </div>
 
-  <section class="portal-grid">
+  <div class="grid">
 
-    <!-- 왼쪽(메인) -->
-    <div>
+    <!-- LEFT -->
+    <div class="card">
+      <h2>📚 학습 구성</h2>
 
-      <section class="portal-card">
-        <h2>📚 학습 구성</h2>
+      <div class="kicker">① ABAP 기본 문법</div>
+      <ul class="list">
+        <li>DATA 선언, 타입, 구조(Structure)</li>
+        <li>IF / CASE / LOOP 제어문</li>
+        <li>내부 테이블 개념</li>
+      </ul>
 
-        <h3>① ABAP 기본 문법</h3>
-        <ul class="portal-list">
-          <li>DATA 선언, 타입, 구조(Structure)</li>
-          <li>제어문 (IF, CASE, LOOP, DO ... ENDDO)</li>
-          <li>내부 테이블 기본 개념</li>
-        </ul>
+      <div class="kicker">② ABAP Dictionary (DDIC)</div>
+      <ul class="list">
+        <li>Domain / Data Element</li>
+        <li>Transparent Table / View</li>
+        <li>Search Help / Check Table</li>
+      </ul>
 
-        <h3>② ABAP Dictionary(DDIC)</h3>
-        <ul class="portal-list">
-          <li>Domain / Data Element / Table / View</li>
-          <li>키/외래키, 테이블 하이라키 구조</li>
-          <li>Search Help, Check Table</li>
-        </ul>
+      <div class="kicker">③ Screen Programming</div>
+      <ul class="list">
+        <li>Screen Layout / Attributes</li>
+        <li>PBO / PAI / Flow Logic</li>
+        <li>OK_CODE / MODULE 구조</li>
+      </ul>
 
-        <h3>③ Screen Programming (Dynpro)</h3>
-        <ul class="portal-list">
-          <li>Screen Attributes, Layout, Element Attributes</li>
-          <li>PBO / PAI, Flow Logic, MODULE 사용</li>
-          <li>TABLES, OK_CODE, SCREEN 구조 활용</li>
-        </ul>
-      </section>
+      <br>
 
-      <section class="portal-card">
-        <h2>🗂️ Lesson Index (ABAP1)</h2>
-        <p class="portal-small">아래 표에서 레슨을 바로 열 수 있어요. (파일명 기준)</p>
-
-        <table class="portal-table">
-          <thead>
-            <tr>
-              <th style="width: 90px;">Lesson</th>
-              <th>바로가기</th>
-              <th style="width: 170px;">메모</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td><a href="{{ '/abap1/Lesson1' | relative_url }}">Lesson1</a></td>
-              <td><small>기초 문법 / 첫 세팅</small></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="{{ '/abap1/Lesson2' | relative_url }}">Lesson2</a></td>
-              <td><small>실습/정리</small></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><a href="{{ '/abap1/Lesson3' | relative_url }}">Lesson3</a></td>
-              <td><small>모듈화/구조화</small></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td><a href="{{ '/abap1/Lesson4' | relative_url }}">Lesson4</a></td>
-              <td><small>DDIC/기초</small></td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td><a href="{{ '/abap1/Lesson5' | relative_url }}">Lesson5</a></td>
-              <td><small>DDIC/심화</small></td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td><a href="{{ '/abap1/Lesson6' | relative_url }}">Lesson6</a></td>
-              <td><small>Screen/Dynpro</small></td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td><a href="{{ '/abap1/Lesson7' | relative_url }}">Lesson7</a></td>
-              <td><small>PBO/PAI</small></td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td><a href="{{ '/abap1/Lesson8' | relative_url }}">Lesson8</a></td>
-              <td><small>Flow Logic</small></td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td><a href="{{ '/abap1/Lesson9' | relative_url }}">Lesson9</a></td>
-              <td><small>실습 정리</small></td>
-            </tr>
-
-            <tr>
-              <td>10</td>
-              <td><a href="{{ '/abap1/Lesson_10' | relative_url }}">Lesson_10</a></td>
-              <td><small>추가 레슨</small></td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td><a href="{{ '/abap1/Lesson_11' | relative_url }}">Lesson_11</a></td>
-              <td><small>추가 레슨</small></td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td><a href="{{ '/abap1/Lesson_12' | relative_url }}">Lesson_12</a></td>
-              <td><small>추가 레슨</small></td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td><a href="{{ '/abap1/Lesson_13' | relative_url }}">Lesson_13</a></td>
-              <td><small>추가 레슨</small></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section class="portal-card">
-        <h2>🔎 핵심 키워드</h2>
-        <ul class="portal-list">
-          <li>ABAP Program Type (Report, Module Pool 등)</li>
-          <li>DDIC: Domain / Data Element / Transparent Table</li>
-          <li>Screen: 요소명 ↔ ABAP 변수 동일(Identical Names)</li>
-          <li>PBO: 출력 전 세팅 / PAI: 입력 처리</li>
-        </ul>
-      </section>
-
+      <h2>✏️ 학습 구성 <span class="badge">Lesson Index</span></h2>
+      <table class="tbl">
+        <tr><td class="col-tag">1</td><td><a href="{{ '/studies/abap1/Lesson1' | relative_url }}">Lesson 1</a></td><td>기초 문법</td></tr>
+        <tr><td class="col-tag">2</td><td><a href="{{ '/studies/abap1/Lesson2' | relative_url }}">Lesson 2</a></td><td>실습</td></tr>
+        <tr><td class="col-tag">3</td><td><a href="{{ '/studies/abap1/Lesson3' | relative_url }}">Lesson 3</a></td><td>구조화</td></tr>
+        <tr><td class="col-tag">4</td><td><a href="{{ '/studies/abap1/Lesson4' | relative_url }}">Lesson 4</a></td><td>DDIC 기초</td></tr>
+        <tr><td class="col-tag">5</td><td><a href="{{ '/studies/abap1/Lesson5' | relative_url }}">Lesson 5</a></td><td>DDIC 심화</td></tr>
+        <tr><td class="col-tag">6</td><td><a href="{{ '/studies/abap1/Lesson6' | relative_url }}">Lesson 6</a></td><td>Screen</td></tr>
+        <tr><td class="col-tag">7</td><td><a href="{{ '/studies/abap1/Lesson7' | relative_url }}">Lesson 7</a></td><td>PBO / PAI</td></tr>
+        <tr><td class="col-tag">8</td><td><a href="{{ '/studies/abap1/Lesson8' | relative_url }}">Lesson 8</a></td><td>Flow Logic</td></tr>
+        <tr><td class="col-tag">9</td><td><a href="{{ '/studies/abap1/Lesson9' | relative_url }}">Lesson 9</a></td><td>정리</td></tr>
+      </table>
     </div>
 
-    <!-- 오른쪽(사이드) -->
-    <aside>
-        <section class="portal-card">
-          <h2>📈 이해도 / 진행 상태</h2>
-        
-          <div class="meter">
-            <div class="meter-label">
-              <span>ABAP 기본 문법</span>
-              <span><strong>30%</strong></span>
-            </div>
-            <div class="meter-bar" style="--value: 30%;"></div>
-          </div>
-        
-          <div class="meter">
-            <div class="meter-label">
-              <span>DDIC (Dictionary)</span>
-              <span><strong>20%</strong></span>
-            </div>
-            <div class="meter-bar" style="--value: 20%;"></div>
-          </div>
-        
-          <div class="meter">
-            <div class="meter-label">
-              <span>Screen (Dynpro)</span>
-              <span><strong>10%</strong></span>
-            </div>
-            <div class="meter-bar" style="--value: 10%;"></div>
-          </div>
-        
-          <p class="meter-hint">
-            퍼센트는 여기만 수정하면 돼요 👉 <code>--value: 60%;</code><br>
-            (숫자 텍스트 60%도 같이 바꾸면 깔끔!)
-          </p>
-        </section>    
+    <!-- RIGHT -->
+    <aside style="display:flex; flex-direction:column; gap:1rem;">
 
-      <section class="portal-card">
-        <h2>🔗 참고</h2>
-        <p class="portal-small">
-          • DDIC 오브젝트 세부 설명은 <strong>ABAP Dictionary</strong> 공식 도움말 참고<br>
-          • BC410 교재 Unit 1, 2 실습 정리와 함께 보면 이해가 빨라요
-        </p>
-      </section>
+      <div class="card">
+        <h2>🔥 이해도 진행도</h2>
+
+        <div class="prow"><span>ABAP 문법</span><span class="pct">30%</span></div>
+        <div class="meter"><span style="width:30%"></span></div>
+
+        <div class="prow"><span>DDIC</span><span class="pct">20%</span></div>
+        <div class="meter"><span style="width:20%"></span></div>
+
+        <div class="prow"><span>Screen</span><span class="pct">10%</span></div>
+        <div class="meter"><span style="width:10%"></span></div>
+      </div>
+
+      <div class="card">
+        <h2>💗 이 과정에서 다루는 내용</h2>
+        <ul class="list">
+          <li>ABAP 기본 문법과 구조</li>
+          <li>Dictionary 기반 데이터 설계</li>
+          <li>Screen 기반 ERP 입력 화면</li>
+          <li>PBO / PAI 흐름 이해</li>
+        </ul>
+
+        <div class="note">
+          <code>SAP ERP 핵심 로직과 화면 구조를 이해하는 첫 단계</code>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🧠 개념 / 용어 정리</h2>
+        <ul class="list">
+          <li><strong>DDIC</strong>: SAP 데이터 사전</li>
+          <li><strong>PBO</strong>: 화면 출력 전 처리</li>
+          <li><strong>PAI</strong>: 사용자 입력 처리</li>
+          <li><strong>OK_CODE</strong>: 사용자 액션 식별</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>📎 참고 자료</h2>
+        <ul class="list">
+          <li><a href="https://help.sap.com" target="_blank">SAP ABAP 공식 문서</a></li>
+          <li><a href="https://learning.sap.com" target="_blank">SAP Learning</a></li>
+          <li>BC410 교재 Unit 1~3</li>
+        </ul>
+      </div>
 
     </aside>
-
-  </section>
-
+  </div>
 </div>
