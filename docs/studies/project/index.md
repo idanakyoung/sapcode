@@ -189,7 +189,7 @@ body {
 
     <!-- LEFT -->
     <div class="card">
-      <h2>🗂️ Lesson Index <span class="badge">과정 구성</span></h2>
+      <h2>🗂️ 과정 구성 <span class="badge">Lesson Index</span></h2>
       <table class="tbl">
         <tr><td class="col-tag">PJ 1</td><td><a href="{{ '/studies/project/Lesson1' | relative_url }}">Lesson 1</a></td><td>요구사항 분석</td></tr>
         <tr><td class="col-tag">PJ 2</td><td><a href="{{ '/studies/project/Lesson2' | relative_url }}">Lesson 2</a></td><td>데이터 모델 설계</td></tr>
