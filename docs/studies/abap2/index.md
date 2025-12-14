@@ -141,6 +141,16 @@ body{
 
 .pct{ font-weight:850; }
 
+
+.badge {
+  font-size: 0.78rem;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff7fb;
+  color: var(--sub);
+}
+
 .note{
   margin-top:.8rem;
   padding:.8rem;
@@ -168,7 +178,24 @@ body{
 
     <!-- LEFT -->
     <div class="card">
-      <h2>📚 학습 구성</h2>
+  
+      <h2>🖥️ 학습 구성<span class="badge">Lesson Index</span></h2>
+      <table class="tbl">
+        <tr><td class="col-tag">L1</td><td><a href="{{ '/studies/abap2/Lesson1' | relative_url }}">Lesson 1</a></td><td>Screen 구조 복습</td></tr>
+        <tr><td class="col-tag">L2</td><td><a href="{{ '/studies/abap2/Lesson2' | relative_url }}">Lesson 2</a></td><td>Subscreen</td></tr>
+        <tr><td class="col-tag">L3</td><td><a href="{{ '/studies/abap2/Lesson3' | relative_url }}">Lesson 3</a></td><td>Tabstrip Control</td></tr>
+        <tr><td class="col-tag">L4</td><td><a href="{{ '/studies/abap2/Lesson4' | relative_url }}">Lesson 4</a></td><td>Screen Flow Logic</td></tr>
+        <tr><td class="col-tag">L5</td><td><a href="{{ '/studies/abap2/Lesson5' | relative_url }}">Lesson 5</a></td><td>Web Dynpro 개요</td></tr>
+        <tr><td class="col-tag">L6</td><td><a href="{{ '/studies/abap2/Lesson6' | relative_url }}">Lesson 6</a></td><td>Component / View</td></tr>
+        <tr><td class="col-tag">L7</td><td><a href="{{ '/studies/abap2/Lesson7' | relative_url }}">Lesson 7</a></td><td>Context / Binding</td></tr>
+        <tr><td class="col-tag">L8</td><td><a href="{{ '/studies/abap2/Lesson8' | relative_url }}">Lesson 8</a></td><td>Event Handling</td></tr>
+        <tr><td class="col-tag">L9</td><td><a href="{{ '/studies/abap2/Lesson9' | relative_url }}">Lesson 9</a></td><td>Navigation</td></tr>
+        <tr><td class="col-tag">L10</td><td><a href="{{ '/studies/abap2/Lesson10' | relative_url }}">Lesson 10</a></td><td>Mini 실습</td></tr>
+      </table>
+      
+      <br>
+
+      <h2>📈 주요 개념</h2>
 
       <div class="kicker">① Screen Programming 심화</div>
       <ul class="list">
@@ -183,29 +210,13 @@ body{
         <li>Context / Data Binding</li>
         <li>Navigation / Event 처리</li>
       </ul>
-
-      <br>
-
-      <h2>🗂️ Lesson Index</h2>
-      <table class="tbl">
-        <tr><td class="col-tag">L1</td><td><a href="{{ '/studies/abap2/Lesson1' | relative_url }}">Lesson 1</a></td><td>Screen 구조 복습</td></tr>
-        <tr><td class="col-tag">L2</td><td><a href="{{ '/studies/abap2/Lesson2' | relative_url }}">Lesson 2</a></td><td>Subscreen</td></tr>
-        <tr><td class="col-tag">L3</td><td><a href="{{ '/studies/abap2/Lesson3' | relative_url }}">Lesson 3</a></td><td>Tabstrip Control</td></tr>
-        <tr><td class="col-tag">L4</td><td><a href="{{ '/studies/abap2/Lesson4' | relative_url }}">Lesson 4</a></td><td>Screen Flow Logic</td></tr>
-        <tr><td class="col-tag">L5</td><td><a href="{{ '/studies/abap2/Lesson5' | relative_url }}">Lesson 5</a></td><td>Web Dynpro 개요</td></tr>
-        <tr><td class="col-tag">L6</td><td><a href="{{ '/studies/abap2/Lesson6' | relative_url }}">Lesson 6</a></td><td>Component / View</td></tr>
-        <tr><td class="col-tag">L7</td><td><a href="{{ '/studies/abap2/Lesson7' | relative_url }}">Lesson 7</a></td><td>Context / Binding</td></tr>
-        <tr><td class="col-tag">L8</td><td><a href="{{ '/studies/abap2/Lesson8' | relative_url }}">Lesson 8</a></td><td>Event Handling</td></tr>
-        <tr><td class="col-tag">L9</td><td><a href="{{ '/studies/abap2/Lesson9' | relative_url }}">Lesson 9</a></td><td>Navigation</td></tr>
-        <tr><td class="col-tag">L10</td><td><a href="{{ '/studies/abap2/Lesson10' | relative_url }}">Lesson 10</a></td><td>Mini 실습</td></tr>
-      </table>
     </div>
 
     <!-- RIGHT -->
     <aside style="display:flex; flex-direction:column; gap:1rem;">
 
       <div class="card">
-        <h2>📊 이해도 진행도</h2>
+        <h2>📶 이해도 진행도</h2>
 
         <div class="prow"><span>Screen</span><span class="pct">40%</span></div>
         <div class="meter"><span style="width:40%"></span></div>
@@ -215,7 +226,7 @@ body{
       </div>
 
       <div class="card">
-        <h2>🧩 이 과정에서 다루는 내용</h2>
+        <h2>🔵 이 과정에서 다루는 내용</h2>
         <ul class="list">
           <li>Classical Screen 심화</li>
           <li>복잡한 화면 흐름 제어</li>
@@ -229,7 +240,7 @@ body{
       </div>
 
       <div class="card">
-        <h2>🧠 개념 / 용어</h2>
+        <h2>🌐 개념 / 용어</h2>
         <ul class="list">
           <li><strong>Subscreen</strong>: 화면 분할 재사용</li>
           <li><strong>Tabstrip</strong>: 탭 기반 UI</li>
