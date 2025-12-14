@@ -176,6 +176,16 @@ body {
 .pct {
   font-weight: 850;
 }
+
+.badge {
+  font-size: 0.78rem;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff7fb;
+  color: var(--sub);
+}
+
 .note {
   margin-top: 0.8rem;
   padding: 0.8rem;
@@ -200,7 +210,7 @@ body {
 
     <!-- LEFT -->
     <div class="card">
-      <h2>🗂️ Lesson Index <span class="badge">학습 구성</span></h2>
+      <h2>✏️ 학습 구성<span class="badge">학습 구성</span></h2>
       <table class="tbl">
         <tr><td class="col-tag">AB3 1</td><td><a href="{{ '/studies/abap3/Lesson1' | relative_url }}">Lesson 1</a></td><td>New ABAP Syntax 소개</td></tr>
         <tr><td class="col-tag">AB3 2</td><td><a href="{{ '/studies/abap3/Lesson2' | relative_url }}">Lesson 2</a></td><td>내장 타입 & 인라인 선언</td></tr>
@@ -219,7 +229,7 @@ body {
     <aside style="display:flex; flex-direction:column; gap:1rem;">
 
       <div class="card">
-        <h2>📚 주요 개념</h2>
+        <h2>📈 주요 개념</h2>
         <ul class="list">
           <li>New ABAP Syntax (DATA, VALUE, LET, etc.)</li>
           <li>CDS View 정의 및 Annotation</li>
