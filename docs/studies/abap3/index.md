@@ -210,7 +210,7 @@ body {
 
     <!-- LEFT -->
     <div class="card">
-      <h2>✏️ 학습 구성<span class="badge">학습 구성</span></h2>
+      <h2>✏️ 학습 구성<span class="badge">Lesson Index</span></h2>
       <table class="tbl">
         <tr><td class="col-tag">AB3 1</td><td><a href="{{ '/studies/abap3/Lesson1' | relative_url }}">Lesson 1</a></td><td>New ABAP Syntax 소개</td></tr>
         <tr><td class="col-tag">AB3 2</td><td><a href="{{ '/studies/abap3/Lesson2' | relative_url }}">Lesson 2</a></td><td>내장 타입 & 인라인 선언</td></tr>
