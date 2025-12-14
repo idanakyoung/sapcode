@@ -207,7 +207,7 @@ body {
 
     <!-- LEFT -->
     <div class="card">
-      <h2>🗂️ Lesson Index <span class="badge">학습 구성</span></h2>
+      <h2>🗂️ 학습 구성 <span class="badge">Lesson Index</span></h2>
 
       <div class="kicker">① Gateway Track</div>
       <table class="tbl">
