@@ -141,6 +141,15 @@ body{
 
 .pct{ font-weight:850; }
 
+.badge {
+  font-size: 0.78rem;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff7fb;
+  color: var(--sub);
+}
+
 .note{
   margin-top:.8rem;
   padding:.8rem;
