@@ -169,7 +169,7 @@ body{
     <!-- LEFT -->
     <div class="card">
 
-          <h2>✏️ 학습 구성 <span class="badge">Lesson Index</span></h2>
+          <h2>✏️ 학습 구성<span class="badge">Lesson Index</span></h2>
           <table class="tbl">
             <tr><td class="col-tag">1</td><td><a href="{{ '/studies/abap1/Lesson1' | relative_url }}">Lesson 1</a></td><td>기초 문법</td></tr>
             <tr><td class="col-tag">2</td><td><a href="{{ '/studies/abap1/Lesson2' | relative_url }}">Lesson 2</a></td><td>실습</td></tr>
