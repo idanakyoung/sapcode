@@ -1,4 +1,4 @@
-# Lesson 14 – Screen Program / Dialog Programming 정리
+# Lesson 1 – Screen Program / Dialog Programming 정리
 
 ## 0. ABAP Program 타입 복습
 
