@@ -185,7 +185,7 @@ body {
 
     <!-- LEFT -->
     <div class="card">
-      <h2>🗂️ Lesson Index <span class="badge">과정 구성</span></h2>
+      <h2>🗂️ 과정 구성 <span class="badge">Lesson Index</span></h2>
       <table class="tbl">
         <tr><td class="col-tag">JF 1</td><td><a href="{{ '/studies/jobfair/Lesson1' | relative_url }}">Lesson 1</a></td><td>이력서 / 커리어 로드맵</td></tr>
         <tr><td class="col-tag">JF 2</td><td><a href="{{ '/studies/jobfair/Lesson2' | relative_url }}">Lesson 2</a></td><td>포트폴리오 구성</td></tr>
