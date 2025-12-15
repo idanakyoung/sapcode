@@ -333,3 +333,7 @@ MOVE-CORRESPONDING wa_scustom TO scustom.
 ---
 
 ## ✅ 한 줄 요약
+```
+방법 1 : DB → SCUSTOM (간단)
+방법 2 : DB → WA → SCUSTOM (정석 ⭐)
+```
