@@ -19,13 +19,13 @@ title: SAP CODE 아카데미 공부 정리
 
 | 과정 | 링크 | 한줄 소개 |
 |------|------|-----------|
-| 🎨 **UX1** | [UX1 정리](https://idanakyoung.github.io/sapcode/ux1/) | UI5 Programming (HTML/JS), JS 기초 + UI5 View/Controller |
-| ⚙️ **ABAP1** | [ABAP1 정리](https://idanakyoung.github.io/sapcode/abap1/) | Dictionary, 테이블/구조, Screen(PBO/PAI) 기초 |
-| 🧱 **ABAP2** | [ABAP2 정리](https://idanakyoung.github.io/sapcode/abap2/) | Report, DB Update, Internal Table, ABAP OO 입문 |
-| 💾 **ABAP3** | [ABAP3 정리](https://idanakyoung.github.io/sapcode/abap3/) | CDS, HANA, New Syntax 중심 심화 ABAP |
-| 🌐 **UX2+3** | [UX2+3 정리](https://idanakyoung.github.io/sapcode/ux23/) | OData Service, Gateway, Fiori Launchpad |
-| 🚀 **Project** | [Project 정리](https://idanakyoung.github.io/sapcode/project/) | ABAP + UI5 통합 실무형 프로젝트 기록 |
-| 🎓 **Job Fair** | [Job Fair 기록](https://idanakyoung.github.io/sapcode/jobfair/) | 수료, 포트폴리오, 취업 준비 관련 기록 |
+| 🎨 **UX1** | [UX1 정리](https://idanakyoung.github.io/sapcode/studies/ux1/) | UI5 Programming (HTML/JS), JS 기초 + UI5 View/Controller |
+| ⚙️ **ABAP1** | [ABAP1 정리](https://idanakyoung.github.io/sapcode/studies/abap1/) | Dictionary, 테이블/구조, Screen(PBO/PAI) 기초 |
+| 🧱 **ABAP2** | [ABAP2 정리](https://idanakyoung.github.io/sapcode/studies/abap2/) | Report, DB Update, Internal Table, ABAP OO 입문 |
+| 💾 **ABAP3** | [ABAP3 정리](https://idanakyoung.github.io/sapcode/studies/abap3/) | CDS, HANA, New Syntax 중심 심화 ABAP |
+| 🌐 **UX2+3** | [UX2+3 정리](https://idanakyoung.github.io/sapcode/studies/ux23/) | OData Service, Gateway, Fiori Launchpad |
+| 🚀 **Project** | [Project 정리](https://idanakyoung.github.io/sapcode/studies/project/) | ABAP + UI5 통합 실무형 프로젝트 기록 |
+| 🎓 **Job Fair** | [Job Fair 기록](https://idanakyoung.github.io/sapcode/studies/jobfair/) | 수료, 포트폴리오, 취업 준비 관련 기록 |
 
 
 ---
