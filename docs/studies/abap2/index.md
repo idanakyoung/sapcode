@@ -190,7 +190,10 @@ body{
         <tr><td class="col-tag">L7</td><td><a href="{{ '/studies/abap2/Lesson7' | relative_url }}">Lesson 7</a></td><td>Context / Binding</td></tr>
         <tr><td class="col-tag">L8</td><td><a href="{{ '/studies/abap2/Lesson8' | relative_url }}">Lesson 8</a></td><td>Event Handling</td></tr>
         <tr><td class="col-tag">L9</td><td><a href="{{ '/studies/abap2/Lesson9' | relative_url }}">Lesson 9</a></td><td>Navigation</td></tr>
-        <tr><td class="col-tag">L10</td><td><a href="{{ '/studies/abap2/Lesson10' | relative_url }}">Lesson 10</a></td><td>Mini 실습</td></tr>
+        <tr><td class="col-tag">L10</td><td><a href="{{ '/studies/abap2/Lesson10' | relative_url }}">Lesson_10</a></td><td>Mini 실습</td></tr>
+        <tr><td class="col-tag">L11</td><td><a href="{{ '/studies/abap2/Lesson11' | relative_url }}">Lesson_11</a></td><td>Mini 실습</td></tr>
+        <tr><td class="col-tag">L12</td><td><a href="{{ '/studies/abap2/Lesson12' | relative_url }}">Lesson_12</a></td><td>Mini 실습</td></tr>
+        <tr><td class="col-tag">L13</td><td><a href="{{ '/studies/abap2/Lesson13' | relative_url }}">Lesson_13</a></td><td>Mini 실습</td></tr>
       </table>
       
       <br>
