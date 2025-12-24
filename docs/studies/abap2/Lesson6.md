@@ -1,4 +1,4 @@
-Lesson 6 – 프로그래밍 전용 리포트 개발 (2)
+🧭Lesson 6 – 프로그래밍 전용 리포트 개발 (2)
 
 주제: Selection Screen 고급 구성 + F4 Help + Pushbutton 제어
 
