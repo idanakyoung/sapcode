@@ -1,8 +1,8 @@
-# 🧭 Lesson 8 – ALV Screen 활용
+# 🧭 Lesson 8 – ALV Screen 활용 (Design/Sort/Color/Toolbar/Quiz)
 
 ---
 
-## SAP 시스템 필드 (SY-*) 정리
+## 🟡 SAP 시스템 필드 (SY-*) 정리
 
 | 필드 | 의미 |
 | --- | --- |
@@ -20,383 +20,468 @@
 
 ---
 
-# 🔵 Unit 1. ALV Design
+## 0) ALV Design 기능별 “필수 연결 공식” (이거만 외우면 됨)
 
-## Exception Column – ZABAP_31_G01
+### A. Exception(신호등) 컬럼
 
-### 목적
+- **데이터에 필드**: `EXCP TYPE c length 1`
+- **레이아웃 연결**: `GS_LAYOUT-EXCP_FNAME = 'EXCP'`
+- (옵션) LED 스타일: `GS_LAYOUT-EXCP_LED = 'X'`
+- **값 규칙**: 보통 `'1'/'2'/'3'` (Red/Yellow/Green)
 
-- ALV에서 **조건에 따라 아이콘(신호등)** 을 표시하기 위해 Exception Column 사용
-- `LUGGWEIGHT` 값에 따라 EXCP 값 세팅
-
----
-
-### 데이터 구조 변경 (TOP)
-
-```abap
-TYPES : BEGIN OF TS_DATA.
-          INCLUDE TYPE SBOOK.
-TYPES :   EXCP TYPE CHAR1,
-        END OF TS_DATA.
-
-DATA: GT_DATA TYPE TABLE OF TS_DATA,
-      GS_DATA LIKE LINE OF GT_DATA.
+```
+EXCP 값 → ALV 아이콘
+'1'   → 🔴
+'2'   → 🟡
+'3'   → 🟢
 
 ```
 
-- `SBOOK` 전체 필드 사용
-- `EXCP` : ALV Exception Column용 필드
+---
+
+### B. Row Color(행 색상)
+
+- **데이터에 필드**: `COLOR TYPE c length 4` (예: `C610`)
+- **레이아웃 연결**: `GS_LAYOUT-INFO_FNAME = 'COLOR'`
+
+```
+COLOR = 'C610' 이면
+해당 행 전체가 지정 색으로 칠해짐
+```
 
 ---
 
-### 데이터 조회 + 가공 로직 (MAIN)
+### C. Cell Color(셀 색상)
+
+- **데이터에 필드**: `IT_FIELD_COLORS TYPE LVC_T_SCOL`
+- **레이아웃 연결**: `GS_LAYOUT-CTAB_FNAME = 'IT_FIELD_COLORS'`
+- **셀 지정 방식**: `LVC_S_SCOL`에 `FNAME`(필드명) + `COLOR` 세팅 후 테이블에 APPEND
+
+```
+IT_FIELD_COLORS = [
+  {FNAME='PERCENTAGE', COLOR=RED},
+  {FNAME='PLANETYPE',  COLOR=GREEN},
+  ...
+]
+```
+
+---
+
+### D. Sort Criteria(기본 정렬)
+
+- **정렬 테이블**: `GT_SORT TYPE LVC_T_SORT`
+- **ALV 호출**: `IT_SORT = GT_SORT`
+
+---
+
+### E. Toolbar 숨김
+
+- **전체 툴바 제거**: `GS_LAYOUT-NO_TOOLBAR = 'X'`
+- **버튼만 제거**: `GT_UIEXCLUDE` + `IT_TOOLBAR_EXCLUDING = GT_UIEXCLUDE`
+
+---
+
+## 1) ZABAP_31_G01 – Exception Column
+
+### 1-1) 타입 확장(기존 SBOOK + EXCP 추가)
+
+```abap
+TYPES: BEGIN OF ts_data,
+         INCLUDE TYPE sbook,
+         excp TYPE char1,
+       END OF ts_data.
+
+DATA: gt_data TYPE TABLE OF ts_data,
+      gs_data TYPE ts_data.
+```
+
+**왜 이렇게 함?**
+
+- `SBOOK` 필드 전부 쓰면서 `EXCP`만 추가해야 해서 `INCLUDE TYPE` 사용
+
+---
+
+### 1-2) SELECT는 꼭 “CORRESPONDING”으로
 
 ```abap
 SELECT *
-  INTO CORRESPONDING FIELDS OF TABLE GT_DATA
-  FROM SBOOK
-  WHERE CARRID IN SO_CAR
-    AND CONNID IN SO_CON
-    AND FLDATE IN SO_FDT.
+  INTO CORRESPONDING FIELDS OF TABLE gt_data
+  FROM sbook
+  WHERE carrid IN so_car
+    AND connid IN so_con
+    AND fldate IN so_fdt.
+```
 
-LOOP AT GT_DATA INTO GS_DATA.
-  IF GS_DATA-LUGGWEIGHT <= 10.
-    GS_DATA-EXCP = '3'.
-  ELSEIF GS_DATA-LUGGWEIGHT <= 20.
-    GS_DATA-EXCP = '2'.
+**왜 CORRESPONDING?**
+
+- `gt_data`는 `sbook + excp` 구조라서
+- 그냥 `INTO TABLE`하면 구조 불일치 날 수 있음
+
+---
+
+### 1-3) EXCP 값 채우는 로직(가공)
+
+```abap
+LOOP AT gt_data INTO gs_data.
+
+  IF gs_data-luggweight <= 10.
+    gs_data-excp = '3'.
+  ELSEIF gs_data-luggweight > 10 AND gs_data-luggweight <= 20.
+    gs_data-excp = '2'.
   ELSE.
-    GS_DATA-EXCP = '1'.
+    gs_data-excp = '1'.
   ENDIF.
 
-  MODIFY GT_DATA FROM GS_DATA.
-  CLEAR GS_DATA.
+  MODIFY gt_data FROM gs_data TRANSPORTING excp.
+  CLEAR gs_data.
+ENDLOOP.
+```
+
+**중요 포인트**
+
+- `TRANSPORTING excp` → 다른 필드 덮어쓰기 방지
+- `CLEAR gs_data` → 다음 루프에서 값 섞이는 습관 방지
+
+---
+
+### 1-4) Layout에서 신호등 연결
+
+```abap
+gs_layout-excp_fname = 'EXCP'.
+gs_layout-excp_led   = 'X'.
+```
+
+---
+
+## 2) SORT CRITERIA – ZABAP_31_G01
+
+### 2-1) 선언
+
+```abap
+DATA: gt_sort TYPE lvc_t_sort.
+```
+
+### 2-2) 값 채우기(F01에서 보통)
+
+```abap
+DATA: ls_sort LIKE LINE OF gt_sort.
+
+ls_sort-fieldname = 'FLDATE'.
+ls_sort-down      = 'X'.
+APPEND ls_sort TO gt_sort.
+
+CLEAR ls_sort.
+ls_sort-fieldname = 'CUSTOMID'.
+ls_sort-up        = 'X'.
+APPEND ls_sort TO gt_sort.
+```
+
+### 2-3) ALV 호출에 연결
+
+```abap
+CALL METHOD go_alv->set_table_for_first_display
+  EXPORTING
+    is_layout = gs_layout
+  CHANGING
+    it_outtab = gt_data
+    it_sort   = gt_sort.
+```
+
+---
+
+## 3) COLOR – ZABAP_31_G01
+
+### 3-1) Row Color용 구조 확장
+
+```abap
+TYPES: BEGIN OF ts_data,
+         INCLUDE TYPE sbook,
+         color TYPE c LENGTH 4,
+       END OF ts_data.
+
+```
+
+### 3-2) 로직(예: 흡연자만 빨간행)
+
+```abap
+LOOP AT gt_data INTO gs_data.
+  IF gs_data-smoker = 'X'.
+    gs_data-color = 'C610'.
+  ENDIF.
+  MODIFY gt_data FROM gs_data TRANSPORTING color.
+  CLEAR gs_data.
 ENDLOOP.
 
 ```
 
-- EXCP 값
-    - `1` : Red
-    - `2` : Yellow
-    - `3` : Green
-
----
-
-### Layout 설정 (중요)
+### 3-3) Layout 연결
 
 ```abap
-GS_LAYOUT-EXCP_FNAME = 'EXCP'.
-GS_LAYOUT-EXCP_LED   = 'X'.
-
-```
-
-- `EXCP_FNAME` : 신호등 값이 들어있는 필드명
-- `EXCP_LED = 'X'` : 아이콘을 LED 스타일로 표시
-
----
-
-## Sort Criteria – ZABAP_31_G01
-
-### 목적
-
-- ALV 출력 시 기본 정렬 조건 적용
-
----
-
-### SORT 테이블 선언
-
-```abap
-DATA: GT_SORT TYPE LVC_T_SORT.
+gs_layout-info_fname = 'COLOR'.
 
 ```
 
 ---
 
-### 정렬 조건 구성 (F01)
+## 4) CELL COLOR – ZABAP_31_G01
+
+### 4-1) 구조 확장(셀 색상 테이블)
 
 ```abap
-DATA: LS_SORT LIKE LINE OF GT_SORT.
+TYPES: BEGIN OF ts_data,
+         INCLUDE TYPE sbook,
+         it_field_colors TYPE lvc_t_scol,
+       END OF ts_data.
 
-LS_SORT-FIELDNAME = 'FLDATE'.
-LS_SORT-DOWN = 'X'.
-APPEND LS_SORT TO GT_SORT.
-
-CLEAR LS_SORT.
-LS_SORT-FIELDNAME = 'CUSTOMID'.
-LS_SORT-UP = 'X'.
-APPEND LS_SORT TO GT_SORT.
+DATA: gs_field_color TYPE lvc_s_scol.
 
 ```
 
-- FLDATE : 내림차순
-- CUSTOMID : 오름차순
-
----
-
-### ALV 호출 시 적용
+### 4-2) 특정 셀만 색칠하는 로직(예: SMOKER 컬럼)
 
 ```abap
-CALL METHOD GO_ALV->SET_TABLE_FOR_FIRST_DISPLAY
-  CHANGING
-    IT_OUTTAB = GT_DATA
-    IT_SORT   = GT_SORT.
+LOOP AT gt_data INTO gs_data.
+
+  CLEAR gs_data-it_field_colors.
+
+  IF gs_data-smoker = 'X'.
+    CLEAR gs_field_color.
+    gs_field_color-fname = 'SMOKER'.
+    gs_field_color-color-col = col_negative.
+    gs_field_color-color-int = 1.
+    gs_field_color-color-inv = 0.
+    gs_field_color-nokeycol = 'X'.
+    APPEND gs_field_color TO gs_data-it_field_colors.
+  ENDIF.
+
+  MODIFY gt_data FROM gs_data TRANSPORTING it_field_colors.
+  CLEAR gs_data.
+ENDLOOP.
 
 ```
 
----
-
-## COLOR – ZABAP_31_G01
-
-### ROW COLOR (행 색상)
-
-### 구조 확장
+### 4-3) Layout 연결
 
 ```abap
-TYPES: BEGIN OF TS_DATA.
-         INCLUDE TYPE SBOOK.
-TYPES:   COLOR TYPE C LENGTH 4,
-         LIGHT TYPE C LENGTH 1,
-       END OF TS_DATA.
+gs_layout-ctab_fname = 'IT_FIELD_COLORS'.
 
 ```
 
 ---
 
-### 로직
+## 5) HIDDEN FUNCTIONS – ZABAP_31_G01
+
+### 5-1) 버튼만 숨김(UI Exclude)
 
 ```abap
-IF GS_DATA-SMOKER = 'X'.
-  GS_DATA-COLOR = 'C610'.
-ENDIF.
+DATA: gt_uiexclude TYPE ui_functions.
+
+APPEND cl_gui_alv_grid=>mc_fc_excl_all TO gt_uiexclude.  "전체 버튼 숨김(스탠다드만)
 
 ```
 
-- `C610` : 빨간색 계열
-- COLOR 필드는 행 전체 색상용
-
----
-
-### Layout 설정
+또는 필요한 것만:
 
 ```abap
-GS_LAYOUT-INFO_FNAME = 'COLOR'.
+APPEND cl_gui_alv_grid=>mc_fc_loc_copy       TO gt_uiexclude.
+APPEND cl_gui_alv_grid=>mc_fc_loc_delete_row TO gt_uiexclude.
 
 ```
 
----
-
-### CELL COLOR (셀 색상)
-
-### 추가 구조
+### 5-2) ALV 호출에 전달
 
 ```abap
-IT_FIELD_COLORS TYPE LVC_T_SCOL.
-
-```
-
----
-
-### 셀 색상 로직
-
-```abap
-GS_FIELD_COLOR-FNAME = 'SMOKER'.
-GS_FIELD_COLOR-COLOR-COL = COL_NEGATIVE.
-GS_FIELD_COLOR-COLOR-INT = 1.
-GS_FIELD_COLOR-COLOR-INV = 0.
-APPEND GS_FIELD_COLOR TO GS_DATA-IT_FIELD_COLORS.
-
-```
-
----
-
-### Layout 연결
-
-```abap
-GS_LAYOUT-CTAB_FNAME = 'IT_FIELD_COLORS'.
-
-```
-
----
-
-## Hidden Functions – ZABAP_31_G01
-
-### 목적
-
-- ALV 툴바에서 **특정 기능 버튼 숨기기**
-
----
-
-### 변수 선언
-
-```abap
-DATA: GT_UIEXCLUDE TYPE UI_FUNCTIONS.
-
-```
-
----
-
-### 숨길 버튼 설정
-
-```abap
-APPEND CL_GUI_ALV_GRID=>MC_FC_LOC_COPY TO GT_UIEXCLUDE.
-APPEND CL_GUI_ALV_GRID=>MC_FC_LOC_DELETE_ROW TO GT_UIEXCLUDE.
-
-```
-
----
-
-### ALV 호출 시 적용
-
-```abap
-CALL METHOD GO_ALV->SET_TABLE_FOR_FIRST_DISPLAY
+CALL METHOD go_alv->set_table_for_first_display
   EXPORTING
-    IT_TOOLBAR_EXCLUDING = GT_UIEXCLUDE.
-
-```
-
----
-
-### 전체 툴바 숨김 vs 버튼만 숨김
-
-| 방식 | 의미 |
-| --- | --- |
-| GS_LAYOUT-NO_TOOLBAR = 'X' | 툴바 영역 자체 제거 |
-| UIEXCLUDE | 영역은 유지, 버튼만 제거 |
-
----
-
-# 🔵 ZBC405_G01_ALV – COLOR 종합
-
-### 출력 구조
-
-```abap
-TYPES: BEGIN OF TS_DATA.
-         INCLUDE TYPE SFLIGHT.
-TYPES:   COLOR           TYPE C LENGTH 4,
-         LIGHT           TYPE C LENGTH 1,
-         IT_FIELD_COLORS TYPE LVC_T_SCOL,
-       END OF TS_DATA.
-
-```
-
----
-
-### 데이터 가공
-
-```abap
-IF GS_FLIGHT-FLDATE(6) = SY-DATUM(6).
-  GS_FLIGHT-COLOR = 'C610'.
-ENDIF.
-
-IF GS_FLIGHT-SEATSOCC = 0.
-  GS_FLIGHT-LIGHT = 1.
-ELSEIF GS_FLIGHT-SEATSOCC < 50.
-  GS_FLIGHT-LIGHT = 2.
-ELSE.
-  GS_FLIGHT-LIGHT = 3.
-ENDIF.
-
-```
-
----
-
-### Layout 설정
-
-```abap
-GS_LAYOUT-INFO_FNAME = 'COLOR'.
-GS_LAYOUT-CTAB_FNAME = 'IT_FIELD_COLORS'.
-GS_LAYOUT-EXCP_FNAME = 'LIGHT'.
-GS_LAYOUT-SEL_MODE   = 'A'.
-
-```
-
----
-
-# 🔵 ZQUIZ_17_G01
-
-## 목표
-
-- DB: SFLIGHT
-- Selection Screen
-    - CARRID
-    - CONNID
-    - FLDATE (이번 달 1일 ~ 오늘 자동)
-- Output
-    - CARRID / CONNID / FLDATE
-    - SEATSMAX / SEATSOCC
-    - PERCENTAGE (예약율)
-
----
-
-## 예약율 계산
-
-```abap
-IF GS_FLIGHT-SEATSMAX = 0.
-  GS_FLIGHT-PERCENTAGE = 0.
-ELSE.
-  GS_FLIGHT-PERCENTAGE =
-    ( GS_FLIGHT-SEATSOCC * 100 ) / GS_FLIGHT-SEATSMAX.
-ENDIF.
-
-```
-
----
-
-## 신호등 규칙
-
-| 예약율 | LIGHT |
-| --- | --- |
-| < 60 | 1 |
-| < 90 | 2 |
-| ≥ 90 | 3 |
-
----
-
-## 셀 색상 조건
-
-```abap
-IF GS_FLIGHT-PERCENTAGE = 100.
-  GS_FIELD_COLOR-FNAME = 'PERCENTAGE'.
-  GS_FIELD_COLOR-COLOR-COL = COL_NEGATIVE.
-  APPEND GS_FIELD_COLOR TO GS_FLIGHT-IT_FIELD_COLORS.
-ENDIF.
-
-```
-
----
-
-## ALV 호출 핵심
-
-```abap
-CALL METHOD GO_ALV->SET_TABLE_FOR_FIRST_DISPLAY
-  EXPORTING
-    IS_VARIANT = GS_VARIANT
-    IS_LAYOUT  = GS_LAYOUT
+    it_toolbar_excluding = gt_uiexclude
+    is_layout            = gs_layout
   CHANGING
-    IT_OUTTAB       = GT_FLIGHTS
-    IT_FIELDCATALOG = GT_FCAT.
+    it_outtab            = gt_data.
+
+```
+
+### 5-3) 레이아웃 툴바 제거랑 차이
+
+- `GS_LAYOUT-NO_TOOLBAR = 'X'` → **툴바 영역 자체 삭제**
+- `IT_TOOLBAR_EXCLUDING` → **영역은 유지, 버튼만 삭제**
+
+---
+
+# 6) ZBC405_G01_ALV – COLOR/EXCP/CTAB 한 번에
+
+### 6-1) 구조
+
+```abap
+TYPES: BEGIN OF ts_data,
+         INCLUDE TYPE sflight,
+         color           TYPE c LENGTH 4,
+         light           TYPE c LENGTH 1,
+         it_field_colors TYPE lvc_t_scol,
+       END OF ts_data.
+
+DATA: gt_flights TYPE TABLE OF ts_data,
+      gs_flight  TYPE ts_data.
+
+DATA: gs_layout      TYPE lvc_s_layo,
+      gs_field_color TYPE lvc_s_scol.
+
+```
+
+### 6-2) 가공 로직(행색/신호등/셀색)
+
+```abap
+LOOP AT gt_flights INTO gs_flight.
+
+  "행 색: 이번 달 데이터면 색 부여
+  IF gs_flight-fldate(6) = sy-datum(6).
+    gs_flight-color = 'C610'.
+  ENDIF.
+
+  "신호등: 예약수에 따라
+  IF gs_flight-seatsocc = 0.
+    gs_flight-light = '1'.
+  ELSEIF gs_flight-seatsocc < 50.
+    gs_flight-light = '2'.
+  ELSE.
+    gs_flight-light = '3'.
+  ENDIF.
+
+  "셀 색: 747-400이면 PLANETYPE만 강조
+  CLEAR gs_flight-it_field_colors.
+  IF gs_flight-planetype = '747-400'.
+    CLEAR gs_field_color.
+    gs_field_color-fname = 'PLANETYPE'.
+    gs_field_color-color-col = col_positive.
+    gs_field_color-color-int = 1.
+    gs_field_color-color-inv = 0.
+    gs_field_color-nokeycol = 'X'.
+    APPEND gs_field_color TO gs_flight-it_field_colors.
+  ENDIF.
+
+  MODIFY gt_flights FROM gs_flight
+    TRANSPORTING color light it_field_colors.
+  CLEAR gs_flight.
+
+ENDLOOP.
+
+```
+
+### 6-3) Layout 연결(3종 세트)
+
+```abap
+FORM set_layout.
+  gs_layout-grid_title = 'Flights'.
+  gs_layout-no_vgridln = 'X'.
+  gs_layout-no_hgridln = 'X'.
+
+  gs_layout-info_fname = 'COLOR'.            "행 색
+  gs_layout-ctab_fname = 'IT_FIELD_COLORS'.  "셀 색
+  gs_layout-excp_fname = 'LIGHT'.            "신호등
+  gs_layout-sel_mode   = 'A'.
+ENDFORM.
 
 ```
 
 ---
 
-## Screen 0100 Flow Logic
+# 7) ZQUIZ_17_G01 – 예약율 + 신호등 + 100% 셀 빨강
+
+## 7-1) Selection Screen 초기값(이번달 1일~오늘)
+
+```abap
+so_fdt-low  = sy-datum+0(4) && sy-datum+4(2) && '01'.
+so_fdt-high = sy-datum.
+
+```
+
+## 7-2) 예약율 계산
+
+```abap
+IF gs_flight-seatsmax = 0.
+  gs_flight-percentage = 0.
+ELSE.
+  gs_flight-percentage =
+    ( gs_flight-seatsocc * 100 ) / gs_flight-seatsmax.
+ENDIF.
+
+```
+
+## 7-3) 신호등
+
+```abap
+IF gs_flight-percentage < 60.
+  gs_flight-light = '1'.
+ELSEIF gs_flight-percentage < 90.
+  gs_flight-light = '2'.
+ELSE.
+  gs_flight-light = '3'.
+ENDIF.
+
+```
+
+## 7-4) 100%면 PERCENTAGE 셀 빨강
+
+```abap
+CLEAR gs_flight-it_field_colors.
+
+IF gs_flight-percentage = 100.
+  CLEAR gs_field_color.
+  gs_field_color-fname = 'PERCENTAGE'.
+  gs_field_color-color-col = col_negative.
+  gs_field_color-color-int = 1.
+  APPEND gs_field_color TO gs_flight-it_field_colors.
+ENDIF.
+
+```
+
+---
+
+# 8) GS_VARIANT / PA_VARI / GV_SAVE 정리 (ALV Variant)
+
+## 8-1) 선언
+
+```abap
+DATA: gs_variant TYPE disvariant.
+DATA: gv_save    TYPE char1.
+PARAMETERS: pa_vari TYPE disvariant-variant.
+
+```
+
+## 8-2) 필수 세팅
+
+```abap
+gs_variant-report = sy-cprog.
+gs_variant-variant = pa_vari.
+gv_save = 'A'.
+
+```
+
+## 8-3) ALV 호출에 전달
+
+```abap
+CALL METHOD go_alv->set_table_for_first_display
+  EXPORTING
+    is_variant = gs_variant
+    i_save     = gv_save
+    is_layout  = gs_layout
+  CHANGING
+    it_outtab       = gt_flights
+    it_fieldcatalog = gt_fcat.
+
+```
+
+---
+
+## 9) Screen 0100 Flow Logic(고정 템플릿)
 
 ```abap
 PROCESS BEFORE OUTPUT.
-  MODULE STATUS_0100.
-  MODULE CLEAR_OK_CODE.
-  MODULE INIT_ALV.
+  MODULE status_0100.
+  MODULE clear_ok_code.
+  MODULE init_alv.
 
 PROCESS AFTER INPUT.
-  MODULE USER_COMMAND_0100.
-
+  MODULE user_command_0100.
 ```
 
----
-
-## 최종 체크 포인트
-
-- IT_OUTTAB / IT_FIELDCATALOG 혼동 ❌
-- 색상: INFO_FNAME / CTAB_FNAME 정확히 연결
-- 신호등: EXCP_FNAME + 값(1/2/3)
-- Variant: GS_VARIANT-REPORT = SY-CPROG 필수
+--- 
