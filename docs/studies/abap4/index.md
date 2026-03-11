@@ -1,4 +1,3 @@
-
 ---
 title: ABAP4 — HANA, CDS & New Syntax
 ---
