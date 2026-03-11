@@ -328,7 +328,7 @@ body {
 
       <section class="portal-card portal-side-card">
         <h2>📅 월별 진행 일정</h2>
-        <pre style="font-size:0.85rem; line-height:1.4; background:#111827; color:#e5e7eb; border-radius:10px; padding:0.7rem 0.9rem; border:1px solid #0f172a;">
+        <pre class="portal-schedule">
             10월        | UX1 시작 (UI5 / HTML / JS)
             11월 중순   | ABAP1 시작 (기초 문법 / Modularization / FM / BAPI)
             11월 말~12월 | ABAP2 진행 (Open SQL / Dictionary / View / Screen / ALV)
