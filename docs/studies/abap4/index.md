@@ -271,7 +271,7 @@ body {
           </tr>
           <tr>
             <td class="col-tag">2026.01.20~28</td>
-            <td><a href="{{ '/studies/abap4/260129_pou3' | relative_url }}">20260129 (POU3)</a></td>
+            <td><a href="{{ '/studies/abap4/260129_pou3' | relative_url }}">260129 (POU3)</a></td>
             <td>POU (3)</td>
           </tr>
           <tr>
@@ -281,37 +281,37 @@ body {
           </tr>
           <tr>
             <td class="col-tag">2026.01.29</td>
-            <td><a href="{{ '/studies/abap4/260129' | relative_url }}">20260129</a></td>
+            <td><a href="{{ '/studies/abap4/260129' | relative_url }}">260129</a></td>
             <td>ABAP 총정리 강의</td>
           </tr>
           <tr>
             <td class="col-tag">2026.01.30</td>
-            <td><a href="{{ '/studies/abap4/260130' | relative_url }}">20260130</a></td>
+            <td><a href="{{ '/studies/abap4/260130' | relative_url }}">260130</a></td>
             <td>ABAP 사원-부서 추가 퀴즈 풀이</td>
           </tr>
           <tr>
             <td class="col-tag">2026.02.02</td>
-            <td><a href="{{ '/studies/abap4/260202' | relative_url }}">20260202</a></td>
+            <td><a href="{{ '/studies/abap4/260202' | relative_url }}">260202</a></td>
             <td>ABAP New Syntax (Expressions 중심 프로그래밍)</td>
           </tr>
           <tr>
             <td class="col-tag">2026.02.03</td>
-            <td><a href="{{ '/studies/abap4/260203' | relative_url }}">20260203</a></td>
+            <td><a href="{{ '/studies/abap4/260203' | relative_url }}">260203</a></td>
             <td>ABAP New Syntax - LOOP & VALUE # & CDS View & ASSOCIATION & OPEN SQL & JOIN & UNION</td>
           </tr>
           <tr>
             <td class="col-tag">2026.02.04</td>
-            <td><a href="{{ '/studies/abap4/260204' | relative_url }}">20260204</a></td>
+            <td><a href="{{ '/studies/abap4/260204' | relative_url }}">260204</a></td>
             <td>ABAP New Syntax - LOCAL CLASS & CALCULATION & INTERNAL TABLES & CONSTRUCTOR</td>
           </tr>
           <tr>
             <td class="col-tag">2026.02.05</td>
-            <td><a href="{{ '/studies/abap4/260205' | relative_url }}">20260205</a></td>
+            <td><a href="{{ '/studies/abap4/260205' | relative_url }}">260205</a></td>
             <td>ABAP New Syntax</td>
           </tr>
           <tr>
             <td class="col-tag">2026.02.06</td>
-            <td><a href="{{ '/studies/abap4/260206' | relative_url }}">20260206</a></td>
+            <td><a href="{{ '/studies/abap4/260206' | relative_url }}">260206</a></td>
             <td>ABAP_Quiz_22</td>
           </tr>
         </tbody>
