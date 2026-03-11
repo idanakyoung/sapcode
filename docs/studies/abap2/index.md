@@ -194,6 +194,7 @@ body{
         <tr><td class="col-tag">L11</td><td><a href="{{ '/studies/abap2/Lesson_11' | relative_url }}">Lesson 11</a></td><td>Mini 실습</td></tr>
         <tr><td class="col-tag">L12</td><td><a href="{{ '/studies/abap2/Lesson_12' | relative_url }}">Lesson 12</a></td><td>Mini 실습</td></tr>
         <tr><td class="col-tag">L13</td><td><a href="{{ '/studies/abap2/Lesson_13' | relative_url }}">Lesson 13</a></td><td>Mini 실습</td></tr>
+        <tr><td class="col-tag">L13</td><td><a href="{{ '/studies/abap2/ABAP_1st_Exam' | relative_url }}">ABAP_1st_Exam</a></td><td>Mini 실습</td></tr>
       </table>
       
       <br>
