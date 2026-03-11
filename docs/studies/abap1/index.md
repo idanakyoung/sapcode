@@ -233,33 +233,28 @@ body{
         </tr>
         <tr>
           <td class="col-tag">11/28</td>
-          <td><a href="{{ '/studies/abap1/Lesson10' | relative_url }}">Lesson 10</a></td>
+          <td><a href="{{ '/studies/abap1/Lesson_10' | relative_url }}">Lesson 10</a></td>
           <td>Performance During Table Access</td>
         </tr>
         <tr>
           <td class="col-tag">12/01</td>
-          <td><a href="{{ '/studies/abap1/Lesson11' | relative_url }}">Lesson 11</a></td>
+          <td><a href="{{ '/studies/abap1/Lesson_11' | relative_url }}">Lesson 11</a></td>
           <td>Dictionary Object Dependencies & Table Changes & Views and Maintenance Views</td>
         </tr>
         <tr>
           <td class="col-tag">12/02</td>
-          <td><a href="{{ '/studies/abap1/Lesson12' | relative_url }}">Lesson 12</a></td>
+          <td><a href="{{ '/studies/abap1/Lesson_12' | relative_url }}">Lesson 12</a></td>
           <td>Views & Joins & View Cluster & Search Helps & Screen</td>
         </tr>
         <tr>
           <td class="col-tag">12/03</td>
-          <td><a href="{{ '/studies/abap1/Lesson13' | relative_url }}">Lesson 13</a></td>
+          <td><a href="{{ '/studies/abap1/Lesson_13' | relative_url }}">Lesson 13</a></td>
           <td>Screen Painter & SAP List Viewer (ALV)</td>
         </tr>
         <tr>
           <td class="col-tag">12/04~12/12</td>
           <td><a href="{{ '/studies/abap1/ABAP_1st_Exam' | relative_url }}">ABAP 1st Exam 추가 정리 및 POU</a></td>
           <td>1차 시험 보충 정리 및 POU</td>
-        </tr>
-        <tr>
-          <td class="col-tag">12/04~12/12</td>
-          <td><a href="{{ '/studies/abap1/summary' | relative_url }}">ABAP 실습 파일 요약 및 정리</a></td>
-          <td>실습 파일 요약, 전체 흐름 정리</td>
         </tr>
       </table>
 
