@@ -36,10 +36,14 @@ body {
 .portal-header {
   background: var(--portal-card-bg);
   border-radius: 18px;
-  padding: 1.8rem 2rem;
+  padding: 2.2rem 2.8rem;
   box-shadow: var(--portal-shadow);
   border: 1px solid var(--portal-border);
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.8rem;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .portal-title {
