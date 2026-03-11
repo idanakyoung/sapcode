@@ -271,7 +271,7 @@ body {
           </tr>
           <tr>
             <td class="col-tag">2026.01.20~28</td>
-            <td><a href="{{ '/studies/abap4/260129_pou3' | relative_url }}">260129 (POU3)</a></td>
+            <td><a href="{{ '/studies/abap4/260120_28_pou3' | relative_url }}">260129 (POU3)</a></td>
             <td>POU (3)</td>
           </tr>
           <tr>
