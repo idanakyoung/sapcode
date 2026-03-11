@@ -1,299 +1,640 @@
-# 🧭 Lesson 12 -  **Views & Joins & View Cluster & Search Helps & Screen**
+# 🧭 Lesson 12 – Views / View Cluster / Search Help / Screen
 
-# 🔵 **Unit 1. Views & Joins Review**
+---
 
-1. **Views & Joins** 
-    1. 성능 관점: OPEN SQL JOIN vs DB View
-        
-        → ABAP 프로그램에서 JOIN을 직접 작성하는 것보다, ABAP Dictionary(SE11)에서 정적으로 정의한 View를 사용하면 데이터베이스 옵티마이저가 더 효율적으로 처리할 수 있어 성능이 유리할 수 있다. 또한 View는 테이블처럼 바로 SELECT할 수 있어 코드가 단순해지고 재사용성이 높아진다.
-        
-    2. Maintenance View 생성하는 두 번째 방법
-        1. 실습 진행 화면
-            
-            ![image.png](attachment:5fd23d95-e585-4eb7-b55a-a582b8b414d0:d00219ab-6c65-49d3-ad64-3afd5e8672f6.png)
-            
-            ![image.png](attachment:b4b6b586-fba5-492c-8623-66073058c8eb:image.png)
-            
-            ![image.png](attachment:c619ef15-c485-402c-b59e-68b92158765f:image.png)
-            
-            ![image.png](attachment:46eda21d-7287-41fa-845c-70711b3e2dd4:image.png)
-            
-            ![image.png](attachment:0074806f-d771-4104-8264-efe4e2062f58:image.png)
-            
-            ![image.png](attachment:474eac8c-d0d9-4d7e-8dbc-546684a5a1d2:image.png)
-            
-            ![image.png](attachment:cda8e6b5-9eab-480c-8463-85a9879d4179:image.png)
-            
-            ![image.png](attachment:8a9ad416-9a47-409c-b6a9-f1cafbf62b32:image.png)
-            
-            → 저장 버튼 클릭
-            
-            ![image.png](attachment:98aef3a9-99f1-4244-9dd8-201b5d87d798:image.png)
-            
-            → New Enties 클릭해서 display에서 새로운 데이터 추가 및 제거 등 수정 가능(저장 필수)
-            
-            ![image.png](attachment:41cd1710-e2e4-4a44-976d-2040c3922fe0:image.png)
-            
-            ![image.png](attachment:36b6ca06-d683-4443-9d56-c6f59243e956:image.png)
-            
-            → 생성 완료
-            
-        2. 오류 발생 시 : 패키지 내에 객체 안보일 때 클릭
-            
-            ![image.png](attachment:725de536-6278-4fd7-ae34-cadd1506c952:image.png)
-            
-        
+## 0) 전체 흐름(공통 뼈대)
 
-# 🔵 **Unit 2. View Cluster**
+```
+Dictionary 기반 조회/유지보수
+  1) View / Join 이해
+  2) Maintenance View 생성 및 유지보수
+  3) View Cluster로 계층형 유지보수
+  4) Search Help 생성 및 연결
+  5) Screen / Dynpro / Module Pool 기초 이해
+```
 
-1. View Cluster란?
-    1. **View Cluster(트랜잭션: SE54)는 여러 개의 테이블/뷰를 ‘계층 구조’로 묶어서 한 화면에서 편집할 수 있게 해주는 유지보수(Maintenance) 오브젝트**이다. 예를 들어, **헤더 테이블 + 아이템 테이블**을 함께 관리해야 할 때 하나의 유지보수 화면으로 처리할 수 있게 해준다.
-2. View Cluster 구성 요소
-    1. View/테이블
-    2. Hierarchy(계층 구조)
-    3. Maintenance Dialog
-    4. Events (Optional)
-3. View Cluster의 두 가지 핵심 장점
-    1. Navigation(네비게이션)
-        1. View Cluster는 테이블 간 **부모–자식 관계를 계층 구조로 보여주기 때문에**, 사용자가 데이터를 탐색할 때 자연스럽게 이동할 수 있다. 예를 들어 SCARR(항공사) → SPFLI(노선) → SFLIGHT(비행편) 같은 구조를 한 화면에서 손쉽게 위아래로 이동하며 조회・수정할 수 있다.
-    2. Consistency(일관성)
-        1. View Cluster는 관련된 모든 테이블을 하나의 유지보수 프로세스에서 처리하므로, **데이터 간의 관계(Referential Integrity)와 입력 규칙이 일관되게 유지된다.** 헤더를 저장하면 아이템도 올바르게 종속되도록 관리되고, 잘못된 구조(헤더 없는 아이템 등)가 발생하지 않는다.
+---
 
-# 🔵 **Unit 3. Search Helps**
+## 1) Unit 1. Views & Joins Review
 
-1. Search Help란?
-    1. **Search Help는 사용자가 필드 값을 쉽게 찾도록 도와주는 검색 창(Popup) 기능**이다. 예: 고객 번호, 자재 코드, 공장 코드처럼 직접 기억하기 어려운 값을 리스트로 검색하여 선택하게 해주는 SAP 표준 UX 요소
-    2. Search Help는 사용자가 필드 값을 쉽게 찾도록 도와주는 **표준 검색 팝업 기능**이며, Elementary/Collective 형태로 만들어 재사용할 수 있다. 데이터 요소에 연결하면 여러 프로그램에서 동일한 검색 UX를 적용할 수 있어 **입력 편의성과 데이터 정확성이 크게 향상**된다.
-    3. 실습 화면
-        
-        ![image.png](attachment:1e936872-4797-4ec3-899f-43a73da09814:image.png)
-        
-    4. 스크린에서 레이아웃 ( Screen Painter )
-        1. Screen Painter에 직접 Search Help 연결하는 방식 (비추천 ❌)
-        
-        그림 오른쪽의 Screen Painter는 Dynpro 화면을 의미합니다.
-        
-        - Screen Painter에서도 Search Help를 **직접 연결하는 기능은 있음**
-        - 그러나 이 방식은 재사용성이 떨어지고, Dictionary 변경 시 동기화 문제가 생길 수 있어 **SAP에서 권장하지 않음**
-        
-        ![image.png](attachment:8ba6cf66-f162-491e-a213-8f9d755b23c6:image.png)
-        
-    5. Search Help를 연결할 수 있는 위치
-        1. Data Element (데이터 요소) — 가장 권장 
-            
-            ![image.png](attachment:6a685f2d-1245-4a45-9ac9-2258a35f2604:image.png)
-            
-        2. Table 필드 / Structure 필드
-            
-            ![image.png](attachment:8fcc2d63-bae8-456b-aa36-52f031de4d9a:image.png)
-            
-        3. **Check Table(체크 테이블)**
-2. Selection Method란?
-    1. Search Help가 어떤 테이블 또는 View에서 데이터를 가져와서 F4 검색 팝업을 구성할지 결정하는 핵심 속성
-    2. Selection Method의 역할
-        1. F4 팝업에서 보여줄 데이터의 “출처” 결정
-        2. Search Help Parameter(입력/출력 필드)의 기준이 됨
-3. Search Help 생성 실습1
-    1. 실습 진행 화면
-        
-        ![image.png](attachment:e6e8dad8-3c24-4ae7-9da2-608ec127acd4:image.png)
-        
-        ![image.png](attachment:ae77ffbc-8b74-4daa-be54-e7d84e99e490:image.png)
-        
-        1) 방법 1
-        
-        ![image.png](attachment:472207cb-cd7e-41dc-a309-05e860aca683:image.png)
-        
-        ![image.png](attachment:e186a08f-c39d-4296-8aa5-1ed9e9bdf4ec:image.png)
-        
-        → 생성 완료
-        
-        ![image.png](attachment:df0ca3f9-7e47-42f0-9a2c-09ae4c7c4ebb:image.png)
-        
-        → 생성 완료 후 Search Help 확인
-        
-        2) 방법 2
-        
-        ![image.png](attachment:98c63c71-485e-4eab-8317-8c13cffef448:image.png)
-        
-        ![image.png](attachment:20317a2c-2b62-48cf-be7a-4d7bb54296f5:image.png)
-        
-        3) 방법 3
-        
-        ![image.png](attachment:4d3fc0bf-a344-4723-a74c-981173da332b:image.png)
-        
-        ![image.png](attachment:4ec0512c-5137-4070-853a-0be016e72ebe:image.png)
-        
-        - List Position 숫자가 없다면 Display Ui는 ?
-            
-            ![image.png](attachment:7b991ac0-4dc1-4b83-8d9a-f9789c6700d3:image.png)
-            
-            ![image.png](attachment:2ca8fac0-6b8e-45f7-b570-23c9066f6e18:image.png)
-            
-        - List Position 숫자가 더 높아지면?
-            
-            ![image.png](attachment:eb00472f-1b7e-4959-9912-10a8642bae59:image.png)
-            
-            ![image.png](attachment:9a34970b-9674-4bdf-9e6a-7cb162665998:image.png)
-            
-        - Selection Position 숫자가 없다면 Display Ui는 ?
-            
-            ![image.png](attachment:36e4f149-6683-43a9-9e6c-40d30b1bd3be:image.png)
-            
-            ![image.png](attachment:a3512341-0ed2-4991-8f97-1f5531e85729:image.png)
-            
-4. Search Help 생성 실습 2
-    1. 실습 진행 화면
-        
-        ![image.png](attachment:d4a749be-d8cb-4517-8906-5af60769717a:image.png)
-        
-        → 구조체 만들기 (ZSEMPLOY_G01)
-        
-        ![image.png](attachment:b0795666-665a-40b3-a16b-59688c370dc8:image.png)
-        
-        ![image.png](attachment:a473214b-d2e0-424f-9a03-1bda589b9b83:image.png)
-        
-        → Search Help 버튼 누르고 저장
-        
-        ```abap
-        REPORT ZABAP_22_G01.
-        
-        PARAMETERS: PA_CLS TYPE S_CLASS VALUE CHECK.
-        
-        PARAMETERS PA_CAR TYPE BC400_S_FLIGHT-CARRID.
-        PARAMETERS PA_EMP TYPE ZEMPLOYG01-EMP_NUM.
-        PARAMETERS PA_EMP2 TYPE ZSEMPLOY_G01-EMP_NUM.
-        PARAMETERS PA_ID TYPE ZSCUSTOMER_G01-ID
-            MATCHCODE OBJECT ZSHCUSTOM_G01.
-        PARAMETERS PA_EMP3 TYPE ZEMPNUMG01.
-        
-        WRITE: 'Class : ', PA_CLS.
-        ```
-        
-        → 프로그램 내 코드
-        
-        ![image.png](attachment:f8c59d6c-2ded-41b3-97ed-cdc5d5c03141:image.png)
-        
-        → 결과
-        
-5. SAP HANA 이후에 추가된 *고급 검색 기능*
-    1. Autosuggest in Input Fields
-        
-        **: 입력창에 글자를 치는 순간 즉시 제안 목록이 자동으로 뜨는 기능**
-        
-    2. Multi-column full text search (database-specific)
-        
-        **: 서치헬프의 여러 필드(컬럼) 전체를 “풀 텍스트 검색”하는 기능**
-        
-        ![image.png](attachment:4cf63f8b-4e9b-44df-8b5a-a0b629fa24e1:image.png)
-        
-        ![image.png](attachment:f73331b6-0f19-4118-b155-170f7959333d:image.png)
-        
+### 핵심
 
-# 🔵 **Unit 4. Screen**
+- Open SQL에서 직접 JOIN을 쓰는 방법과, SE11에서 View를 정의해서 사용하는 방법이 있다.
+- 정적으로 정의된 **DB View**는 재사용성과 코드 단순화 측면에서 유리하다.
+- Maintenance View는 SE11에서 생성 후 **Table Maintenance Generator**와 연결해서 실제 유지보수 화면까지 만든다.
 
-1. Screens and Program Types
-    1. Executable program (Report)
-        1. REPORT 타입 프로그램에서도 스크린을 사용할 수 있다.
-        - 용도
-            - 리스트 대신(또는 리스트 위에) 별도의 스크린을 띄워 데이터를 보여주거나
-            - 리스트의 일부를 더 상세히 보여주기 위해 스크린을 사용할 수 있다.
-        - 하지만 재사용성과 캡슐화를 위해, SAP에서는
-            - 리포트에서 직접 스크린을 많이 만드는 것보다
-            - 스크린은 따로 Function Group에 두고, 리포트에서 그 스크린을 사용하는 방식을 더 권장한다.
-    2. Function group
-        1. Function group 안에는 Function module들과 이들과 연결된 screens / screen sequence를 함께 넣을 수 있다. 스크린은 Dialog Transaction을 통해 접근할 수 있고, Function module 코드 안에서 `CALL SCREEN` 문으로 시작할 수도 있다.
-        - SAP 권장사항
-            - 재사용성과 캡슐화를 위해 스크린과 스크린 시퀀스를 Function Group에 만들어두고,
-            - 필요할 때마다 다양한 프로그램/트랜잭션에서 기능모듈을 통해 재사용하는 방식이 좋다고 한다.
-    3. Module pool
-        1. Module pool 프로그램도 Dialog Transaction에서만 호출된다.
-        2. 이름은 SAPMZ 또는 SAPMY로 시작
-            - Function group과 달리,
-                - Module pool 안의 스크린은 “외부 인터페이스”가 잘 정리된 형태로 사용되기 어렵다.
-                - 스크린들을 별도의 기능 모듈로 캡슐화하는 구조가 아니기 때문
-            - 그래서 SAP는 새로운 스크린 개발 시 직접 module pool을 늘리기보다는, Function group을 활용해 재사용 가능한 스크린 시퀀스를 만드는 것을 좀 더 선호한다고 설명한다
-    4. Screens 가능 Program Type 비교 표
+---
+
+### 1-1) OPEN SQL JOIN vs DB View
+
+### 핵심
+
+- ABAP 프로그램에서 직접 `JOIN`을 작성할 수 있다.
+- 하지만 ABAP Dictionary(SE11)에 **정적으로 View**를 만들어두면
+    - 재사용 가능
+    - 코드가 단순해짐
+    - DB 레벨 최적화에 유리할 수 있음
+
+### 비교
+
+| 항목 | OPEN SQL JOIN | DB View |
+| --- | --- | --- |
+| 작성 위치 | 프로그램 내부 | SE11(Dictionary) |
+| 재사용성 | 낮음 | 높음 |
+| 코드 길이 | 길어질 수 있음 | 짧아짐 |
+| 유지보수 | 프로그램별 수정 | View 한 곳 수정 |
+| 성능 | 상황에 따라 다름 | 정적 정의라 유리할 수 있음 |
+
+### 포인트
+
+- 시험에서는 “무조건 DB View가 빠르다”보다
     
-    | Program Type | 스크린 사용 가능 여부 | 특징 요약 | SAP 권장도 |
-    | --- | --- | --- | --- |
-    | **Executable Program (REPORT)** | 가능하지만 제한적 | 리스트 출력 기반 프로그램에서 스크린을 띄울 수 있음. `CALL SCREEN` 사용 가능. 하지만 직접 스크린을 넣으면 재사용성이 떨어짐. | ⚠️ 권장하지 않음 |
-    | **Function Group (FG)** | 가능 (권장) | Function Module + Screen + Screen Sequence를 하나로 묶어 캡슐화 가능. 재사용성이 매우 높고 화면 로직을 기능 모듈로 감싸는 구조가 명확함. | ✅ SAP 권장 |
-    | **Module Pool (Type M)** | 가능 | 이름은 SAPMZ 또는 SAPMY로 시작 | ⚠️ 완전 비추천은 아니나 FG보다 낮음 |
-    | **기타(Include, Class Pool 등)** | 불가 | UI 적용 목적 아님. 스크린 생성 불가. | ❌ 해당 없음 |
-2. Screen Painter란?
-    1. Screen Painter는 SAP GUI에서 **Dynpro(Screen)** 을 만들고 편집하기 위한 UI 개발 도구이다. SE51 또는 프로그램 내부의 Screen Editing 기능을 통해 접근한다. (SAP 전통 UI 개발 도구)
-    2. Screen Painter의 주요 구성
-        1. Properties (스크린 속성)
-        2. Layout Editor (그래픽 레이아웃 화면)
-        3. Element List
-        4. Flow Logic
-    3. 프로그램 includes(예: TOP, O01, I01)에 MODULE 구현
-3. Components of a Screen (스크린 구성 요소)
-4. Graphical Layout Editor
-5. **Module Pool** 실습
-    1. **Module Pool 은 TOP Include 해야 함**
-        1. 실습 진행 화면
-            
-            ![image.png](attachment:57b6b215-826c-42f2-a0a2-27066f6417fa:image.png)
-            
-            → 명명 규칙 : 실습코드에서 SAP 글자만 지우고 뒤 붙여 넣기 + TOP
-            
-            ![image.png](attachment:782374b9-8724-48d3-88a4-8820c25899e2:image.png)
-            
-            ![image.png](attachment:b307303f-95fd-45cf-a492-e049887b0400:image.png)
-            
-            ![image.png](attachment:45425a34-3836-4947-90ec-3673912ca2fa:image.png)
-            
-            ![image.png](attachment:5b80b386-4b12-4118-b75c-1ab41dff3c00:image.png)
-            
-            ![image.png](attachment:300b95c9-4245-4b9b-b793-e1f4ddbdcce1:image.png)
-            
-            ![image.png](attachment:562d2ef5-50f6-4a84-b7bc-4157191ca3c8:image.png)
-            
-            → 번호 200의 스크린도 만들기
-            
-            ![image.png](attachment:f07797d6-cf61-4fcc-bd37-84f0aeb5ae2d:image.png)
-            
-            ```abap
-            *&---------------------------------------------------------------------*
-            *& Include          MZSCR_G01I01
-            *&---------------------------------------------------------------------*
-            *&---------------------------------------------------------------------*
-            *&      Module  USER_COMMAND_0100  INPUT
-            *&---------------------------------------------------------------------*
-            *       text
-            *----------------------------------------------------------------------*
-            MODULE USER_COMMAND_0100 INPUT.
-            * 버튼 클릭시 버튼에 설정된 Function code가
-            * ok_code에 전달됨.
-              CASE OK_CODE.
-                WHEN 'GO'.
-            * Function Code가 GO이면 200번 스크린으로 이동.
-                  SET SCREEN 200.
-              ENDCASE.
-            ENDMODULE.
-            *&---------------------------------------------------------------------*
-            *&      Module  USER_COMMAND_0200  INPUT
-            *&---------------------------------------------------------------------*
-            *       text
-            *----------------------------------------------------------------------*
-            MODULE USER_COMMAND_0200 INPUT.
-            * 버튼 클릭시 버튼에 설정된 Function code가
-            * ok_code에 전달됨.
-              CASE OK_CODE.
-                WHEN 'BACK'.
-            * Function Code가 BACK이면 100번 스크린으로 이동.
-                  SET SCREEN 100.
-                WHEN 'EXIT'.
-            * Function Code가 BACK이면 프로그램 시작한 곳으로 이동.
-                  SET SCREEN 0.
-              ENDCASE.
-            ENDMODULE.
-            ```
-            
-            ![image.png](attachment:207d8726-b720-45d8-b134-5f76fe691b75:image.png)
-            
-            ![image.png](attachment:2ed180ee-3840-4d2c-ad07-68c44267b121:image.png)
-            
-            → 실행 화면
+    **재사용성과 정적 정의의 장점**을 중심으로 이해하는 게 좋음
+    
+- 실무에서는 상황 따라 Open SQL JOIN도 많이 사용함
+
+---
+
+### 1-2) Maintenance View 생성하는 두 번째 방법
+
+### 생성 흐름
+
+```
+SE11 → View 생성
+  → View Type 선택 (Maintenance View)
+  → 기본 속성 입력
+  → Base Table / Related Table 설정
+  → 필드 선택
+  → Maintenance Status 설정
+  → 정의 점검
+  → Utilities → Table Maintenance Generator
+  → 저장 및 활성화
+  → SM30 또는 유지보수 화면 진입
+```
+
+---
+
+### 1-3) Maintenance View 생성 순서
+
+### 1) 시작 화면
+
+```
+SE11 / ABAP Dictionary
+Object Type : View
+View Name   : Zxxxxxxxx
+[Create]
+```
+
+### 2) View Type 선택
+
+```
+Database View
+Projection View
+Maintenance View   ← 선택
+Help View
+```
+
+### 3) 기본 정보 입력
+
+- Short Description
+- Maintenance Status
+- Package / Transport Request
+
+### 4) 기초 테이블 지정
+
+- Base Table 선택
+- Related Table 연결
+- 필요한 관계 설정
+
+### 5) 필드 선택
+
+- Key Fields
+- Display Fields
+- Maintenance 대상 필드
+
+### 6) 유지보수 속성 설정
+
+- Display / Maintenance 허용 여부
+- Maintenance Dialog 생성 준비
+
+### 7) 최종 점검
+
+- Tables
+- Fields
+- Selection Conditions
+- Maintenance 가능 여부 확인
+
+### 8) Maintenance Dialog 생성
+
+```
+Utilities → Table Maintenance Generator
+```
+
+- Function Group
+- Authorization Group
+- Recording Routine 설정
+
+### 9) 저장 후 실행
+
+- 저장
+- `New Entries`
+- `Change / Delete / Display`
+- 저장 필수
+
+### 포인트
+
+- Maintenance View만 만들고 끝나는 게 아니라
+    
+    **Table Maintenance Generator까지 연결해야 실제 유지보수 화면 사용 가능**
+    
+- 생성 후 패키지에서 객체가 안 보이면 Refresh / Object Directory 확인
+
+---
+
+## 2) Unit 2. View Cluster
+
+### 핵심
+
+- **View Cluster(SE54)** 는 여러 테이블/뷰를 **계층 구조**로 묶어서 한 화면에서 유지보수하는 오브젝트
+- Header–Item 같은 관계를 한 번에 관리할 때 유용하다
+
+---
+
+### 2-1) View Cluster란?
+
+- 여러 개의 View / Table을 하나의 유지보수 단위로 묶음
+- 계층 구조로 탐색 가능
+- 관련 데이터를 하나의 흐름에서 수정 가능
+
+### 예시 구조
+
+```
+SCARR
+  ↓
+SPFLI
+  ↓
+SFLIGHT
+```
+
+---
+
+### 2-2) View Cluster 구성 요소
+
+- View / Table
+- Hierarchy(계층 구조)
+- Maintenance Dialog
+- Events(Optional)
+
+---
+
+### 2-3) View Cluster의 핵심 장점
+
+### 1) Navigation
+
+- 부모–자식 관계를 계층적으로 보여줌
+- 관련 데이터로 자연스럽게 이동 가능
+
+예:
+
+- 항공사 → 노선 → 비행편
+
+### 2) Consistency
+
+- 연관 테이블을 하나의 유지보수 프로세스로 관리
+- 데이터 일관성 유지에 유리
+- 헤더 없는 아이템 같은 비정상 구조 방지에 도움
+
+### 포인트
+
+- Maintenance View가 “한 개 유지보수 단위”라면
+- View Cluster는 “여러 유지보수 단위를 묶은 상위 구조”로 보면 이해가 쉬움
+
+---
+
+## 3) Unit 3. Search Helps
+
+### 핵심
+
+- Search Help는 SAP의 표준 **F4 검색 팝업**
+- 사용자가 코드를 외우지 않아도 값을 쉽게 찾고 선택할 수 있게 해준다
+- Elementary / Collective 형태로 만들 수 있고, Data Element에 연결하는 방식이 가장 권장된다
+
+---
+
+### 3-1) Search Help란?
+
+- 필드 값 검색을 도와주는 표준 팝업 기능
+- 고객번호, 자재번호, 사번 등 입력 편의성 제공
+- 재사용 가능
+- 입력 정확성 향상
+
+### 포인트
+
+- 단순 편의 기능이 아니라
+    
+    **데이터 품질과 UX를 동시에 높이는 Dictionary 기능**
+    
+
+---
+
+### 3-2) Search Help 생성 시작
+
+```
+SE11 / Search Help
+Search Help Name : ZSHXXXX
+[Create]
+Type : Elementary / Collective
+```
+
+---
+
+### 3-3) Search Help를 연결할 수 있는 위치
+
+### 1) Data Element — 가장 권장
+
+```
+Data Element
+Search Help = ZSHXXXX
+```
+
+### 2) Table Field / Structure Field
+
+- 필드 속성에 직접 지정 가능
+
+### 3) Check Table
+
+- 체크 테이블 기반으로도 검색 도움 가능
+
+### 4) Screen Painter 직접 연결 — 비추천
+
+- Dynpro에 직접 연결 가능하긴 함
+- 하지만 재사용성 낮음
+- Dictionary와 동기화 이슈 가능
+
+### 포인트
+
+- **가장 권장되는 방식은 Data Element 연결**
+- 한 번 연결하면 여러 화면/프로그램에서 재사용 가능
+
+---
+
+### 3-4) Selection Method란?
+
+### 정의
+
+- Search Help가 어떤 테이블 또는 View에서 데이터를 가져올지 정하는 핵심 속성
+
+### 역할
+
+- F4 팝업의 데이터 출처 결정
+- Parameters의 기준 결정
+- 어떤 필드를 보여주고 반환할지 결정하는 기반
+
+### 포인트
+
+- Search Help의 “조회 원본”을 정하는 개념
+- 보통 테이블이나 View를 Selection Method로 사용
+
+---
+
+### 3-5) Search Help 기본 정의 화면
+
+### 설정 항목
+
+- Short Text
+- Selection Method
+- Dialog Type
+
+### Parameter 설정
+
+- Import / Export
+- LPos (List Position)
+- SPos (Selection Position)
+- Display Field 지정
+
+---
+
+### 3-6) Search Help 생성 방법
+
+### 방법 1) SE11에서 직접 생성
+
+```
+SE11 → Search Help Create
+  → Elementary Search Help 설정
+  → Selection Method 지정
+  → Parameters 설정
+  → Activate
+```
+
+### 방법 2) Table / Data Element에서 진입
+
+- 관련 객체에서 Search Help 속성 기반으로 생성/연결
+
+### 방법 3) 기존 Dictionary 객체 기반 생성
+
+- 기존 구조를 바탕으로 Search Help를 구성
+- 파라미터와 Selection Method 조정
+
+### 포인트
+
+- 실습에서는 보통 방법 1이 가장 이해하기 쉬움
+- 실무에서는 기존 Data Element / Field와 연결하며 작업하는 경우도 많음
+
+---
+
+### 3-7) LPos / SPos 의미
+
+### LPos (List Position)
+
+- F4 결과 리스트에서 컬럼 표시 순서
+
+### LPos가 없으면
+
+- 리스트 컬럼이 보이지 않거나
+- 원하는 순서대로 안 나올 수 있음
+
+### LPos가 커지면
+
+- 해당 컬럼이 뒤쪽 순서로 표시됨
+
+---
+
+### SPos (Selection Position)
+
+- 검색 조건 입력 화면에서 필드 표시 순서
+
+### SPos가 없으면
+
+- 검색 조건 입력 필드에 잘 안 보이거나
+- 조건 창에 안 나타날 수 있음
+
+### 포인트
+
+- **LPos = 결과 리스트용**
+- **SPos = 검색 조건 입력용**
+- 시험에서 자주 헷갈리는 포인트
+
+---
+
+### 3-8) Search Help 실습 2 – Structure 연계
+
+### 구조체 예시
+
+```
+ZSEMPLOY_G01
+  EMP_NUM
+  NAME
+  ...
+```
+
+### 프로그램 예시
+
+```
+REPORT ZABAP_22_G01.
+
+PARAMETERS: PA_CLS TYPE S_CLASS VALUE CHECK.
+
+PARAMETERS PA_CAR  TYPE BC400_S_FLIGHT-CARRID.
+PARAMETERS PA_EMP  TYPE ZEMPLOYG01-EMP_NUM.
+PARAMETERS PA_EMP2 TYPE ZSEMPLOY_G01-EMP_NUM.
+PARAMETERS PA_ID   TYPE ZSCUSTOMER_G01-ID
+                   MATCHCODE OBJECT ZSHCUSTOM_G01.
+PARAMETERS PA_EMP3 TYPE ZEMPNUMG01.
+
+WRITE: 'Class : ', PA_CLS.
+```
+
+### 포인트
+
+- Data Element나 Structure Field에 Search Help가 연결되어 있으면
+    
+    PARAMETERS에서 자동으로 F4 Help가 동작할 수 있음
+    
+- `MATCHCODE OBJECT`로 직접 연결하는 방식도 가능
+
+---
+
+### 3-9) SAP HANA 이후 고급 검색 기능
+
+### 핵심
+
+- 입력하면서 즉시 제안 목록이 뜨는 기능 지원
+- 여러 컬럼을 대상으로 **Full Text Search** 가능
+
+### 기능
+
+- Type-ahead / Suggestion
+- Multi-column full text search
+
+### 포인트
+
+- 최신 UX 개선 기능
+- SE11 Search Help 설정에서 지정 가능
+- 단순 F4보다 사용자 경험이 더 좋아짐
+
+---
+
+## 4) Unit 4. Screen
+
+### 핵심
+
+- SAP 전통 UI는 **Dynpro(Screen)** 기반
+- 스크린은 REPORT, Function Group, Module Pool 등에서 사용할 수 있지만
+- SAP는 재사용성과 캡슐화를 위해 **Function Group 기반**을 더 선호한다
+
+---
+
+### 4-1) Screens and Program Types
+
+### 1) Executable Program (REPORT)
+
+- REPORT에서도 `CALL SCREEN` 사용 가능
+- 리스트 대신 혹은 추가 상세화면으로 사용 가능
+- 하지만 재사용성이 낮음
+
+### 2) Function Group
+
+- Function Module + Screen + Screen Sequence를 함께 구성 가능
+- Dialog Transaction에서 접근 가능
+- 재사용성과 캡슐화가 좋음
+- SAP 권장 방식
+
+### 3) Module Pool
+
+- Dialog Transaction에서 호출
+- 이름은 보통 `SAPMZ*`, `SAPMY*`
+- Screen 개발 가능
+- Function Group만큼 재사용 구조가 좋지는 않음
+
+### 4) 기타(Include, Class Pool 등)
+
+- 스크린 생성 목적 아님
+- 직접적인 스크린 오브젝트 사용 불가
+
+---
+
+### 4-2) Program Type 비교
+
+| Program Type | 스크린 사용 가능 여부 | 특징 요약 | SAP 권장도 |
+| --- | --- | --- | --- |
+| Executable Program (REPORT) | 가능하지만 제한적 | CALL SCREEN 가능, 재사용성 낮음 | ⚠️ 낮음 |
+| Function Group (FG) | 가능 | FM + Screen + Sequence 캡슐화 | ✅ 높음 |
+| Module Pool (Type M) | 가능 | 전통적 Dynpro 프로그램 | ⚠️ FG보다 낮음 |
+| 기타 Include / Class Pool | 불가 | UI 목적 아님 | ❌ 불가 |
+
+---
+
+### 4-3) Screen Painter란?
+
+### 정의
+
+- Dynpro(Screen)를 만들고 편집하는 SAP GUI 도구
+- `SE51` 또는 프로그램 내부 Screen Editing에서 접근
+
+### 주요 구성
+
+- Properties
+- Layout Editor
+- Element List
+- Flow Logic
+
+### 포인트
+
+- 화면 모양은 Layout Editor
+- 동작 흐름은 Flow Logic
+- 실제 MODULE 구현은 Include에서 함
+
+---
+
+### 4-4) Module Pool 실습
+
+### 핵심
+
+- Module Pool은 **TOP Include 필요**
+- 보통 `TOP / O01 / I01` 구조로 나눠서 작성
+- Screen 번호별로 PBO / PAI 로직을 연결한다
+
+---
+
+### 4-5) Module Pool 생성 흐름
+
+```
+Module Pool 생성
+  → TOP Include 생성
+  → O01 / I01 Include 구성
+  → Screen 100 생성
+  → Layout 작성
+  → Flow Logic 연결
+  → Screen 200 생성
+  → 버튼별 Function Code 처리
+```
+
+---
+
+### 4-6) 명명 규칙
+
+### 예시
+
+```
+Main Program : SAPMZSCR_G01
+TOP Include  : MZSCR_G01TOP
+```
+
+### 포인트
+
+- 실습에서는 보통 메인 프로그램명에서 `SAP`를 제외하고 Include 이름을 만듦
+- `TOP`, `O01`, `I01` 패턴 자주 사용
+
+---
+
+### 4-7) Screen 구성
+
+### Screen 100
+
+- 입력 화면
+- GO 버튼
+
+### Screen 200
+
+- 결과 화면
+- BACK / EXIT 버튼
+
+---
+
+### 4-8) PAI 모듈 예시
+
+```
+*&---------------------------------------------------------------------*
+*& Include          MZSCR_G01I01
+*&---------------------------------------------------------------------*
+
+MODULE USER_COMMAND_0100 INPUT.
+  CASE OK_CODE.
+    WHEN 'GO'.
+      SET SCREEN 200.
+  ENDCASE.
+ENDMODULE.
+
+MODULE USER_COMMAND_0200 INPUT.
+  CASE OK_CODE.
+    WHEN 'BACK'.
+      SET SCREEN 100.
+    WHEN 'EXIT'.
+      SET SCREEN 0.
+  ENDCASE.
+ENDMODULE.
+```
+
+### 포인트
+
+- 버튼 클릭 시 Function Code가 `OK_CODE`에 들어감
+- `SET SCREEN 200` → 다음 화면 이동
+- `SET SCREEN 0` → 호출 이전 화면/종료로 복귀
+
+---
+
+## 5) Lesson 12 전체 비교(한 눈에)
+
+| 항목 | 핵심 | 장점 | 주의점 |
+| --- | --- | --- | --- |
+| DB View | Dictionary에 정적 View 정의 | 재사용성, 코드 단순화 | 상황 따라 JOIN과 비교 필요 |
+| Maintenance View | 유지보수용 View | SM30 스타일 관리 가능 | Generator까지 필요 |
+| View Cluster | 여러 View/Table 계층 관리 | Navigation, Consistency | 구조 설계 필요 |
+| Search Help | F4 검색 지원 | 입력 편의, 정확성 향상 | Data Element 연결 권장 |
+| LPos / SPos | 리스트/검색 조건 위치 제어 | UI 제어 가능 | 서로 역할 혼동 주의 |
+| Screen / Dynpro | SAP 전통 화면 | 상세 UI 구현 가능 | 구조 분리 중요 |
+| Function Group | 재사용 가능한 스크린 구성 | 캡슐화, 재사용성 우수 | 구성 이해 필요 |
+| Module Pool | 전통적인 대화형 프로그램 | 화면 제어 명확 | FG보다 재사용성 낮음 |
+
+---
+
+## 6) 시험 포인트 / 실무 포인트
+
+### 6-1) 시험 포인트
+
+- **OPEN SQL JOIN vs DB View 차이**
+- **Maintenance View 생성 절차**
+- **View Cluster의 목적**
+- **Search Help의 Selection Method 의미**
+- **LPos / SPos 차이**
+- **Search Help 연결 위치 중 Data Element가 가장 권장**
+- **REPORT / FG / Module Pool의 스크린 사용 차이**
+- **Module Pool에서 TOP Include 필요**
+
+### 6-2) 실무 포인트
+
+- 단순 조회 반복이면 View로 공통화하면 관리가 편함
+- 유지보수 목적이면 Maintenance View + Generator까지 연결
+- 관련 테이블이 많으면 View Cluster 고려
+- Search Help는 Data Element에 걸어야 재사용성이 좋음
+- 스크린 로직은 TOP / O01 / I01 등으로 분리해서 관리
+
+---
+
+## 7) Lesson 12에서 제일 중요한 결론
+
+- **조회 재사용**이 목적이면 View를 잘 설계하는 것이 중요하다
+- **유지보수 화면**이 목적이면 Maintenance View와 View Cluster를 구분해서 써야 한다
+- **검색 편의성**은 Search Help가 담당하며, Data Element 연결이 가장 깔끔하다
+- **SAP 전통 화면 개발**은 Dynpro 기반이며, Function Group / Module Pool 구조 이해가 중요하다
+- **LPos와 SPos, OK_CODE, SET SCREEN** 같은 키워드는 시험에서 매우 자주 헷갈리는 핵심 포인트다
