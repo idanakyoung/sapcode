@@ -193,27 +193,22 @@ body {
             <tr>
               <td>⚙️ <strong>ABAP1</strong></td>
               <td><a href="/sapcode/studies/abap1/">ABAP1 정리</a></td>
-              <td>ABAP Overview, Basic Elements, Modularization, FM, BAPI, Internal Table</td>
+              <td>ABAP Foundation, Modularization, FM, BAPI, Internal Table, Open SQL, Dictionary, View, Search Help, Screen, ALV, 1차 시험 정리</td>
             </tr>
             <tr>
               <td>🧱 <strong>ABAP2</strong></td>
               <td><a href="/sapcode/studies/abap2/">ABAP2 정리</a></td>
-              <td>Data Modeling, Open SQL, Dictionary, View, Search Help, Screen, ALV</td>
+              <td>Screen Program, 전공 리포트 개발, ALV Screen, ALV Grid, Multiple DB Tables</td>
             </tr>
             <tr>
               <td>💾 <strong>ABAP3</strong></td>
               <td><a href="/sapcode/studies/abap3/">ABAP3 정리</a></td>
-              <td>Screen Program, Report 개발, ALV Screen, ALV Grid, Multiple DB Tables</td>
+              <td>Open SQL(BC414), Objects(BC401), Inheritance, Casting, Interface, OO Events, Repository Objects</td>
             </tr>
             <tr>
               <td>🧩 <strong>ABAP4</strong></td>
               <td><a href="/sapcode/studies/abap4/">ABAP4 정리</a></td>
-              <td>Open SQL, Objects, Inheritance, Casting, Interface, OO Events</td>
-            </tr>
-            <tr>
-              <td>🏗 <strong>ABAP5</strong></td>
-              <td><a href="/sapcode/studies/abap5/">ABAP5 정리</a></td>
-              <td>HANA, New Open SQL, ADBC, CDS, Association, Input Parameter, POU</td>
+              <td>HANA, New Open SQL, ADBC, HANA ALV, CDS View, Annotation, Association, Input Parameter, POU, ABAP New Syntax, 2차 시험 정리</td>
             </tr>
             <tr>
               <td>🌐 <strong>Gateway</strong></td>
@@ -260,30 +255,24 @@ body {
             </tr>
             <tr>
               <td><strong>ABAP1</strong></td>
-              <td>11/14 ~ 11/24</td>
-              <td>ABAP Overview, Basic Language Elements, Modularization, Function Module, BAPI, Internal Table</td>
-              <td>기초 문법 정리, FM/BAPI 예제, Internal Table 실습, 개발 패턴 노트</td>
+              <td>11/14 ~ 12/12</td>
+              <td>ABAP Overview, Basic Language Elements, Modularization, Function Module, BAPI, Internal Table, Data Modeling & Retrieval, Open SQL & Inner Join, Dictionary, Performance During Table Access, Views, Search Help, Screen, ALV, 1차 시험 정리</td>
+              <td>기초 문법 정리, FM/BAPI 예제, Internal Table 실습, SQL/Join 예제, DDIC 객체 정리, View/Search Help 구성, Screen/ALV 예제, 시험 추가 정리 및 실습 요약</td>
             </tr>
             <tr>
               <td><strong>ABAP2</strong></td>
-              <td>11/25 ~ 12/12</td>
-              <td>Data Modeling & Retrieval, Open SQL & Inner Join, Dictionary, Performance During Table Access, Views, Search Help, Screen, ALV, 1차 시험 정리</td>
-              <td>Dictionary 객체 정리, SQL/Join 예제, Screen/ALV 예제, 시험 추가 정리 및 실습 요약</td>
-            </tr>
-            <tr>
-              <td><strong>ABAP3</strong></td>
               <td>12/15 ~ 12/31</td>
               <td>Screen Program(1~4), 전공 리포트 개발, ALV Screen 생성, ALV Grid(1~4), Multiple Database Tables</td>
               <td>Screen Program 실습, Report Program 예제, ALV Grid 예제, 다중 테이블 조회 정리</td>
             </tr>
             <tr>
-              <td><strong>ABAP4</strong></td>
+              <td><strong>ABAP3</strong></td>
               <td>12/31 ~ 1/6</td>
               <td>Open SQL(BC414), Objects(BC401), Inheritance, Casting, Interface, Object-Oriented Events, Repository Objects</td>
               <td>OO 개념 정리, 상속/캐스팅 예제, 인터페이스 실습, 객체지향 ABAP 정리</td>
             </tr>
             <tr>
-              <td><strong>ABAP5</strong></td>
+              <td><strong>ABAP4</strong></td>
               <td>1/7 ~ 2/6</td>
               <td>SAP HANA/Open SQL, New Open SQL, ADBC, HANA ALV, CDS View, Annotation, Association, Built-in Functions, Input Parameters, POU, ABAP New Syntax</td>
               <td>CDS 예제, New Syntax 정리, 2차 시험/풀이, POU 정리, Quiz 및 실전형 코드 예제</td>
@@ -326,7 +315,7 @@ body {
 
     <aside>
 
-    <section class="portal-card portal-side-card">
+      <section class="portal-card portal-side-card">
         <h2>📅 월별 진행 일정</h2>
       
         <table class="portal-table" style="font-size:0.85rem;">
@@ -342,24 +331,20 @@ body {
               <td>UX1 시작 (UI5 / HTML / JS)</td>
             </tr>
             <tr>
-              <td><strong>11월 중순</strong></td>
-              <td>ABAP1 시작 (기초 문법 / Modularization / FM / BAPI)</td>
-            </tr>
-            <tr>
-              <td><strong>11월 말 ~ 12월</strong></td>
-              <td>ABAP2 진행 (Open SQL / Dictionary / View / Screen / ALV)</td>
+              <td><strong>11월 중순 ~ 12월 초</strong></td>
+              <td>ABAP1 진행 (기초 문법 / Modularization / FM / BAPI / Internal Table / Open SQL / Dictionary / View / Screen / ALV)</td>
             </tr>
             <tr>
               <td><strong>12월 중순 ~ 말</strong></td>
-              <td>ABAP3 진행 (Screen Program / Report / ALV Grid / Multi DB)</td>
+              <td>ABAP2 진행 (Screen Program / Report / ALV Grid / Multi DB)</td>
             </tr>
             <tr>
               <td><strong>12월 말 ~ 1월 초</strong></td>
-              <td>ABAP4 진행 (OO ABAP / Inheritance / Casting / Interface)</td>
+              <td>ABAP3 진행 (OO ABAP / Inheritance / Casting / Interface)</td>
             </tr>
             <tr>
               <td><strong>1월 ~ 2월 초</strong></td>
-              <td>ABAP5 진행 (HANA / CDS / New Syntax / POU / 시험 정리)</td>
+              <td>ABAP4 진행 (HANA / CDS / New Syntax / POU / 시험 정리)</td>
             </tr>
             <tr>
               <td><strong>2월 중순</strong></td>
