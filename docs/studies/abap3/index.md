@@ -1,5 +1,5 @@
 ---
-title: ABAP3 — HANA / CDS / New Syntax
+title: ABAP3 — Open SQL & ABAP Objects
 ---
 
 <style>
@@ -202,26 +202,47 @@ body {
     <div class="topnav">
       <a href="{{ '/' | relative_url }}">← SAP CODE 메인으로</a>
     </div>
-    <h1>💾 ABAP3 — HANA / CDS / New Syntax</h1>
-    <p>HANA 기반 개발을 위한 ABAP 최신 기술 스택을 학습합니다. CDS, AMDP, New Syntax 등 중심으로 구성.</p>
+    <h1>💾 ABAP3 — Open SQL & ABAP Objects</h1>
+    <p>BC414의 Open SQL과 BC401의 객체지향 ABAP 기초를 중심으로, 상속·캐스팅·인터페이스·이벤트·Repository Objects까지 학습한 과정을 정리합니다.</p>
+    <p class="small">기간: 2025.12.31 ~ 2026.01.06</p>
   </div>
 
   <div class="grid">
 
     <!-- LEFT -->
     <div class="card">
-      <h2>✏️ 학습 구성<span class="badge">Lesson Index</span></h2>
+      <h2>✏️ 학습 구성 <span class="badge">Lesson Index</span></h2>
       <table class="tbl">
-        <tr><td class="col-tag">AB3 1</td><td><a href="{{ '/studies/abap3/Lesson1' | relative_url }}">Lesson 1</a></td><td>New ABAP Syntax 소개</td></tr>
-        <tr><td class="col-tag">AB3 2</td><td><a href="{{ '/studies/abap3/Lesson2' | relative_url }}">Lesson 2</a></td><td>내장 타입 & 인라인 선언</td></tr>
-        <tr><td class="col-tag">AB3 3</td><td><a href="{{ '/studies/abap3/Lesson3' | relative_url }}">Lesson 3</a></td><td>LOOP AT GROUP</td></tr>
-        <tr><td class="col-tag">AB3 4</td><td><a href="{{ '/studies/abap3/Lesson4' | relative_url }}">Lesson 4</a></td><td>CDS View 기본</td></tr>
-        <tr><td class="col-tag">AB3 5</td><td><a href="{{ '/studies/abap3/Lesson5' | relative_url }}">Lesson 5</a></td><td>CDS View 심화</td></tr>
-        <tr><td class="col-tag">AB3 6</td><td><a href="{{ '/studies/abap3/Lesson6' | relative_url }}">Lesson 6</a></td><td>AMDP 소개</td></tr>
-        <tr><td class="col-tag">AB3 7</td><td><a href="{{ '/studies/abap3/Lesson7' | relative_url }}">Lesson 7</a></td><td>Open SQL 향상</td></tr>
-        <tr><td class="col-tag">AB3 8</td><td><a href="{{ '/studies/abap3/Lesson8' | relative_url }}">Lesson 8</a></td><td>Annotation 활용</td></tr>
-        <tr><td class="col-tag">AB3 9</td><td><a href="{{ '/studies/abap3/Lesson9' | relative_url }}">Lesson 9</a></td><td>CDS + UI 연동</td></tr>
-        <tr><td class="col-tag">AB3 10</td><td><a href="{{ '/studies/abap3/Lesson10' | relative_url }}">Lesson 10</a></td><td>심화 실습</td></tr>
+        <tr>
+          <td class="col-tag">12/31</td>
+          <td><a href="{{ '/studies/abap3/Lesson1' | relative_url }}">Lesson 1</a></td>
+          <td>OPEN SQL (BC414) (1)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/31</td>
+          <td><a href="{{ '/studies/abap3/Lesson2' | relative_url }}">Lesson 2</a></td>
+          <td>Objects (BC401) (1)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/31</td>
+          <td><a href="{{ '/studies/abap3/Lesson3' | relative_url }}">Lesson 3</a></td>
+          <td>Inheritance and Casting (1) (BC401)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/31</td>
+          <td><a href="{{ '/studies/abap3/Lesson4' | relative_url }}">Lesson 4</a></td>
+          <td>Interfaces and Casting (2) (BC401)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">01/02</td>
+          <td><a href="{{ '/studies/abap3/Lesson5' | relative_url }}">Lesson 5</a></td>
+          <td>Object-Oriented Events & Repository Objects (BC401)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">01/06</td>
+          <td><a href="{{ '/studies/abap3/Lesson6' | relative_url }}">Lesson 6</a></td>
+          <td>Objects (BC401)</td>
+        </tr>
       </table>
     </div>
 
@@ -231,37 +252,41 @@ body {
       <div class="card">
         <h2>📈 주요 개념</h2>
         <ul class="list">
-          <li>New ABAP Syntax (DATA, VALUE, LET, etc.)</li>
-          <li>CDS View 정의 및 Annotation</li>
-          <li>AMDP (ABAP Managed Database Procedure)</li>
-          <li>Open SQL 향상 기능</li>
-          <li>UI 연계 (CDS → OData → UI)</li>
+          <li>BC414 기반 Open SQL 문법 확장</li>
+          <li>BC401 기반 객체지향 ABAP 구조</li>
+          <li>Inheritance, Casting, Interface 개념</li>
+          <li>Object-Oriented Events</li>
+          <li>Repository Objects 이해</li>
         </ul>
       </div>
 
       <div class="card">
-        <h2>🔥 이해도 진행도 </h2>
-        <div class="prow"><span>New Syntax</span><span class="pct">40%</span></div>
-        <div class="meter"><span style="width:40%"></span></div>
+        <h2>🔥 이해도 진행도</h2>
 
-        <div class="prow"><span>CDS / AMDP</span><span class="pct">25%</span></div>
-        <div class="meter"><span style="width:25%"></span></div>
+        <div class="prow"><span>Open SQL</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
 
-        <div class="prow"><span>UI 연동</span><span class="pct">10%</span></div>
-        <div class="meter"><span style="width:10%"></span></div>
+        <div class="prow"><span>ABAP Objects</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
+
+        <div class="prow"><span>Inheritance / Casting / Interface</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
+
+        <div class="prow"><span>OO Events / Repository Objects</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
       </div>
 
       <div class="card">
         <h2>💡 이 과정에서 다루는 내용</h2>
         <ul class="list">
-          <li>ABAP 최신 문법과 활용</li>
-          <li>HANA Native 개발 이해</li>
-          <li>CDS View, AMDP 실습</li>
-          <li>Annotation과 UI 연동</li>
+          <li>Open SQL 심화 문법 이해</li>
+          <li>ABAP Objects 기본 구조 학습</li>
+          <li>상속, 캐스팅, 인터페이스 실습</li>
+          <li>이벤트와 Repository Objects 개념 정리</li>
         </ul>
 
         <div class="note">
-          <code>ABAP on HANA 기반 고급 개발 역량 향상을 위한 모듈</code>
+          <code>전통적 ABAP 로직에서 객체지향 ABAP로 넘어가는 핵심 전환 단계</code>
         </div>
       </div>
 
@@ -270,7 +295,7 @@ body {
         <ul class="list">
           <li><a href="https://help.sap.com/" target="_blank">SAP Help Portal</a></li>
           <li><a href="https://developers.sap.com/" target="_blank">SAP Developers</a></li>
-          <li><a href="https://learning.sap.com/" target="_blank">SAP Learning</a></li>
+          <li>BC401 / BC414 관련 강의 자료</li>
         </ul>
       </div>
 
