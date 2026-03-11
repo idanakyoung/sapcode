@@ -1,675 +1,652 @@
-# 🧭 Lesson 11 – ABAP Dictionary Object / Dependency / Table Change / View
+# 🧭 Lesson 11 – Methods of the ALV Grid / Row Delete / Toolbar Event
 
 ---
 
 ## 0) 전체 흐름(공통 뼈대)
 
 ```
-ABAP Dictionary Object 확인
-  1) Active / Inactive Version 이해
-  2) Domain → Data Element → Structure/Table → Program 의존관계 파악
-  3) Table 변경 시 DB 반영 방식 이해
-  4) Append Structure로 표준 테이블 확장
-  5) View / Maintenance View 차이 정리
+ALV Grid 출력
+  1) ALV 기본 출력 완료
+  2) ALV Control Method로 현재 상태 조회
+  3) 선택 행 / 셀 / 컬럼 정보 가져오기
+  4) USER_COMMAND에서 삭제 / 계산 로직 처리
+  5) TOOLBAR 이벤트로 커스텀 버튼 추가
+  6) PRINT 이벤트로 출력 헤더/조건 표시
 ```
 
 ---
 
-## 1) Unit 1. ABAP Dictionary Object
+## 1) Unit 1. Methods of the ALV Grid 이론
 
 ### 핵심
 
-- SAP Dictionary 오브젝트(SE11)는 항상 **두 가지 버전**을 가진다.
-- **Active Version** = 시스템에서 실제 사용되는 버전
-- **Inactive Version** = 개발자가 수정했지만 아직 Activate 하지 않은 버전
-
-### 개념 정리
-
-### 1-1) Active Version
-
-- 현재 시스템에서 실제로 동작하는 버전
-- ABAP 프로그램은 항상 **Active Version 기준**으로 동작
-- DB 테이블도 Active 상태 기준으로 사용됨
-
-### 1-2) Inactive Version
-
-- 수정 중인 임시 변경본
-- 아직 시스템 운영에는 반영되지 않음
-- Activate 해야 Active Version으로 전환됨
+- `CL_GUI_ALV_GRID`는 화면에 한 번 출력한 뒤에도 다양한 **메서드(Method)** 로 현재 상태를 조회하거나 사용자 동작을 제어할 수 있다.
+- 단, 클래스 메서드 중 **PUBLIC Visibility** 인 것만 외부에서 사용할 수 있다.
+- `PRIVATE`, `PROTECTED` 메서드는 직접 사용 불가하다.
 
 ### 포인트
 
-- SE11에서 수정했다고 바로 반영되는 것이 아님
-- **저장(Save)** 과 **활성화(Activate)** 는 다름
-- 운영 반영 기준은 항상 **Active Version**
+- ALV는 단순 출력 도구가 아니라 **출력 후에도 상태를 읽고 제어하는 컨트롤 객체**
+- 이벤트 + 메서드를 같이 써야 실무형 기능이 나온다
 
 ---
 
-## 2) Unit 2. Identifying Dependencies with ABAP Dictionary Objects
-
-### 핵심
-
-- DDIC 오브젝트는 서로 **계층 구조로 연결**되어 있다.
-- 하위 오브젝트를 바꾸면 상위 오브젝트에 영향이 갈 수 있다.
-- 대표 흐름은 아래와 같다.
-
-```
-Program
-   ↓
-Table / Structure
-   ↓
-Data Element
-   ↓
-Domain
-```
-
----
-
-### 2-1) Domain
-
-- DDIC 오브젝트 중 가장 기초 정의
-- 데이터 타입, 길이, 값 범위(Value Range)를 정의
-- 예:
-    - `CHAR 10`
-    - `NUMC 3`
-    - `DEC 11(2)`
-
-### 포인트
-
-- 기술적 속성의 출발점
-- 길이, 타입, 허용값 같은 “기본 규칙” 담당
-
----
-
-### 2-2) Data Element
-
-- Domain을 기반으로 필드의 **의미(semantic)** 를 정의
-- 필드 레이블, 검색 도움(Search Help) 등 추가 정보 포함
-- 여러 Data Element가 하나의 Domain을 공유할 수 있음
-
-### 포인트
-
-- Domain이 “기술 타입”이라면
-    
-    Data Element는 “업무적 의미”를 붙이는 역할
-    
-- 같은 타입이라도 의미가 다르면 Data Element를 따로 둘 수 있음
-
----
-
-### 2-3) Structure / Table
-
-### Structure
-
-- Data Element들로 구성되는 논리 구조
-- DB에 실제 생성되지 않음
-- 프로그램에서 타입 정의, work area 등에 사용
-
-### Table
-
-- 실제 데이터가 저장되는 물리 테이블
-- 각 필드는 Data Element를 참조
-- 변경 시 DB 구조에도 영향 발생
-
-### 포인트
-
-- **Structure = 논리형**
-- **Table = 물리형(DB 저장)**
-- 테이블 수정은 단순 코드 수정이 아니라 DB 변경까지 연결될 수 있음
-
----
-
-### 2-4) Table 간 관계
-
-- 테이블은 다른 구조나 테이블의 필드를 포함할 수 있음
-- 대표 예시
-    - Include Structure
-    - Foreign Key
-    - View / Join을 통한 논리 연결
-
-### 포인트
-
-- DDIC 오브젝트는 독립적이지 않고 연결되어 있음
-- 그래서 수정 전 **Where-Used List** 확인이 중요함
-
----
-
-### 2-5) Program 레벨
-
-- ABAP 프로그램은 Table / Structure를 참조해 데이터 처리
-- 예:
-    - `SELECT`
-    - 변수 타입 선언
-    - 내부 테이블 타입 정의
-
-### 의존 흐름
-
-```
-Program → Table/Structure → Data Element → Domain
-```
-
-### 포인트
-
-- 아래쪽(Domain) 수정이 위쪽(Program)까지 연쇄 영향 가능
-- 특히 길이/타입 변경은 영향 범위가 큼
-
----
-
-### 2-6) Where-Used List
-
-### 핵심
-
-- 특정 오브젝트가 어디에서 사용되는지 추적하는 기능
-- DDIC 오브젝트에서 **F7** 또는 메뉴로 확인 가능
-
-### 역추적 흐름
-
-```
-Where-Used List
-
-Domain
-  ↓
-Data Element
-  ↓
-Table Field
-  ↓
-ABAP Program
-```
-
-### 예시
-
-- Domain 기준 → 어떤 Data Element가 참조하는지
-- Data Element 기준 → 어떤 테이블 필드가 사용하는지
-- Table 기준 → 어떤 프로그램이 사용하는지
-
-### 포인트
-
-- 수정 전에 반드시 영향도 확인
-- 시험에서도 **의존관계 추적 도구**로 자주 나옴
-
----
-
-## 3) Unit 3. Table Changes
-
----
-
-## 3-1) Topic A. Performing a Table Conversion
-
-### 핵심
-
-- 테이블을 변경하고 Activate 하면 시스템은 DB 반영 방식을 판단한다.
-- 반영 방식은 보통 아래 3가지다.
-    - 삭제 후 재생성
-    - `ALTER TABLE`
-    - Table Conversion
-
----
-
-### 3-1-1) Changes to Database Tables
-
-- ABAP 프로그램은 항상 **Active Version 기준**으로 테이블을 읽음
-- 테이블 구조 변경 후 Activate 시
-    - DB에 단순 조정 가능한지
-    - 변환이 필요한지
-        
-        시스템이 판단함
-        
-
----
-
-### 3-1-2) Structure Adjustment 방식
-
-### 1) 테이블 삭제 후 재생성
-
-- DB 테이블 삭제
-- Dictionary Active Version 기준으로 다시 생성
-- **기존 데이터 모두 삭제**
-
-### 2) ALTER TABLE
-
-- DB 구조를 직접 변경
-- 기존 데이터 유지 가능
-- 경우에 따라 인덱스 재생성 필요
-
-### 3) Table Conversion
-
-- 가장 시간이 오래 걸리는 방식
-- DB 시스템이 단순 ALTER를 지원하지 않거나
-- 구조 변경 영향이 클 때 수행
-- 대량 데이터가 있으면 오래 걸릴 수 있음
-
----
-
-### 3-1-3) 데이터 존재 여부에 따른 처리
-
-- **데이터 없음**
-    - 삭제 후 새 구조로 바로 생성 가능
-- **데이터 있음**
-    - `ALTER TABLE` 또는 Conversion 필요
-
-### 포인트
-
-- 데이터 유무가 처리 방식에 큰 영향
-- 운영 테이블은 변환 전에 영향도 꼭 확인
-
----
-
-### 3-1-4) Table Conversion 판단 기준
-
-테이블 변환 방식은 다음 요소에 따라 달라진다.
-
-- 구조 변경 종류
-- 사용 중인 DB 시스템
-- 테이블에 데이터가 있는지 여부
-
-### 예시 상황
-
-```
-Inactive Version
-Field 3 length = 30
-
-Active Version
-Field 3 length = 60
-
-DB Table
-Field 3 length = 60
-```
-
-- 현재 DB는 Active Version과 동일
-- 이 상태에서 Activate 하면
-- 시스템이 길이 축소(60 → 30)를 바로 반영 가능한지 판단함
-
-### 포인트
-
-- 길이 축소는 데이터 손실 가능성이 있어 더 주의해야 함
-- 단순 Activate로 끝나는 게 아니라 DB 조정 단계가 따라옴
-
----
-
-### 3-1-5) Adjust / Convert 관련 버튼 의미
-
-```
-Adjust Database
-Convert Data
-Activate and Adjust
-```
-
-### 주의
-
-- **Delete data 눌러서 조정하지 말기**
-- 모든 Client 데이터가 삭제될 수 있음
-
-### 포인트
-
-- 실무에서 가장 위험한 실수 포인트
-- “조정”과 “데이터 삭제”는 완전히 다름
-
----
-
-## 3-2) Topic B. Enhancing Tables with Append Structures
-
-### 핵심
-
-- 표준 테이블을 직접 수정하지 않고 **필드를 추가 확장**하는 방식
-- SAP 표준 객체 확장 시 가장 안전한 방법
-- Append Structure의 필드는 원본 필드 뒤 **마지막 위치**에 붙음
-
----
-
-### 3-2-1) Append Structure란?
-
-- 기존 테이블/구조를 확장하기 위해
-- 추가 필드를 별도 구조로 정의하는 방식
-
-### 필드 명명 규칙
-
-- 보통 **ZZ**또는 **YY**로 시작
-- 고객 확장 필드임을 의미
-
-### 내부 동작
-
-1. SAP 표준 테이블 기본 필드 로드
-2. Append Structure 검색
-3. Append 필드를 표준 필드 뒤에 병합
-4. 최종 구조를 DB / 프로그램에 제공
-5. Activate 수행
-
-### 포인트
-
-- SAP 표준 수정 없이 확장 가능
-- Upgrade 시에도 비교적 안전
-
----
-
-### 3-2-2) Append Structure 주의사항
-
-- 기존 필드 길이/타입 변경 불가
-- 중간 삽입 불가, 항상 마지막에 추가
-- 동일 필드명 중복 불가
-- 대량 데이터 테이블은 조정 시간이 길어질 수 있음
-
-### 포인트
-
-- Append는 “추가”만 가능
-- “기존 필드 수정”은 Append로 해결 불가
-
----
-
-### 3-2-3) 실습 1 – Structure 사용 예시
-
-### 예시 구조체
-
-```
-Structure ZDEPMENTG01
-
-CARRIER
-DEPARTMENT
-TELNR
-FAXNR
-LAST_CHANGED_BY
-CHANGED_ON
-```
-
-### 코드
-
-```
-*&---------------------------------------------------------------------*
-*& Report ZABAP_23_G01
-*&---------------------------------------------------------------------*
-REPORT ZABAP_23_G01.
-
-* Structure Variable.
-DATA GS_DEPT TYPE ZDEPMENTG01.
-
-GS_DEPT-CARRIER         = 'AA'.
-GS_DEPT-DEPARTMENT      = 'ADMI'.
-GS_DEPT-TELNR           = '02-2445-8743'.
-GS_DEPT-FAXNR           = '02-2445-8743'.
-GS_DEPT-LAST_CHANGED_BY = '010001'.
-GS_DEPT-CHANGED_ON      = SY-DATUM.
-
-WRITE : GS_DEPT-CARRIER,
-        GS_DEPT-DEPARTMENT,
-        GS_DEPT-TELNR,
-        GS_DEPT-FAXNR,
-        GS_DEPT-LAST_CHANGED_BY,
-        GS_DEPT-CHANGED_ON.
-```
-
-### 포인트
-
-- Structure는 DB 저장 없이 프로그램 타입으로 바로 활용 가능
-- DDIC 구조를 만들어두면 프로그램 선언이 편해짐
-
----
-
-### 3-2-4) 실습 2 – SCARR Copy 구조에 Append 추가
-
-### 예시 결과
-
-```
-SCARR
-
-CARRID
-CARRNAME
-CURRCODE
-URL
-
-Append Structure
-
-ZZ_DEPT
-ZZ_MANAGER
-ZZ_LOCATION
-```
-
-### 정리
-
-- Append Structure는 항상 마지막 위치에 붙음
-- 필드명은 `ZZ*`, `YY*` 형태 권장
-- 원본 구조를 직접 건드리지 않음
-- 여러 번 활성화해도 비교적 안전
-- Upgrade 시 자동 병합됨
-
----
-
-## 4) Topic C. Views and Maintenance Views
-
-### 핵심
-
-- View는 실제 데이터를 저장하지 않는 **논리적 테이블**
-- 여러 테이블을 결합하거나 필요한 필드만 보여주는 데 사용
-- View 종류에 따라 Join / Projection / Selection 지원 범위가 다름
-
----
-
-### 4-1) Database View란?
-
-- 실제 데이터를 저장하지 않음
-- 여러 테이블 데이터를 Join해 하나의 구조처럼 보여줌
-- Projection(필드 선택), Selection(조건) 가능
-- Open SQL에서 일반 테이블처럼 사용 가능(제약 있음)
-
-### 역할
-
-- 여러 테이블 데이터 결합
-- 특정 필드만 표시
-- 조건에 맞는 데이터만 조회
-- 유지보수 화면용 기반 제공
-
----
-
-### 4-2) View 종류 비교
-
-| View 종류 | Join | Projection | Selection | 목적 | DB에 생성? |
-| --- | --- | --- | --- | --- | --- |
-| Database View | O | O | O | 여러 테이블 결합 조회 | O |
-| Projection View | X | O | X | 단일 테이블 필드 제한 | X |
-| Help View | O | O | O | Search Help(F4) | 경우에 따라 다름 |
-| Maintenance View | X(논리적 연결) | O | O | SM30 유지보수 | X |
-
----
-
-### 4-3) Database View
-
-### 핵심
-
-- 여러 테이블을 **Inner Join**
-- DB 레벨에 실제 View 생성
-- Open SQL 사용 가능
-- Join 조건 필요
-
-### 사용 목적
-
-- 논리적으로 연결된 데이터를 하나처럼 조회할 때
-
-### 포인트
-
-- Join 조건 없으면 의미 없는 데이터 조합 발생
-- 실무 조회용으로 자주 사용
-
----
-
-### 4-4) Projection View
-
-### 핵심
-
-- 단일 테이블에서 필요한 필드만 선택
-- Join 불가
-- Projection만 가능
-
-### 특징
-
-- 불필요한 필드 제거
-- 구조를 단순화
-- 유지보수 화면(SM30) 생성 불가
-
-### 사용 목적
-
-- 간단한 조회 전용 View
-
----
-
-### 4-5) Help View
-
-### 핵심
-
-- F4 Search Help용 View
-- 여러 테이블을 Outer Join 가능
-- Selection 조건 사용 가능
-
-### 사용 목적
-
-- 검색 도움 값 목록 제공
-
-### 포인트
-
-- 일반 조회보다 **Search Help 연결 목적**이 강함
-
----
-
-### 4-6) Maintenance View
-
-### 핵심
-
-- 여러 테이블을 하나의 유지보수 객체처럼 관리
-- Foreign Key 기반 Parent–Child 관계 사용
-- SM30에서 유지보수 화면 제공
-
-### 특징
-
-- Join이 아니라 **logical table grouping**
-- DB에 실제 View 생성 안 됨
-- INSERT / UPDATE / DELETE 화면 자동 제공 가능
-
-### 사용 목적
-
-- 여러 관련 테이블을 동시에 관리할 때
-
-### 포인트
-
-- 조회용보다는 **유지보수 화면용** 개념으로 이해해야 함
-
----
-
-## 5) Projection / Selection / Join Condition 정리
-
----
-
-### 5-1) Projection (Field Selection)
-
-### 정의
-
-- 원본 테이블의 필드 중 필요한 필드만 View에 포함시키는 것
+## 2) ALV Control Methods 개요
 
 ### 목적
 
-- 구조 단순화
-- 성능 개선
-- 불필요한 정보 숨김
-- 업무 화면 맞춤형 필드 구성
+- 사용자가 선택한 셀 / 행 / 컬럼 정보 조회
+- 현재 커서 위치 파악
+- 서브토탈 정보 조회
+- 툴바 이벤트 강제 트리거
+- 표준 사용자 커맨드 변경
 
-### 예시
+---
 
-원본 `SFLIGHT`
+## 3) ALV Control Methods 상세 정리
+
+| 구분 | 메서드 | 기능 요약 | 주요 용도 | 핵심 포인트 |
+| --- | --- | --- | --- | --- |
+| 3.1 | `GET_CURRENT_CELL` | 현재 커서 셀 조회 | 클릭한 셀 기준 처리 | 커서 기준, 셀 1개 |
+| 3.2 | `GET_SELECTED_CELLS` | 선택된 셀들 조회 | 멀티 셀 처리 | 셀 단위 다중 선택 |
+| 3.3 | `GET_SELECTED_COLUMNS` | 선택 컬럼 목록 조회 | 컬럼 기준 기능 | 필드명 반환 |
+| 3.4 | `GET_SELECTED_ROWS` | 선택 행 목록 조회 | 삭제/일괄처리 | 실무 사용 빈도 높음 |
+| 3.5 | `GET_SUBTOTALS` | 현재 서브토탈 정보 조회 | 소계 기반 후처리 | 소계 설정 상태에서 의미 |
+| 3.6 | `SET_TOOLBAR_INTERACTIVE` | 툴바 이벤트 재트리거 | 툴바 재구성 | TOOLBAR 이벤트와 세트 |
+| 3.7 | `SET_USER_COMMAND` | 사용자 커맨드 변경 | 표준 기능 치환 | 영향 범위 큼 |
+
+---
+
+## 3-1) GET_CURRENT_CELL
+
+### 핵심
+
+- 현재 커서가 위치한 **단일 셀** 정보를 가져온다.
+
+### 반환 정보
+
+- Row ID
+- Column ID
+- Value
+
+### 언제 쓰나
+
+- 사용자가 지금 클릭한 셀 기준 처리
+- 더블클릭 / 클릭 이벤트 후 상세 처리
+
+### 포인트
+
+- 선택된 셀 전체가 아니라 **현재 커서 한 칸**
+- 여러 셀을 처리하려면 `GET_SELECTED_CELLS` 사용
+
+---
+
+## 3-2) GET_SELECTED_CELLS
+
+### 핵심
+
+- 사용자가 선택한 **복수 셀** 정보를 가져온다.
+
+### 언제 쓰나
+
+- 드래그한 셀 범위 일괄 처리
+- 입력 범위 검증
+- 셀 단위 계산
+
+### 포인트
+
+- 멀티 셀 선택 UI일 때 의미가 큼
+- 행 단위 처리면 `GET_SELECTED_ROWS`가 더 단순하다
+
+---
+
+## 3-3) GET_SELECTED_COLUMNS
+
+### 핵심
+
+- 선택된 컬럼의 필드명 목록을 가져온다.
+
+### 언제 쓰나
+
+- 특정 컬럼 기준 기능 버튼 구현
+- 선택 컬럼 숨김 / 합계 / 정렬 등
+
+### 포인트
+
+- 컬럼 헤더 선택이 전제
+- 행 정보나 셀 값은 없음
+
+---
+
+## 3-4) GET_SELECTED_ROWS
+
+### 핵심
+
+- 사용자가 선택한 행 번호를 가져온다.
+- 실무에서 가장 많이 쓰는 메서드 중 하나
+
+### 언제 쓰나
+
+- 선택 행 삭제
+- 선택 행 상세조회
+- 일괄 승인 / 전송 / 취소
+
+### 반환
+
+- 선택된 행 Index 목록
+
+### 포인트
+
+- 정렬 / 필터 후에는 표시 인덱스 기준일 수 있으니 주의
+- 내부테이블 인덱스와 ALV 인덱스 매핑을 항상 의식해야 함
+
+---
+
+## 3-5) GET_SUBTOTALS
+
+### 핵심
+
+- 현재 ALV에 적용된 소계(Subtotal) 상태를 조회한다.
+
+### 언제 쓰나
+
+- 사용자가 정렬/소계한 결과를 바탕으로 추가 계산할 때
+
+### 포인트
+
+- 소계가 걸려 있을 때만 의미 있음
+- 조회용이지 수정용은 아님
+
+---
+
+## 3-6) SET_TOOLBAR_INTERACTIVE
+
+### 핵심
+
+- TOOLBAR 이벤트를 다시 발생시켜 툴바를 인터랙티브하게 다시 구성한다.
+
+### 언제 쓰나
+
+- 조건에 따라 툴바 버튼 구성을 바꾸고 싶을 때
+- 사용자 버튼 동적 추가/변경
+
+### 포인트
+
+- 보통 `TOOLBAR` 이벤트와 세트
+- 버튼만 추가하지 말고 클릭 후 `USER_COMMAND` 흐름까지 설계해야 함
+
+---
+
+## 3-7) SET_USER_COMMAND
+
+### 핵심
+
+- 현재 사용자 커맨드(Function Code)를 다른 값으로 바꾼다.
+
+### 언제 쓰나
+
+- 표준 기능을 커스텀 기능으로 치환할 때
+- 특정 버튼의 동작을 조건부 변경할 때
+
+### 포인트
+
+- 영향 범위가 큼
+- 실무에서는 특정 Fcode만 제한적으로 바꾸는 식으로 사용 권장
+
+---
+
+## 4) Method : CELL DELETE / ROW DELETE 실습
+
+### 핵심
+
+- 선택한 행을 삭제하는 로직은 보통 `GET_SELECTED_ROWS`로 구현한다.
+- 선택 행이 없으면 메시지 처리
+- 선택 행이 있으면 내부테이블에서 해당 인덱스를 삭제
+
+---
+
+## 4-1) 변수 선언
 
 ```
-CARRID / CONNID / PRICE / CURRENCY / PLANETYPE
+DATA: LT_ROW TYPE LVC_T_ROID,
+      LS_ROW LIKE LINE OF LT_ROW.
 ```
 
-View에서는 `PLANETYPE` 제외
+### 의미
+
+- `LT_ROW` : 선택된 행 번호 목록
+- `LS_ROW` : 행 번호 Work Area
+
+---
+
+## 4-2) 선택 행 가져오기
+
+보통 `ON_USER_COMMAND` 안에서 사용한다.
 
 ```
-CARRID / CONNID / PRICE / CURRENCY
+GO_ALV_GRID->GET_SELECTED_ROWS(
+  IMPORTING
+    ET_ROW_NO = LT_ROW ).
+```
+
+---
+
+## 4-3) 삭제 로직
+
+```
+IF LINES( LT_ROW ) <= 0.
+  MESSAGE 'Row를 선택하여 주세요!' TYPE 'I'.
+ELSE.
+  READ TABLE LT_ROW INTO LS_ROW INDEX 1.
+  DELETE GT_DATA INDEX LS_ROW-ROW_ID.
+ENDIF.
 ```
 
 ### 포인트
 
-- 원본 데이터가 삭제되는 것이 아님
-- 보여주는 필드만 제한하는 개념
+- 선택된 행이 없으면 정보 메시지
+- 첫 번째 선택 행을 읽어서 내부테이블 삭제
 
 ---
 
-### 5-2) Selection Condition
+## 4-4) 주의사항
 
-### 정의
+### 핵심
 
-- View에 WHERE 조건처럼 고정 필터를 두는 것
+- `GS_LAYOUT-SEL_MODE = 'A'` 처럼 다중 선택 모드일 때
+- 삭제를 `LOOP ... DELETE INDEX` 식으로 단순 처리하면 위험하다
 
-### 목적
+### 이유
 
-- 특정 데이터만 표시
-- 필터링된 결과만 제공
-- 특정 고객/통화/기간 데이터만 보여줄 때 사용
-
-### 특징
-
-- 조건을 만족하지 않는 데이터는 View에 보이지 않음
-- Maintenance View에서도 관계 제어용으로 중요
+- 삭제가 일어날 때마다 인덱스가 계속 바뀌기 때문
+- 루프 중간에 인덱스가 밀리면 잘못된 행이 삭제될 수 있음
 
 ### 포인트
 
-- “필드 선택”이 아니라 “행 필터링”
+- 다중 삭제는 **뒤에서부터 삭제**하거나
+- 삭제 대상 인덱스를 따로 정리해서 처리해야 한다
 
 ---
 
-### 5-3) Join Condition
+## 4-5) GET_CURRENT_CELL 관련
 
-### 정의
+### 핵심
 
-- 여러 테이블을 어떤 기준으로 연결할지 정하는 조건
+- 주석 처리된 일부 코드/메서드는 현재 커서 셀 위치를 보는 용도
+- 주로 디버깅이나 현재 클릭 위치 확인용으로 사용
 
-### 특징
+---
 
-- Database View는 반드시 Join 조건 필요
-- Help View는 Outer Join 가능
-- Join 조건이 없으면 Cross Product 발생 가능
+## 5) ZBC405_G01_ALV – Exercise 13, 14 : TOOLBAR
+
+---
+
+## 5-1) 이벤트 핸들러 선언
+
+### 핵심
+
+ALV에서 특정 이벤트가 발생했을 때 자동으로 실행될 메서드를 선언한다.
+
+```
+PRINT_TOP FOR EVENT PRINT_TOP_OF_PAGE OF CL_GUI_ALV_GRID,
+PRINT_TOL FOR EVENT PRINT_TOP_OF_LIST OF CL_GUI_ALV_GRID,
+
+ON_TOOLBAR FOR EVENT TOOLBAR OF CL_GUI_ALV_GRID
+  IMPORTING E_OBJECT,
+ON_USER_COMMAND FOR EVENT USER_COMMAND OF CL_GUI_ALV_GRID
+  IMPORTING E_UCOMM.
+```
+
+### 의미
+
+| 이벤트 | 실행 시점 |
+| --- | --- |
+| `PRINT_TOP_OF_PAGE` | 출력 시 페이지 상단 |
+| `PRINT_TOP_OF_LIST` | 출력 시 리스트 상단 |
+| `TOOLBAR` | 툴바 그릴 때 |
+| `USER_COMMAND` | 버튼 클릭 시 |
 
 ### 포인트
 
-- View 설계의 핵심
-- 잘못 걸면 데이터가 폭증하거나 의미 없어짐
+- ALV는 이벤트 기반으로 기능 확장
+- 이벤트 선언만 하고 끝이 아니라 **핸들러 등록까지 해야 실제 동작**
 
 ---
 
-## 6) Unit 3 전체 비교(한 눈에)
+## 6) Exercise 13 – 출력(Print) 관련
 
-| 항목 | 핵심 | 특징 | 주의점 |
+---
+
+## 6-1) PRINT_TOP 메서드
+
+### 핵심
+
+- ALV를 인쇄할 때 페이지 상단 머리글을 출력한다.
+
+```
+METHOD PRINT_TOP.
+
+  DATA LV_POS TYPE I.
+  FORMAT COLOR COL_HEADING.
+  WRITE: / SY-DATUM.
+  LV_POS = SY-LINSZ / 2 - 3.
+  WRITE AT LV_POS SY-PAGNO.
+  LV_POS = SY-LINSZ - 11.
+  WRITE: AT LV_POS SY-UNAME.
+
+ENDMETHOD.
+```
+
+### 출력 내용
+
+- 날짜 `SY-DATUM`
+- 페이지 번호 `SY-PAGNO`
+- 사용자 `SY-UNAME`
+
+### 포인트
+
+- 화면 출력용이 아니라 **프린트 출력용 헤더**
+
+---
+
+## 6-2) PRINT_TOL 메서드
+
+### 핵심
+
+- 출력 시 리스트 상단에 Selection 조건을 출력한다.
+
+```
+METHOD PRINT_TOL.
+  DATA: LS_SO_CAR LIKE LINE OF SO_CAR,
+        LS_SO_CON LIKE LINE OF SO_CON.
+  CONSTANTS: LC_END TYPE I VALUE 20.
+
+  FORMAT COLOR COL_HEADING.
+  WRITE:/ 'Select options'(000), AT LC_END SPACE.
+
+  SKIP.
+
+  WRITE:/ 'Airlines'(000), AT LC_END SPACE.
+  ULINE AT /(lc_end).
+
+  FORMAT COLOR COL_NORMAL.
+  LOOP AT SO_CAR INTO LS_SO_CAR.
+    WRITE:/ LS_SO_CAR-SIGN,
+            LS_SO_CAR-OPTION,
+            LS_SO_CAR-LOW,
+            LS_SO_CAR-HIGH.
+  ENDLOOP.
+
+  SKIP.
+
+  FORMAT COLOR COL_HEADING.
+  WRITE:/ 'Connection'(002), AT LC_END SPACE.
+  ULINE AT /(lc_end).
+  FORMAT COLOR COL_NORMAL.
+  LOOP AT SO_CON INTO LS_SO_CON.
+    WRITE:/ LS_SO_CON-SIGN,
+            LS_SO_CON-OPTION,
+            LS_SO_CON-LOW NO-ZERO,
+            LS_SO_CON-HIGH NO-ZERO.
+  ENDLOOP.
+
+  SKIP.
+
+ENDMETHOD.
+```
+
+### 포인트
+
+- 출력물이 어떤 조회 조건으로 나왔는지 보여주는 역할
+- 종이 출력 / PDF 출력 시 특히 유용
+
+---
+
+## 6-3) PRINT용 구조 선언
+
+```
+GS_PRINT TYPE LVC_S_PRNT.
+```
+
+### 의미
+
+- ALV가 출력 관련 이벤트를 사용할 수 있도록 하는 구조
+
+---
+
+## 6-4) ALV 호출 시 전달
+
+```
+IS_PRINT = GS_PRINT
+```
+
+### 포인트
+
+- `SET_TABLE_FOR_FIRST_DISPLAY` 호출 시 같이 넘겨야 출력 이벤트가 적용됨
+
+---
+
+## 6-5) 추가 레이아웃 설정
+
+```
+GS_LAYOUT-PRNTLSTIN  = 'X'.
+GS_LAYOUT-GRPCHGEDIT = 'X'.
+```
+
+### 의미
+
+| 필드 | 의미 |
+| --- | --- |
+| `PRNTLSTIN` | 출력 시 리스트 헤더 활성화 |
+| `GRPCHGEDIT` | 그룹 변경 관련 출력 옵션 |
+
+---
+
+## 7) Exercise 14 – 툴바 + 버튼 로직
+
+---
+
+## 7-1) ON_TOOLBAR 메서드
+
+### 핵심
+
+- ALV 툴바에 커스텀 버튼을 추가한다.
+
+```
+METHOD ON_TOOLBAR.
+  DATA LS_BUTTON TYPE STB_BUTTON.
+
+  LS_BUTTON-BUTN_TYPE = 3.
+  APPEND LS_BUTTON TO E_OBJECT->MT_TOOLBAR.
+
+  CLEAR LS_BUTTON.
+  LS_BUTTON-FUNCTION  = 'PERCENTAGE'.
+  LS_BUTTON-TEXT      = '% Total'.
+  LS_BUTTON-QUICKINFO = 'Total economy utilization'.
+  LS_BUTTON-BUTN_TYPE = 0.
+  APPEND LS_BUTTON TO E_OBJECT->MT_TOOLBAR.
+
+  CLEAR LS_BUTTON.
+  LS_BUTTON-FUNCTION  = 'PERCENTAGE_MARKED'.
+  LS_BUTTON-TEXT      = '% Marked'.
+  LS_BUTTON-QUICKINFO = 'Economy utilization(marked flights)'.
+  LS_BUTTON-BUTN_TYPE = 0.
+  APPEND LS_BUTTON TO E_OBJECT->MT_TOOLBAR.
+ENDMETHOD.
+```
+
+### 구성
+
+- 구분선 추가: `BUTN_TYPE = 3`
+- 버튼 1: `% Total`
+- 버튼 2: `% Marked`
+
+### 포인트
+
+- `FUNCTION` 값이 나중에 `E_UCOMM`으로 들어간다
+- 즉, 버튼 이름이 아니라 **Function Code가 핵심 연결 고리**
+
+---
+
+## 7-2) ON_USER_COMMAND 메서드
+
+### 핵심
+
+- 툴바 버튼 클릭 시 실제 계산 로직을 처리한다.
+
+```
+METHOD ON_USER_COMMAND.
+  DATA: LV_OCCUPIED   TYPE I,
+        LV_CAPACITY   TYPE I,
+        LV_PERCENTAGE TYPE P LENGTH 8 DECIMALS 1,
+        LV_TEXT       TYPE STRING,
+        LT_ROW_NO     TYPE LVC_T_ROID,
+        LS_ROW_NO     TYPE LVC_S_ROID.
+
+  CASE E_UCOMM.
+    WHEN 'PERCENTAGE'.
+      LOOP AT GT_FLIGHT INTO GS_FLIGHT.
+        LV_OCCUPIED = LV_OCCUPIED + GS_FLIGHT-SEATSOCC.
+        LV_CAPACITY = LV_CAPACITY + GS_FLIGHT-SEATSMAX.
+      ENDLOOP.
+      LV_PERCENTAGE = LV_OCCUPIED / LV_CAPACITY * 100.
+      MOVE LV_PERCENTAGE TO LV_TEXT.
+      LV_TEXT = 'Percentage of occupied seats:' && ' ' && LV_TEXT.
+      MESSAGE LV_TEXT TYPE 'I'.
+
+    WHEN 'PERCENTAGE_MARKED'.
+      GO_ALV_GRID->GET_SELECTED_ROWS( IMPORTING ET_ROW_NO = LT_ROW_NO ).
+
+      IF LINES( LT_ROW_NO ) > 0.
+        LOOP AT LT_ROW_NO INTO LS_ROW_NO.
+          READ TABLE GT_FLIGHT INTO GS_FLIGHT INDEX LS_ROW_NO-ROW_ID.
+          LV_OCCUPIED = LV_OCCUPIED + GS_FLIGHT-SEATSOCC.
+          LV_CAPACITY = LV_CAPACITY + GS_FLIGHT-SEATSMAX.
+        ENDLOOP.
+        LV_PERCENTAGE = LV_OCCUPIED / LV_CAPACITY * 100.
+        MOVE LV_PERCENTAGE TO LV_TEXT.
+        LV_TEXT = 'Percentage of occupied seats:' && ' ' && LV_TEXT.
+        MESSAGE LV_TEXT TYPE 'I'.
+      ELSE.
+        MESSAGE 'Please mark at least one row' TYPE 'I'.
+      ENDIF.
+  ENDCASE.
+ENDMETHOD.
+```
+
+---
+
+## 7-3) 버튼별 기능
+
+### 1) `PERCENTAGE`
+
+- 전체 비행편 기준 좌석 점유율 계산
+
+```
+총 점유 좌석 / 총 좌석 수 * 100
+```
+
+### 2) `PERCENTAGE_MARKED`
+
+- 사용자가 선택한 행만 기준으로 좌석 점유율 계산
+- 핵심 메서드:
+
+```
+GO_ALV_GRID->GET_SELECTED_ROWS(
+  IMPORTING ET_ROW_NO = LT_ROW_NO ).
+```
+
+### 포인트
+
+- 선택 행이 없으면 메시지
+- 선택 행이 있으면 그 행만 READ TABLE 해서 계산
+
+---
+
+## 8) 핸들러 등록
+
+### 핵심
+
+- 이벤트 핸들러를 선언만 하고 등록하지 않으면 아무 것도 동작하지 않는다.
+
+```
+SET HANDLER LCL_EVENT_HANDLER=>ON_TOOLBAR FOR GO_ALV_GRID.
+SET HANDLER LCL_EVENT_HANDLER=>ON_USER_COMMAND FOR GO_ALV_GRID.
+```
+
+### 포인트
+
+- 실무에서 제일 자주 빠뜨리는 부분 중 하나
+- `PRINT_TOP`, `PRINT_TOL` 도 마찬가지로 이벤트 등록 흐름을 같이 봐야 함
+
+---
+
+## 9) 전체 실행 흐름
+
+```
+ALV 생성
+ ↓
+이벤트 핸들러 선언
+ ↓
+PRINT 이벤트 → 출력 시 머리글 / 조건 출력
+ ↓
+TOOLBAR 이벤트 → 버튼 생성
+ ↓
+사용자 버튼 클릭
+ ↓
+USER_COMMAND 이벤트 발생
+ ↓
+선택 행 조회 / 계산 로직 실행
+ ↓
+메시지 출력
+```
+
+---
+
+## 10) 이 단원에서 중요한 비교 포인트
+
+| 항목 | 기능 | 대표 메서드 | 실무 포인트 |
 | --- | --- | --- | --- |
-| Active / Inactive Version | 활성/비활성 버전 구분 | 시스템 반영 여부 차이 | Save ≠ Activate |
-| Dependency | Domain부터 Program까지 연결 | 수정 영향 전파 가능 | Where-Used 확인 필수 |
-| Table Conversion | DB 구조 조정 방식 | 삭제/ALTER/Conversion | 데이터 유실 주의 |
-| Append Structure | 표준 테이블 확장 | 마지막 필드 뒤에 추가 | 기존 필드 수정 불가 |
-| Database View | 여러 테이블 Join 조회 | DB View 생성 | Join 조건 필수 |
-| Projection View | 단일 테이블 일부 필드만 | 단순 조회용 | Join 불가 |
-| Help View | Search Help용 | Outer Join 가능 | F4 목적 |
-| Maintenance View | SM30 유지보수용 | 논리적 테이블 그룹 | 조회용 View와 다름 |
+| 현재 커서 셀 조회 | 지금 클릭한 한 칸 확인 | `GET_CURRENT_CELL` | 디버깅/상세 처리 |
+| 선택 셀 조회 | 여러 셀 범위 확인 | `GET_SELECTED_CELLS` | 멀티셀 처리 |
+| 선택 컬럼 조회 | 컬럼 단위 기능 | `GET_SELECTED_COLUMNS` | 컬럼명 기반 |
+| 선택 행 조회 | 행 단위 기능 | `GET_SELECTED_ROWS` | 삭제/일괄처리 핵심 |
+| 출력 헤더 | 인쇄 상단 정보 | `PRINT_TOP_OF_PAGE` | 날짜/페이지/사용자 |
+| 출력 조건 | 인쇄 리스트 상단 | `PRINT_TOP_OF_LIST` | 조회 조건 표시 |
+| 툴바 버튼 추가 | 커스텀 버튼 생성 | `TOOLBAR` 이벤트 | 버튼 생성 |
+| 버튼 클릭 처리 | 기능 실행 | `USER_COMMAND` 이벤트 | 계산/삭제 로직 |
 
 ---
 
-## 7) 시험 포인트 / 실무 포인트
+## 11) 시험 포인트 / 실무 포인트
 
-### 7-1) 시험 포인트
+### 11-1) 시험 포인트
 
-- **Active Version / Inactive Version 차이**
-- **Domain → Data Element → Table → Program 의존관계**
-- **Where-Used List 역할**
-- **Table Conversion / Adjust Database 차이**
-- **Append Structure는 마지막에만 붙는다**
-- **Database View / Projection View / Help View / Maintenance View 차이**
+- `CL_GUI_ALV_GRID` 메서드 중 **PUBLIC만 사용 가능**
+- `GET_CURRENT_CELL` 과 `GET_SELECTED_ROWS` 차이
+- `GET_SELECTED_ROWS` 로 선택 행 삭제 가능
+- 다중 선택 삭제 시 인덱스 변경 주의
+- `TOOLBAR` 이벤트에서 버튼 생성
+- `USER_COMMAND` 이벤트에서 Function Code 처리
+- `FUNCTION` 값이 `E_UCOMM` 으로 넘어간다
+- 출력 이벤트:
+    - `PRINT_TOP_OF_PAGE`
+    - `PRINT_TOP_OF_LIST`
+- `IS_PRINT`, `LVC_S_PRNT`, `PRNTLSTIN` 연결 관계
 
-### 7-2) 실무 포인트
+### 11-2) 실무 포인트
 
-- DDIC 수정 전 반드시 **Where-Used List 확인**
-- 운영 테이블 변경 시 데이터 유실 여부 먼저 확인
-- 표준 테이블 확장은 직접 수정 말고 **Append Structure**
-- 조회용 View와 유지보수용 View를 구분해서 사용
+- 행 삭제/일괄 처리 기능은 `GET_SELECTED_ROWS`가 핵심
+- 툴바 버튼 추가 시 `ON_TOOLBAR` + `ON_USER_COMMAND` 세트로 기억
+- 출력 기능은 화면용이 아니라 인쇄용이라는 점 구분
+- 이벤트 선언보다 **핸들러 등록 누락**을 더 조심해야 함
 
 ---
 
-## 8) Lesson 11에서 제일 중요한 결론
+## 12) Lesson 11에서 제일 중요한 결론
 
-- **SE11 수정은 저장만으로 끝나지 않고 Activate가 핵심**
-- **DDIC는 Domain → Data Element → Table/Structure → Program으로 연결됨**
-- **테이블 변경은 DB 구조 변화까지 연결되므로 신중해야 함**
-- **표준 테이블 확장은 Append Structure가 정석**
-- **View는 목적에 따라 Database / Projection / Help / Maintenance로 구분해서 이해해야 함**
+- **ALV는 출력 후에도 메서드로 현재 상태를 읽고 제어할 수 있다**
+- **선택 행 처리의 핵심 메서드는 `GET_SELECTED_ROWS` 이다**
+- **삭제 기능은 인덱스 변경 문제 때문에 다중 선택 처리 시 특히 주의해야 한다**
+- **커스텀 툴바는 `TOOLBAR` 이벤트에서 만들고, 클릭 처리는 `USER_COMMAND`에서 한다**
+- **출력 기능은 `PRINT_TOP_OF_PAGE`, `PRINT_TOP_OF_LIST`, `IS_PRINT`, `GS_PRINT` 설정이 함께 맞물려야 동작한다**
