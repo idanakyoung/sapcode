@@ -9,7 +9,7 @@
 
 # 🔵 Unit 2. Identifying Dependencies with ABAP
 
-Dictionary Objects**
+Dictionary Objects
 
 ```
 Program
