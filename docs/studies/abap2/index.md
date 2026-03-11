@@ -190,11 +190,11 @@ body{
         <tr><td class="col-tag">L7</td><td><a href="{{ '/studies/abap2/Lesson7' | relative_url }}">Lesson 7</a></td><td>Context / Binding</td></tr>
         <tr><td class="col-tag">L8</td><td><a href="{{ '/studies/abap2/Lesson8' | relative_url }}">Lesson 8</a></td><td>Event Handling</td></tr>
         <tr><td class="col-tag">L9</td><td><a href="{{ '/studies/abap2/Lesson9' | relative_url }}">Lesson 9</a></td><td>Navigation</td></tr>
-        <tr><td class="col-tag">L10</td><td><a href="{{ '/studies/abap2/Lesson_10' | relative_url }}">Lesson 10</a></td><td>Mini 실습</td></tr>
-        <tr><td class="col-tag">L11</td><td><a href="{{ '/studies/abap2/Lesson_11' | relative_url }}">Lesson 11</a></td><td>Mini 실습</td></tr>
-        <tr><td class="col-tag">L12</td><td><a href="{{ '/studies/abap2/Lesson_12' | relative_url }}">Lesson 12</a></td><td>Mini 실습</td></tr>
-        <tr><td class="col-tag">L13</td><td><a href="{{ '/studies/abap2/Lesson_13' | relative_url }}">Lesson 13</a></td><td>Mini 실습</td></tr>
-        <tr><td class="col-tag">L13</td><td><a href="{{ '/studies/abap2/ABAP_1st_Exam' | relative_url }}">ABAP_1st_Exam</a></td><td>Mini 실습</td></tr>
+        <tr><td class="col-tag">L10</td><td><a href="{{ '/studies/abap2/Lesson_10' | relative_url }}">Lesson 10</a></td><td>Mini 실습1</td></tr>
+        <tr><td class="col-tag">L11</td><td><a href="{{ '/studies/abap2/Lesson_11' | relative_url }}">Lesson 11</a></td><td>Mini 실습2</td></tr>
+        <tr><td class="col-tag">L12</td><td><a href="{{ '/studies/abap2/Lesson_12' | relative_url }}">Lesson 12</a></td><td>Mini 실습3</td></tr>
+        <tr><td class="col-tag">L13</td><td><a href="{{ '/studies/abap2/Lesson_13' | relative_url }}">Lesson 13</a></td><td>Mini 실습4</td></tr>
+        <tr><td class="col-tag">TEST</td><td><a href="{{ '/studies/abap2/ABAP_1st_Exam' | relative_url }}">ABAP_1st_Exam</a></td><td>ABAP 1st Exam 추가 정리 및 POU</td></tr>
       </table>
       
       <br>
