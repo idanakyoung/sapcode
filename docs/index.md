@@ -26,7 +26,7 @@ body {
 }
 
 .portal {
-  max-width: 1100px;
+  max-width: 1400px;
   margin: 2.2rem auto 3rem;
   padding: 0 1.2rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
