@@ -1,3 +1,499 @@
+# 🧭 ABAP 1st Exam 정리
+
+---
+
+## 0) 전체 흐름(시험 범위 큰 그림)
+
+```
+DDIC
+  1) Domain / Fixed Value
+  2) Foreign Key / Search Help / View
+Program
+  3) Internal Table / Structure Type / Table Type
+  4) Function Module / Method / Message / Text Symbol
+Logic
+  5) SELECT / JOIN / DB View / COLLECT / SUM
+Screen
+  6) Search Help / Dynpro / ALV 기초
+POU
+  7) 집계 / 평균 / 월별 합계 / 등급 산출 문제
+```
+
+---
+
+# 1) DDIC 핵심 정리
+
+## 1-1) 대소문자 구분 (Case Sensitive)
+
+### 핵심
+
+- 문자열 비교/검색에서는 **대소문자 구분 여부**를 항상 주의해야 한다.
+- 특히 **성명 검색**, `LIKE`, 패턴 검색에서 자주 걸린다.
+
+### 포인트
+
+- 이름 검색 조건 만들 때:
+    - `'Kim'` 과 `'KIM'` 이 다르게 취급될 수 있음
+- 시험에서는 **입력값 검증**, **LIKE 검색**, **문자열 길이 체크**와 같이 같이 나오는 경우가 많음
+
+---
+
+## 1-2) Fixed Values 처리
+
+### 핵심
+
+- Domain에 Fixed Value가 있으면 코드값을 텍스트로 바꿔서 보여주는 문제가 자주 나온다.
+- 대표 패턴:
+    - Domain 값 조회
+    - 코드값 → 설명 텍스트 변환
+
+### 대표 함수
+
+```
+CALL FUNCTION 'GET_DOMAIN_VALUES'
+  EXPORTING
+    DOMNAME         = 'YDGESCH_01'
+  TABLES
+    VALUES_TAB      = GT_GENDERS
+  EXCEPTIONS
+    NO_VALUES_FOUND = 1
+    OTHERS          = 2.
+```
+
+### 활용 흐름
+
+```
+Domain Fixed Value 조회
+  ↓
+내부테이블에 코드/텍스트 적재
+  ↓
+LOOP 돌면서 현재 코드값과 비교
+  ↓
+텍스트 필드에 설명값 넣기
+```
+
+### 시험 포인트
+
+- `DD07V` 타입 많이 사용
+- `DOMVALUE_L` = 실제 코드값
+- `DDTEXT` = 텍스트 설명
+
+---
+
+## 1-3) Foreign Key + Search Help
+
+### 핵심
+
+- 같은 Foreign Key를 가진 여러 필드에 Search Help를 걸어야 할 때
+- 각각 Screen Painter에 직접 거는 것보다
+- **Foreign Key / Check Table / Data Element 레벨에서 한 번에 지정**하는 방식이 더 좋다
+
+### 포인트
+
+- 가장 권장:
+    - **Data Element에 Search Help 연결**
+- Foreign Key 관계가 이미 있으면
+    - Check Table 기반 F4 도움을 자동 활용 가능
+- Dynpro에서 직접 Search Help 거는 방식은 재사용성이 떨어짐
+
+### 기억할 것
+
+```
+Search Help 연결 우선순위
+1) Data Element
+2) Table / Structure Field
+3) Screen Painter 직접 지정 (비추천)
+```
+
+---
+
+## 1-4) 데이터베이스 뷰 만들어서 Join 줄이기
+
+### 핵심
+
+- 프로그램에서 복잡하게 JOIN하지 않고
+- **DB View를 미리 만들어두고 SELECT** 하는 방식이 가능하다
+
+### 장점
+
+- 코드 짧아짐
+- 재사용성 좋아짐
+- 프로그램에서는 일반 테이블처럼 SELECT 가능
+
+### 패턴
+
+```
+SE11에서 View 생성
+  ↓
+필요한 테이블 연결
+  ↓
+Table Fields에서 필요한 필드 선택
+  ↓
+프로그램에서 View를 SELECT
+```
+
+### 포인트
+
+- 시험에서 “조인 안 하고 데이터 처리”라고 나오면
+    
+    → **Database View 활용** 떠올리기
+    
+- 필요한 필드는 **Table Fields** 에서 골라서 포함
+
+---
+
+# 2) 프로그램 작성 핵심
+
+## 2-1) 내부 테이블 선언 조건
+
+### 핵심
+
+프로그램에서 테이블 타입처럼 쓰려면 보통 아래 둘 중 하나가 필요하다.
+
+- **Table Type**
+- **Structure Type**
+
+### 시험식 정리
+
+- 내부 테이블을 만들 때
+    - DDIC에 Table Type이 있으면 바로 사용 가능
+    - 없으면 Structure Type 기반으로 선언 가능
+
+### 대표 예시
+
+```
+DATA: GT_DATA TYPE TABLE OF YSEMPINFO_01,
+      GS_DATA LIKE LINE OF GT_DATA.
+```
+
+또는
+
+```
+TYPES: BEGIN OF ts_data,
+         field1 TYPE ...,
+         field2 TYPE ...,
+       END OF ts_data.
+
+DATA: gt_data TYPE TABLE OF ts_data,
+      gs_data TYPE ts_data.
+```
+
+### 포인트
+
+- 시험에서는 **로컬 타입(TYPES)** 직접 만드는 문제 자주 나옴
+- 특히 출력용 구조는 `TYPES BEGIN OF ... END OF` 로 직접 만드는 패턴 자주 사용
+
+---
+
+## 2-2) 메시지 찾기 T-code
+
+### 핵심
+
+- 메시지 클래스 / 메시지 번호 확인할 때 메시지 관리 트랜잭션을 사용
+
+### 자주 기억
+
+- `SE91` : Message Class 관리
+- 프로그램 안에서는:
+
+```
+MESSAGE E016(ZMSG_G01).
+```
+
+### 포인트
+
+- `E` = Error
+- `I` = Information
+- 시험에서 메시지 처리 묻는 경우 매우 자주 나옴
+
+---
+
+## 2-3) 함수 모듈 확인 T-code
+
+### 핵심
+
+- 함수 모듈 확인은 `SE37`
+- 어떤 파라미터가 있는지 확인할 때 **Import / Export / Tables / Exceptions** 탭 확인
+
+### 포인트
+
+- 함수 모듈 문제 나오면
+    1. `SE37`
+    2. 함수명 입력
+    3. Import 탭 확인
+    4. F8 테스트 가능
+
+---
+
+## 2-4) FORM / FM / METHOD 차이
+
+### 비교표
+
+| 구분 | FORM | Function Module | Method |
+| --- | --- | --- | --- |
+| 범위 | 현재 프로그램 내부 | 여러 프로그램 재사용 | 클래스 기반 재사용 |
+| 호출 | `PERFORM` | `CALL FUNCTION` | `CALL METHOD` |
+| 특징 | 단순 로직 | 전역 공유 | 객체지향 / 확장성 |
+| 위치 | 리포트 내부 | SE37 | SE24 |
+
+### 핵심 정리
+
+### FORM
+
+- 간단한 출력/문자열 조립/내부 처리
+
+```
+PERFORM show_name.
+
+FORM show_name.
+  WRITE: / '안녕하세요!'.
+ENDFORM.
+```
+
+### Function Module
+
+- 공통 로직 재사용
+
+```
+CALL FUNCTION 'Z_GET_AGE'
+  EXPORTING
+    iv_dob = p_dob
+  IMPORTING
+    ev_age = gv_age.
+```
+
+### Method
+
+- OOP 방식
+- 정적/인스턴스 메서드 구분
+
+```
+CALL METHOD zcl_calc=>get_tax
+  EXPORTING
+    iv_amount = 1000
+  IMPORTING
+    ev_tax    = gv_tax.
+```
+
+### 시험 포인트
+
+- 리포트 내부 전용 → `FORM`
+- 여러 프로그램 공통 → `FM`
+- 객체지향 확장형 → `METHOD`
+
+---
+
+## 2-5) Text Symbol
+
+### 핵심
+
+- 프로그램 내 텍스트 상수를 관리하는 기능
+- `TEXT-J01`, `TEXT-001` 형태로 사용
+
+### 등록 경로
+
+```
+Goto → Text Elements → Text Symbols
+```
+
+### 예시
+
+| Text Symbol | 내용 |
+| --- | --- |
+| J01 | 사장 |
+| J02 | 이사 |
+| J03 | 부장 |
+| J04 | 차장 |
+| J05 | 과장 |
+| J06 | 대리 |
+| J07 | 사원 |
+
+### 사용 예시
+
+```
+CASE pv_jikwi.
+  WHEN 1.
+    cv_jikwi = TEXT-J01.
+  WHEN 2.
+    cv_jikwi = TEXT-J02.
+ENDCASE.
+```
+
+### 포인트
+
+- 시험에서 “직위 코드 → 직위명 변환” 문제에 잘 어울림
+- 하드코딩보다 Text Symbol 방식이 깔끔함
+
+---
+
+# 3) SELECT / JOIN / VIEW / 집계 핵심
+
+## 3-1) JOIN vs DB View
+
+### 핵심
+
+- 프로그램 안에서 직접 JOIN 가능
+- SE11에서 View를 만들어 SELECT 가능
+
+### 비교
+
+| 항목 | JOIN | DB View |
+| --- | --- | --- |
+| 위치 | 프로그램 | DDIC(SE11) |
+| 재사용성 | 낮음 | 높음 |
+| 코드 | 길어질 수 있음 | 단순해짐 |
+| 관리 | 프로그램별 관리 | 중앙 관리 |
+
+### 포인트
+
+- 시험에서는 둘 다 가능
+- “조인 안 하고 처리” = View 활용 가능성 높음
+
+---
+
+## 3-2) SUM vs COLLECT
+
+### 핵심
+
+- 집계 문제는 보통 두 방식이 나온다.
+    - SQL의 `SUM + GROUP BY`
+    - ABAP의 `COLLECT`
+
+### 비교표
+
+| 항목 | SQL SUM | COLLECT |
+| --- | --- | --- |
+| 처리 위치 | DB | ABAP |
+| 성능 | 일반적으로 좋음 | 데이터 많으면 불리 |
+| 코드 | 간단 | 루프 필요 |
+| 용도 | 표준 집계 | 누적 처리 |
+
+### 기억 공식
+
+```
+DB에서 바로 묶을 수 있다 → SUM / GROUP BY
+내부테이블 누적 처리 필요 → COLLECT
+```
+
+---
+
+## 3-3) COLLECT 주의점
+
+### 핵심
+
+- 키 필드가 같으면 숫자 필드 자동 합산
+- 키가 다르면 새 행 추가
+
+### 예시
+
+```
+GS_DATA-BOOKCNT = 1.
+COLLECT GS_DATA INTO GT_DATA.
+```
+
+### 포인트
+
+- `BOOKCNT = BOOKCNT + 1` 직접 안 써도 누적 가능
+- 정확한 집계를 위해
+    - 정렬
+    - 키 구성
+    - 숫자 필드/문자 필드 구조 이해가 중요
+
+---
+
+# 4) 시험 프로그램 1 핵심 정리
+
+## 핵심 포인트
+
+- View `YVEMPINFO_01` 에서 조회
+- `SELECT-OPTIONS`, `PARAMETERS` 혼합 사용
+- 연도 입력을 날짜 범위(`GV_BEGDA`, `GV_ENDDA`)로 변환
+- 이름/부서명 길이 검증
+- Domain Fixed Value를 텍스트로 변환
+- 최종 출력은 `CL_DEMO_OUTPUT=>DISPLAY`
+
+---
+
+## 프로그램 1에서 꼭 기억할 것
+
+### 1) 연도 → 날짜 범위 변환
+
+```
+GV_BEGDA = SO_YEAR-LOW && '0101'.
+GV_ENDDA = SO_YEAR-HIGH && '1231'.
+```
+
+### 2) LIKE 패턴 만들기
+
+```
+GV_ENAME = '%' && PA_ENAME && '%'.
+GV_ORGTX = '%' && PA_ORGTX && '%'.
+```
+
+### 3) Fixed Value 텍스트 치환
+
+```
+READ TABLE GT_GENDERS INTO GS_GENDER
+  WITH KEY DOMVALUE_L = GS_DATA-GESCH.
+IF SY-SUBRC = 0.
+  GS_DATA-GESTX = GS_GENDER-DDTEXT.
+ENDIF.
+```
+
+### 4) 입력 길이 검증
+
+```
+IF PA_ENAME IS NOT INITIAL AND STRLEN( PA_ENAME ) < 4.
+  MESSAGE E016(ZMSG_G01).
+ENDIF.
+```
+
+---
+
+# 5) 시험 프로그램 2 핵심 정리
+
+## 핵심 포인트
+
+- 로컬 구조 `TS_DATA` 직접 선언
+- `SBOOK` + `STRAVELAG` 조합
+- `READ TABLE ... BINARY SEARCH`
+- `CASE` 로 고객 유형/좌석 클래스별 건수 분기
+- `COLLECT` 로 집계
+
+---
+
+## 기억할 패턴
+
+### 1) 로컬 타입 선언
+
+```
+TYPES : BEGIN OF TS_DATA,
+          AGENCYNUM TYPE SBOOK-AGENCYNUM,
+          NAME      TYPE STRAVELAG-NAME,
+          BOOKCNT   TYPE I,
+          ...
+        END OF TS_DATA.
+```
+
+### 2) BINARY SEARCH 전제
+
+```
+SORT GT_STRAVELAG BY AGENCYNUM.
+```
+
+### 3) READ TABLE + BINARY SEARCH
+
+```
+READ TABLE GT_STRAVELAG INTO GS_STRAVELAG
+  WITH KEY AGENCYNUM = GS_SBOOK-AGENCYNUM BINARY SEARCH.
+```
+
+### 4) COLLECT 집계
+
+```
+GS_DATA-BOOKCNT = 1.
+COLLECT GS_DATA INTO GT_DATA.
+```
 > ABAP 1st Exam 정리
 > 
 - 대소문자 구분 case-sensetive → 성명 같은 예시의 경우 사용
@@ -273,9 +769,10 @@
       CL_DEMO_OUTPUT=>DISPLAY( GT_DATA ).
     ```
     
+---
 
-> POU
-> 
+# 6) POU / 퀴즈 핵심 정리
+
 - 퀴즈 9 - 항공사/편명별 합산 (집계)
     
     # ABAP 집계 처리 방식 비교 정리 (SUM / COLLECT)
