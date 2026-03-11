@@ -326,21 +326,63 @@ body {
 
     <aside>
 
-      <section class="portal-card portal-side-card">
+    <section class="portal-card portal-side-card">
         <h2>📅 월별 진행 일정</h2>
-        <pre class="portal-schedule">
-            10월        | UX1 시작 (UI5 / HTML / JS)
-            11월 중순   | ABAP1 시작 (기초 문법 / Modularization / FM / BAPI)
-            11월 말~12월 | ABAP2 진행 (Open SQL / Dictionary / View / Screen / ALV)
-            12월 중순~말 | ABAP3 진행 (Screen Program / Report / ALV Grid / Multi DB)
-            12월 말~1월 초 | ABAP4 진행 (OO ABAP / Inheritance / Casting / Interface)
-            1월~2월 초 | ABAP5 진행 (HANA / CDS / New Syntax / POU / 시험 정리)
-            2월 중순    | Gateway 진행 (OData / Association / Filter / Paging / CRUD)
-            2월 말~3월 초 | UI5 Fiori 진행 (Binding / Popup / Metadata Extension / Service Binding)
-            3월 초      | SD / MM / PP / FI / CO 모듈 교육
-            3~7월       | 팀 프로젝트 (ABAP + UI5 통합 개발)
-            7월         | Job Fair, 최종 발표, 수료식
-            </pre>
+      
+        <table class="portal-table" style="font-size:0.85rem;">
+          <thead>
+            <tr>
+              <th style="width: 28%;">기간</th>
+              <th>진행 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>10월</strong></td>
+              <td>UX1 시작 (UI5 / HTML / JS)</td>
+            </tr>
+            <tr>
+              <td><strong>11월 중순</strong></td>
+              <td>ABAP1 시작 (기초 문법 / Modularization / FM / BAPI)</td>
+            </tr>
+            <tr>
+              <td><strong>11월 말 ~ 12월</strong></td>
+              <td>ABAP2 진행 (Open SQL / Dictionary / View / Screen / ALV)</td>
+            </tr>
+            <tr>
+              <td><strong>12월 중순 ~ 말</strong></td>
+              <td>ABAP3 진행 (Screen Program / Report / ALV Grid / Multi DB)</td>
+            </tr>
+            <tr>
+              <td><strong>12월 말 ~ 1월 초</strong></td>
+              <td>ABAP4 진행 (OO ABAP / Inheritance / Casting / Interface)</td>
+            </tr>
+            <tr>
+              <td><strong>1월 ~ 2월 초</strong></td>
+              <td>ABAP5 진행 (HANA / CDS / New Syntax / POU / 시험 정리)</td>
+            </tr>
+            <tr>
+              <td><strong>2월 중순</strong></td>
+              <td>Gateway 진행 (OData / Association / Filter / Paging / CRUD)</td>
+            </tr>
+            <tr>
+              <td><strong>2월 말 ~ 3월 초</strong></td>
+              <td>UI5 Fiori 진행 (Binding / Popup / Metadata Extension / Service Binding)</td>
+            </tr>
+            <tr>
+              <td><strong>3월 초</strong></td>
+              <td>SD / MM / PP / FI / CO 모듈 교육</td>
+            </tr>
+            <tr>
+              <td><strong>3월 ~ 7월</strong></td>
+              <td>팀 프로젝트 (ABAP + UI5 통합 개발)</td>
+            </tr>
+            <tr>
+              <td><strong>7월</strong></td>
+              <td>Job Fair, 최종 발표, 수료식</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section class="portal-card portal-side-card">
