@@ -1,593 +1,776 @@
-# 🧭 Lesson 13 – Screen Painter / ALV / Web Dynpro ABAP
+# 🧭 Lesson 13 – SORT & DELETE / SUBMIT / RANGE / BDC / MEMORY
 
 ---
 
 ## 0) 전체 흐름(공통 뼈대)
 
 ```
-전통 SAP 화면 개발 흐름
-  1) Screen Painter에서 화면 생성
-  2) PBO / PAI로 화면-프로그램 데이터 이동
-  3) Module Pool에서 화면 전환 처리
-  4) ALV를 Container 위에 출력
-  5) Web Dynpro ABAP으로 웹 UI 구조 이해
+Internal Table 전처리
+  1) SORT
+  2) DELETE ADJACENT DUPLICATES
+  3) FOR ALL ENTRIES 조회 최적화
+Program 호출
+  4) SUBMIT으로 다른 프로그램 실행
+  5) PARAMETERS / SELECT-OPTIONS / RANGE 전달
+자동 입력 / 데이터 전달
+  6) BDC(BDCDATA)로 트랜잭션 자동 실행
+  7) ABAP Memory로 프로그램 간 데이터 전달
 ```
 
 ---
 
-## 1) Unit 1. Screen Painter
+## 1) Unit 1. SORT & DELETE, SUBMIT, RANGE
+
+---
+
+## 1-1) ZABAP_37_G01 – SORT & DELETE
 
 ### 핵심
 
-- Screen Painter는 Dynpro 화면을 만드는 도구이다.
-- 화면 필드와 프로그램 전역 변수 이름이 같으면 **PBO/PAI에서 데이터 이동이 자동 처리**된다.
-- Module Pool에서는 Screen Painter + Flow Logic + Include 구조를 함께 이해해야 한다.
+- `DELETE ADJACENT DUPLICATES` 는 **반드시 SORT 후에 사용**해야 의미가 있다.
+- 이 구문은 **서로 붙어 있는 중복 행만** 삭제한다.
+- 따라서 정렬하지 않으면 중복이 남거나 엉뚱한 결과가 나온다.
 
 ---
 
-## 1-1) Screen Painter 기본 실습
-
-### 핵심
-
-- 화면 필드 속성에서 출력 길이, 표시 길이, 입력 가능 여부 등을 조정할 수 있다.
-- Data Element 기반으로 화면 필드 속성을 가져오되, Screen Painter에서 별도 조정 가능하다.
-
----
-
-### 1) 데이터 엘리먼트 크기 지정
+### 기본 구문
 
 ```
-Field Attributes
-Data Element : BC400_xxxx
-Output Length : 10
-Visible Length : 10
-```
+SORT GT_SPFLI BY CARRID CONNID.
 
-### 포인트
-
-- `Output Length` = 실제 출력 길이
-- `Visible Length` = 화면에 보이는 길이
-- 같은 Data Element라도 화면별로 표시 길이를 다르게 줄 수 있음
-
----
-
-### 2) Input 해제 (Output Only)
-
-```
-Field Properties
-
-[ ] Input
-[x] Output Only
-```
-
-### 포인트
-
-- 입력 불가, 조회 전용 필드로 만들 때 사용
-- 상세 화면이나 결과 화면에서 자주 사용
-
----
-
-## 1-2) Module Pool의 데이터 전송 (Implement Data Transport)
-
-### 핵심
-
-- 화면 필드 이름과 프로그램 전역 변수 이름이 같으면 자동으로 데이터가 복사된다.
-- 이 자동 복사는 PBO / PAI 시점에 각각 방향이 다르다.
-
-### 자동 복사 규칙
-
-```
-PBO : 프로그램 변수 → 화면
-PAI : 화면 값 → 프로그램 변수
-```
-
-### 포인트
-
-- 별도 MOVE 없이도 자동 transport 가능
-- Dynpro 개발의 가장 기본 개념 중 하나
-
----
-
-## 1-3) 프로그램 전역 변수와 TABLES
-
-### 전역 구조 선언 예시
-
-```
-DATA bc400_s_dynconn TYPE bc400_s_dynconn.
-```
-
-### TABLES 선언 예시
-
-```
-TABLES BC400_S_DYNCONN.
+DELETE ADJACENT DUPLICATES FROM GT_SPFLI
+  COMPARING CARRID.
 ```
 
 ### 의미
 
-- `TABLES` 문은 DDIC 구조 기반 전역 변수를 자동 생성하는 개념
-- Screen Field와 이름이 맞으면 PBO/PAI에서 자동 transport에 활용됨
+- 먼저 `CARRID`, `CONNID` 기준으로 정렬
+- 그 다음 인접한 중복을 비교해서 삭제
 
 ### 포인트
 
-- 실습에서는 `TABLES`를 자주 보지만
-- 현대 ABAP에서는 명시적 `DATA` 선언을 더 선호하는 경우도 많음
-- 다만 Dynpro 학습에서는 `TABLES` 개념 이해가 중요함
+- `ADJACENT` = 붙어 있는 것만 비교
+- 정렬 없이 쓰면 중복이 떨어져 있어서 삭제 안 될 수 있음
 
 ---
 
-## 1-4) 화면 입력값을 로직 구조에 넘기는 흐름
+## 1-2) COMPARING 필드 의미
 
-### 상황
+### 핵심
 
-- Screen 100에서 사용자가 `CARRID`, `CONNID` 입력
-- GO 버튼 클릭
-- 입력값은 `BC400_S_DYNCONN`에 자동 저장
-- 이를 기반으로 Function Module 호출
-- 결과는 `GS_CONNECTION`에 받음
-- 이후 `MOVE-CORRESPONDING`으로 화면 구조에 복사
-- Screen 200에서 출력
+- `COMPARING` 에 어떤 필드를 넣느냐에 따라 중복 제거 단위가 달라진다.
+
+### 예시 1) 비교 필드가 적을 때
+
+```
+DELETE ADJACENT DUPLICATES FROM GT_SPFLI
+  COMPARING CARRID.
+```
+
+- 같은 `CARRID` 만 보면 중복으로 판단
+- 항공사 단위로 더 많이 줄어듦
+
+### 예시 2) 비교 필드가 많을 때
+
+```
+DELETE ADJACENT DUPLICATES FROM GT_SPFLI
+  COMPARING CARRID CONNID.
+```
+
+- `CARRID + CONNID` 가 모두 같아야 중복
+- 더 세밀한 단위로 중복 제거
+
+### 포인트
+
+- 비교 필드가 적을수록 결과 건수가 더 적어진다
+- 비교 필드가 많을수록 더 상세 단위로 남는다
 
 ---
 
-### 흐름 요약
+## 1-3) FOR ALL ENTRIES
+
+### 핵심
+
+- 내부테이블의 여러 값을 기준으로 DB에서 한 번에 조회할 때 사용
+- 내부적으로는 **루프마다 DB를 여러 번 호출하는 방식이 아니라**
+- `WHERE ... OR ... OR ...` 형태로 한 번 조회하는 개념
+
+### 기본 구문
 
 ```
-Screen 100
-   ↓
-GO 버튼 클릭
-   ↓
-Function Module 호출
-   ↓
-GS_CONNECTION 데이터 수신
-   ↓
-MOVE-CORRESPONDING
-   ↓
-Screen 200 출력
-```
-
----
-
-## 1-5) 코드
-
-```
-*&---------------------------------------------------------------------*
-*& Include          MZSCR_G01I01
-*&---------------------------------------------------------------------*
-*& PAI(Input) 모듈 처리부
-*&---------------------------------------------------------------------*
-
-MODULE USER_COMMAND_0100 INPUT.
-
-  CASE OK_CODE.
-
-    WHEN 'GO'.
-
-      CALL FUNCTION 'BC400_DDS_CONNECTION_GET'
-        EXPORTING
-          IV_CARRID     = BC400_S_DYNCONN-CARRID
-          IV_CONNID     = BC400_S_DYNCONN-CONNID
-        IMPORTING
-          ES_CONNECTION = GS_CONNECTION
-        EXCEPTIONS
-          NO_DATA       = 1
-          OTHERS        = 2.
-
-      IF SY-SUBRC <> 0.
-        MESSAGE E042(BC400)
-          WITH GS_CONNECTION-CARRID
-               GS_CONNECTION-CONNID.
-      ELSE.
-
-        MOVE-CORRESPONDING GS_CONNECTION TO BC400_S_DYNCONN.
-
-        SET SCREEN 200.
-
-      ENDIF.
-
-  ENDCASE.
-
-ENDMODULE.
-
-MODULE USER_COMMAND_0200 INPUT.
-
-  CASE OK_CODE.
-
-    WHEN 'BACK'.
-      SET SCREEN 100.
-
-    WHEN 'EXIT'.
-      SET SCREEN 0.
-
-  ENDCASE.
-
-ENDMODULE.
+SELECT * FROM SBOOK
+  FOR ALL ENTRIES IN GT_SPFLI
+  WHERE CARRID = GT_SPFLI-CARRID
+    AND CONNID = GT_SPFLI-CONNID.
 ```
 
 ---
 
-## 1-6) 포인트 정리
+### 내부 동작 개념
 
-### 핵심 포인트
+```
+WHERE ( CARRID = 'AA' AND CONNID = '001' )
+   OR ( CARRID = 'AA' AND CONNID = '017' )
+   OR ( CARRID = 'LH' AND CONNID = '040' )
+```
 
-- `OK_CODE`에는 버튼의 Function Code가 들어간다.
-- 화면 입력값은 PAI 시작 시점에 전역 변수로 자동 반영된다.
-- `MOVE-CORRESPONDING`은 같은 이름의 필드끼리 복사한다.
-- `SET SCREEN 200`으로 다음 화면 이동
-- `SET SCREEN 0`으로 호출 이전 화면/종료 복귀
+### 의미
+
+- `GT_SPFLI` 의 각 행이 하나의 OR 조건이 된다
+- 즉, 내부테이블 값 목록을 기준으로 여러 조건을 한 번에 조회
+
+---
+
+## 1-4) FOR ALL ENTRIES에서 SORT & DELETE가 중요한 이유
+
+### 핵심
+
+- `FOR ALL ENTRIES`는 내부테이블 한 행당 OR 조건 하나를 만든다.
+- 중복이 있으면 불필요한 OR 조건이 늘어나서 성능이 나빠진다.
+- 그래서 보통 아래 패턴으로 사용한다.
+
+```
+1) 기준 Internal Table 조회
+2) SORT
+3) DELETE ADJACENT DUPLICATES
+4) FOR ALL ENTRIES
+```
+
+### 포인트
+
+- 중복 제거 없이 FAE 쓰면 성능 낭비
+- 특히 기준값이 많을수록 더 중요
+
+---
+
+## 1-5) 전체 코드 흐름
+
+```
+REPORT ZABAP_37_G01.
+
+DATA: GT_SPFLI TYPE TABLE OF SPFLI,
+      GS_SPFLI LIKE LINE OF GT_SPFLI,
+      GT_SBOOK TYPE TABLE OF SBOOK.
+
+SELECT-OPTIONS: SO_CAR FOR GS_SPFLI-CARRID,
+                SO_CON FOR GS_SPFLI-CONNID.
+
+SELECT *
+  INTO TABLE GT_SPFLI
+  FROM SPFLI
+  WHERE CARRID IN SO_CAR
+    AND CONNID IN SO_CON.
+
+IF GT_SPFLI IS NOT INITIAL.
+
+  GS_SPFLI-CARRID = 'AA'.
+  GS_SPFLI-CONNID = '0017'.
+  APPEND GS_SPFLI TO GT_SPFLI.
+
+  SORT GT_SPFLI BY CARRID CONNID.
+
+  DELETE ADJACENT DUPLICATES FROM GT_SPFLI
+    COMPARING CARRID.
+
+*  SELECT *
+*    INTO TABLE GT_SBOOK
+*    FROM SBOOK
+*    FOR ALL ENTRIES IN GT_SPFLI
+*    WHERE CARRID = GT_SPFLI-CARRID
+*      AND CONNID = GT_SPFLI-CONNID.
+ENDIF.
+
+CL_DEMO_OUTPUT=>DISPLAY( GT_SBOOK ).
+```
+
+### 포인트
+
+- 기준 테이블 먼저 채움
+- 필요 시 값 추가
+- 정렬
+- 중복 제거
+- 그 후 FAE 조회
+
+---
+
+## 2) ZABAP_39_G01 – SUBMIT 호출 대상 프로그램
+
+### 핵심
+
+- `SUBMIT` 은 다른 실행 프로그램(Report)을 호출하는 구문
+- 보통 선택화면이 있는 프로그램을 대신 실행할 때 사용
+- 실행 결과를 재사용하거나 흐름을 연결할 때 유용
+
+---
+
+### 예시 프로그램
+
+```
+REPORT ZABAP_39_G01.
+
+DATA: GT_SFLIGHTS TYPE TABLE OF SFLIGHT,
+      GS_SFLIGHT  LIKE LINE OF GT_SFLIGHTS.
+
+DATA: GO_SALV TYPE REF TO CL_SALV_TABLE.
+
+SELECT-OPTIONS: SO_CAR FOR GS_SFLIGHT-CARRID,
+                SO_CON FOR GS_SFLIGHT-CONNID.
+
+SELECT *
+  INTO TABLE GT_SFLIGHTS
+  FROM SFLIGHT
+  WHERE CARRID IN SO_CAR
+    AND CONNID IN SO_CON.
+
+TRY.
+    CALL METHOD CL_SALV_TABLE=>FACTORY
+      IMPORTING
+        R_SALV_TABLE = GO_SALV
+      CHANGING
+        T_TABLE      = GT_SFLIGHTS.
+  CATCH CX_SALV_MSG.
+ENDTRY.
+
+CALL METHOD GO_SALV->DISPLAY.
+```
+
+### 포인트
+
+- 이 프로그램이 나중에 `SUBMIT` 으로 호출되는 대상이 될 수 있음
+- 보통 Selection Text 변경이나 호출 실습과 연결
+
+---
+
+## 3) ZABAP_38_G01 – SUBMIT & RANGE
+
+### 핵심
+
+- 현재 프로그램에서 다른 프로그램을 실행할 때
+- `PARAMETERS` 값을 다른 프로그램의 `SELECT-OPTIONS` 에 넘길 수 있다
+- 단일값도 넘길 수 있고, `RANGE TABLE` 형태로 여러 조건도 넘길 수 있다
+
+---
+
+## 3-1) 호출 대상 프로그램
+
+```
+REPORT ZABAP_38_G01.
+
+DATA: GT_SPFLI TYPE TABLE OF SPFLI,
+      GS_SPFLI LIKE LINE OF GT_SPFLI.
+
+PARAMETERS: PA_CAR TYPE SPFLI-CARRID OBLIGATORY.
+
+SELECT *
+  INTO TABLE GT_SPFLI
+  FROM SPFLI
+  WHERE CARRID = PA_CAR.
+
+LOOP AT GT_SPFLI INTO GS_SPFLI.
+  WRITE:/ GS_SPFLI-CARRID,
+          GS_SPFLI-CONNID,
+          GS_SPFLI-CITYFROM,
+          GS_SPFLI-CITYTO,
+          GS_SPFLI-AIRPFROM,
+          GS_SPFLI-AIRPTO.
+ENDLOOP.
+```
+
+---
+
+## 3-2) SUBMIT 기본 개념
+
+### 핵심
+
+- 현재 프로그램의 값을
+- 호출되는 프로그램의 선택조건으로 넘길 수 있다
+
+### 예시 흐름
+
+```
+현재 프로그램의 PA_CAR
+  ↓
+호출 대상 프로그램의 SO_CAR 로 전달
+```
+
+---
+
+## 3-3) VIA SELECTION-SCREEN
+
+### 핵심
+
+- `VIA SELECTION-SCREEN` 이 있으면
+    - 호출 대상 프로그램의 선택화면을 한 번 보여줌
+- 없으면
+    - 선택화면 없이 바로 실행
+
+### 포인트
+
+```
+VIA SELECTION-SCREEN 있음  → 선택화면 표시 후 실행
+VIA SELECTION-SCREEN 없음 → 바로 실행
+```
+
+---
+
+## 3-4) AND RETURN
+
+### 핵심
+
+- `AND RETURN` 을 쓰면
+- 호출된 프로그램 실행 후 다시 원래 프로그램으로 돌아온다
+
+```
+현재 프로그램
+   ↓
+SUBMIT 대상 프로그램 실행
+   ↓
+다시 현재 프로그램으로 복귀
+   ↓
+이후 코드 계속 실행
+```
+
+### 포인트
+
+- `CALL SCREEN` 처럼 흐름이 이어지는 느낌으로 이해하면 쉬움
+- 시험에서 자주 묻는 포인트
+
+---
+
+## 3-5) RANGE 전용 내부테이블
+
+### 핵심
+
+- `SELECT-OPTIONS` 나 `IN` 조건에 넘길 수 있는 범위 테이블을 직접 만들어서 사용할 수 있다
+
+### 예시
+
+```
+RS_CAR-SIGN = 'I'.
+RS_CAR-OPTION = 'BT'.
+RS_CAR-LOW = PA_CAR.
+RS_CAR-HIGH = 'LH'.
+APPEND RS_CAR TO RT_CAR.
+
+CLEAR RS_CAR.
+RS_CAR-SIGN = 'E'.
+RS_CAR-OPTION = 'EQ'.
+RS_CAR-LOW = 'AZ'.
+APPEND RS_CAR TO RT_CAR.
+```
+
+### 의미
+
+- 첫 번째 조건:
+    - 포함(`I`)
+    - Between(`BT`)
+    - `PA_CAR ~ 'LH'`
+- 두 번째 조건:
+    - 제외(`E`)
+    - Equal(`EQ`)
+    - `AZ` 제외
+
+---
+
+## 3-6) RANGE 핵심 정리
+
+### SIGN
+
+- `I` : Include
+- `E` : Exclude
+
+### OPTION
+
+- `EQ` : 같다
+- `BT` : 범위
+- `CP` : 패턴 등
+
+### 포인트
+
+- `IN` 조건과 연결해서 쓰는 것이 핵심
+- 시험에서는 `SIGN + OPTION + LOW + HIGH` 구조를 정확히 알아야 함
+
+---
+
+## 4) CREATE DATA & RECORDING PROGRAM
+
+---
+
+## 4-1) T-code 확인
+
+### 핵심
+
+- 특정 트랜잭션이 어떤 프로그램을 실행하는지 확인할 수 있다
+
+### 방법
+
+- `SE93` 에서 T-code 확인
+- 또는 직접 T-code 실행 후 프로그램명 확인
+- 이후 `SE80` 에서 프로그램 구조/레이아웃 확인 가능
+
+---
+
+## 4-2) SHDB
+
+### 핵심
+
+- `SHDB` 는 트랜잭션을 녹화(Recording)해서
+- BDC 코드로 변환할 때 사용하는 도구
+
+### 흐름
+
+```
+SHDB 실행
+  ↓
+New Recording
+  ↓
+트랜잭션 입력
+  ↓
+직접 화면 입력/저장
+  ↓
+Recording 결과 확인
+  ↓
+BDC 코드 생성 참고
+```
+
+### 포인트
+
+- 화면 기반 자동입력 프로그램 만들 때 가장 기본 도구
+
+---
+
+## 5) ZABAP_40_G01 – RECORDING / BDC
+
+### 핵심
+
+- BDC는 사람이 SAP 화면에서 입력하는 과정을
+- 프로그램이 그대로 따라 하게 하는 방식
+- `BDCDATA` 를 채우고 `CALL TRANSACTION` 으로 실행한다
+
+---
+
+## 5-1) 전체 코드
+
+```
+REPORT ZABAP_40_G01.
+
+DATA: GT_BDCDATA TYPE TABLE OF BDCDATA,
+      GS_BDCDATA LIKE LINE OF GT_BDCDATA.
+
+GS_BDCDATA-PROGRAM = 'SAPBC402_PGCD_CREATE_CUSTOMER'.
+GS_BDCDATA-DYNPRO = '0100'.
+GS_BDCDATA-DYNBEGIN = 'X'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'SCUSTOM-NAME'.
+GS_BDCDATA-FVAL = '김철수'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'SCUSTOM-FORM'.
+GS_BDCDATA-FVAL = 'Mr.'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'SCUSTOM-STREET'.
+GS_BDCDATA-FVAL = 'busanjingu'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'SCUSTOM-POSTCODE'.
+GS_BDCDATA-FVAL = '12345'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'SCUSTOM-CITY'.
+GS_BDCDATA-FVAL = 'busan'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'SCUSTOM-COUNTRY'.
+GS_BDCDATA-FVAL = 'KR'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'SCUSTOM-TELEPHONE'.
+GS_BDCDATA-FVAL = '050-9824-9251'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR GS_BDCDATA.
+GS_BDCDATA-FNAM = 'BDC_OKCODE'.
+GS_BDCDATA-FVAL = '=SAVE'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CALL TRANSACTION 'BC402_CALD_CRE_CUST'
+  USING GT_BDCDATA
+  MODE 'N'.
+```
+
+---
+
+## 5-2) BDCDATA 구조
+
+### 핵심 필드
+
+```
+PROGRAM   : 화면 프로그램명
+DYNPRO    : 화면 번호
+DYNBEGIN  : 'X' = 새 화면 시작
+FNAM      : 필드명 또는 BDC_OKCODE
+FVAL      : 입력값 또는 기능코드
+```
+
+---
+
+## 5-3) BDCDATA 작성 규칙
+
+```
+[화면 시작 줄]
+PROGRAM + DYNPRO + DYNBEGIN = 'X'
+
+[필드 줄들]
+FNAM + FVAL
+```
+
+### 포인트
+
+- 화면이 바뀔 때마다 새 화면 시작 줄 필요
+- 각 입력 필드는 한 줄씩 추가
+
+---
+
+## 5-4) 자주 쓰는 필드
+
+```
+BDC_OKCODE : 버튼/기능코드
+BDC_CURSOR : 커서 위치
+```
+
+### 예시
+
+- `=SAVE`
+- `=ENTR`
+
+---
+
+## 5-5) MODE 옵션
+
+### 핵심
+
+```
+MODE 'N'.  " OR 'E' OR 'A'
+```
+
+### 의미
+
+| 모드 | 의미 |
+| --- | --- |
+| `A` | 전체 화면 항상 표시 |
+| `E` | 에러 있을 때만 화면 표시 |
+| `N` | 화면 표시 안 함 |
+
+### 포인트
+
+- 실습 때는 `A`, `E` 가 디버깅에 유리
+- 실제 자동 실행은 `N` 자주 사용
+
+---
+
+## 5-6) BDC 핵심 정리
+
+### 한 줄 요약
+
+> BDC는 SAP 화면을 그대로 흉내 내는 자동 입력 방식이고,
+> 
+> 
+> BDCDATA는 “어느 화면의 어떤 필드에 어떤 값을 넣을지” 적어둔 스크립트다.
+> 
 
 ### 주의
 
-- 화면 필드명과 프로그램 변수명이 다르면 자동 transport가 안 된다.
-- 결과 화면에 보여줄 필드는 PBO 시점에 프로그램 변수에 값이 채워져 있어야 한다.
+- 화면이 바뀌면 깨질 수 있음
+- 속도가 느릴 수 있음
+- BAPI/API가 있으면 보통 그쪽이 우선
 
 ---
 
-## 2) Unit 2. SAP List Viewer (ALV)
+## 6) ZABAP_41_G01 / ZABAP_42_G01 – MEMORY
 
 ### 핵심
 
-- ALV는 내부 테이블을 표(Grid) 형태로 보여주는 SAP 표준 도구이다.
-- ALV Grid는 화면에 바로 뜨는 것이 아니라 **Container 안에 붙어서 출력**된다.
-- 화면에 Custom Control을 만들고, 프로그램에서 Container 객체와 Grid 객체를 생성한 뒤 데이터를 연결한다.
+- `EXPORT TO MEMORY ID` 로 ABAP Memory에 데이터를 저장
+- `IMPORT FROM MEMORY ID` 로 다른 프로그램에서 꺼냄
+- `SUBMIT ... AND RETURN` 과 함께 자주 사용
 
 ---
 
-## 2-1) ALV란?
+## 6-1) 전체 흐름
 
-### 정의
+```
+ZABAP_41_G01
+  1) SPFLI 조회
+  2) GT_CONNECT를 ABAP Memory에 EXPORT
+  3) SUBMIT으로 ZABAP_42_G01 실행
+  4) 돌아와서 자기 리스트 출력
 
-- SAP에서 내부 테이블을 표 형태로 보여주는 도구
-- 정렬, 필터, 합계, 레이아웃 기능 등을 쉽게 제공
+ZABAP_42_G01
+  1) ABAP Memory에서 GT_CONNECT IMPORT
+  2) SALV로 출력
+```
+
+---
+
+## 6-2) 호출하는 쪽 – EXPORT
+
+```
+REPORT ZABAP_41_G01.
+
+DATA: GT_CONNECT TYPE TABLE OF SPFLI,
+      GS_CONNECT LIKE LINE OF GT_CONNECT.
+
+SELECT-OPTIONS: SO_CAR FOR GS_CONNECT-CARRID.
+
+SELECT *
+  INTO TABLE GT_CONNECT
+  FROM SPFLI
+  WHERE CARRID IN SO_CAR.
+
+EXPORT
+  GT_CONNECT
+  TO MEMORY ID 'CONECT'.
+
+SUBMIT ZABAP_42_G01
+  AND RETURN.
+
+LOOP AT GT_CONNECT INTO GS_CONNECT.
+  WRITE:/ GS_CONNECT-CARRID,
+          GS_CONNECT-CONNID,
+          GS_CONNECT-AIRPFROM,
+          GS_CONNECT-CITYFROM,
+          GS_CONNECT-AIRPTO,
+          GS_CONNECT-CITYTO.
+ENDLOOP.
+```
 
 ### 포인트
 
-- 단순 `WRITE` 출력보다 훨씬 실무적
-- SAP GUI 화면 기반 리스트 출력의 핵심 도구
+- 조회 데이터 `GT_CONNECT` 를 메모리에 저장
+- 그 후 다른 프로그램 호출
 
 ---
 
-## 2-2) ALV 구조 이해
+## 6-3) 호출되는 쪽 – IMPORT
 
 ```
-AREA = 빈 화면 공간
-CUSTOM CONTAINER = AREA 안의 박스
-CONTAINER INSTANCE = 프로그램에서 박스를 제어하는 객체
-ALV GRID INSTANCE = 박스 안에 그려지는 ALV
+REPORT ZABAP_42_G01.
+
+DATA: GT_SPFLI TYPE TABLE OF SPFLI.
+
+DATA: GO_SALV TYPE REF TO CL_SALV_TABLE.
+
+IMPORT
+  GT_CONNECT TO GT_SPFLI
+  FROM MEMORY ID 'CONNECT'.
+
+TRY.
+    CALL METHOD CL_SALV_TABLE=>FACTORY
+      IMPORTING
+        R_SALV_TABLE = GO_SALV
+      CHANGING
+        T_TABLE      = GT_SPFLI.
+  CATCH CX_SALV_MSG.
+ENDTRY.
+
+CALL METHOD GO_SALV->DISPLAY.
 ```
 
 ### 포인트
 
-- Screen Painter에서 만든 Custom Control 이름과
-- ABAP에서 생성하는 Container 객체 이름이 연결되어야 한다
+- Memory ID 문자열이 정확히 같아야 함
+- 저장 이름 / 가져올 이름 매핑도 중요
 
----
+### 주의
 
-## 2-3) 전체 실행 흐름
+현재 노트 기준으로는 저장할 때 `'CONECT'`, 가져올 때 `'CONNECT'` 로 보여서
+
+**ID가 다르면 IMPORT가 안 됩니다.**
+
+실제로는 **같은 MEMORY ID** 를 써야 합니다.
+
+예:
 
 ```
-① 스크린에서 Custom Control(AREA) 생성
-          ↓
-② ABAP에서 Container 객체 생성
-          ↓
-③ Grid 객체 생성
-          ↓
-④ 내부 테이블 준비
-          ↓
-⑤ SET_TABLE_FOR_FIRST_DISPLAY 호출
-          ↓
-⑥ 화면에 ALV 출력
+EXPORT GT_CONNECT TO MEMORY ID 'CONNECT'.
+IMPORT GT_CONNECT TO GT_SPFLI FROM MEMORY ID 'CONNECT'.
 ```
 
 ---
 
-## 2-4) Screen 200 Layout 설정
+## 6-4) ABAP Memory 특징
 
 ### 핵심
 
-- Screen 200에 Custom Control 영역 생성
-- 가로/세로 자동 확장 옵션 체크
-
-```
-Custom Control : AREA
-[x] Horizontal Resize
-[x] Vertical Resize
-```
+- ABAP Memory는 **SAP GUI 창(External Session)마다 독립적**
+- 다른 창에서는 접근 불가
+- 창 간 데이터 교환 불가
 
 ### 포인트
 
-- 화면 크기 조정 시 ALV도 함께 늘어나게 하려면 resize 옵션이 중요함
+- 같은 세션 안에서만 전달 가능
+- 완전 영구 저장소가 아님
 
 ---
 
-## 2-5) Top Include 선언
+## 7) Lesson 13 핵심 비교(한 눈에)
 
-```
-DATA : GO_CONT TYPE REF TO CL_GUI_CUSTOM_CONTAINER,
-       GO_ALV  TYPE REF TO CL_GUI_ALV_GRID.
-```
-
-### 의미
-
-- `GO_CONT` : Container 객체 참조변수
-- `GO_ALV` : ALV Grid 객체 참조변수
-
----
-
-## 2-6) Container 객체 생성
-
-```
-CREATE OBJECT GO_CONT
-  EXPORTING
-    CONTAINER_NAME = 'AREA'.
-```
-
-### 포인트
-
-- `'AREA'` 는 Screen Painter에서 만든 Custom Control 이름과 정확히 같아야 함
-
----
-
-## 2-7) Grid 객체 생성
-
-```
-CREATE OBJECT GO_ALV
-  EXPORTING
-    I_PARENT = GO_CONT.
-```
-
-### 포인트
-
-- ALV Grid는 부모 Container 위에 생성됨
-- Container 없이 Grid만 생성할 수 없음
-
----
-
-## 2-8) Flight 데이터 조회
-
-```
-CALL FUNCTION 'BC400_DDS_FLIGHTLIST_GET'
-  EXPORTING
-    IV_CARRID  = BC400_S_DYNCONN-CARRID
-    IV_CONNID  = BC400_S_DYNCONN-CONNID
-  IMPORTING
-    ET_FLIGHTS = GT_FLIGHTS.
-```
-
-### 포인트
-
-- Screen 100에서 입력한 항공사/연결편 값을 사용
-- 조회 결과는 내부 테이블 `GT_FLIGHTS`에 저장
-
----
-
-## 2-9) ALV 최초 출력
-
-```
-CALL METHOD GO_ALV->SET_TABLE_FOR_FIRST_DISPLAY
-  EXPORTING
-    I_STRUCTURE_NAME = 'BC400_S_FLIGHT'
-  CHANGING
-    IT_OUTTAB        = GT_FLIGHTS.
-```
-
-### 의미
-
-- `I_STRUCTURE_NAME`으로 컬럼 자동 생성
-- `IT_OUTTAB`에 실제 출력할 내부 테이블 전달
-
-### 포인트
-
-- Lesson 10의 ALV 기본형과 연결되는 부분
-- 구조명만 넘기면 빠르게 ALV 출력 가능
-
----
-
-## 2-10) ALV 결과
-
-```
-CARRID | CONNID | FLDATE | PRICE
-LH     | 0400   | ...    | ...
-LH     | 0401   | ...    | ...
-LH     | 0402   | ...    | ...
-```
-
-### 포인트
-
-- 리스트 출력이 아니라 Grid 형태로 표시됨
-- 이후 Field Catalog, Layout, Event 등으로 확장 가능
-
----
-
-## 3) Unit 3. Web Dynpro ABAP
-
-### 핵심
-
-- Web Dynpro ABAP는 SAP GUI가 아니라 **웹 브라우저에서 동작하는 UI 프레임워크**
-- Component, View, Window, Controller, Context 구조를 이해하는 것이 핵심
-- 전통 Dynpro와 달리 웹 기반 MVC 스타일에 가깝다
-
----
-
-## 3-1) Web Dynpro ABAP란?
-
-### 정의
-
-- 브라우저에서 실행되는 SAP UI 기술
-- SAP GUI 없이 웹 화면 구성 가능
-
-### 포인트
-
-- Dynpro는 SAP GUI 중심
-- Web Dynpro는 웹 기반
-- 둘 다 SAP UI 기술이지만 구조와 개발 방식이 다름
-
----
-
-## 3-2) Web Dynpro Component 구조
-
-```
-COMPONENT
-  ├─ Component Controller
-  ├─ Views
-  │   └─ MAIN_VIEW
-  ├─ Windows
-  │   └─ MAIN_WINDOW
-  └─ Context
-```
-
-### 의미
-
-- **Component** : 전체 단위
-- **Component Controller** : 전역 로직/전역 Context
-- **View** : 실제 화면 UI
-- **Window** : View를 담는 창
-- **Context** : 데이터 바인딩 구조
-
----
-
-## 3-3) Web Dynpro 기본 구조
-
-```
-COMPONENT
-  ├─ COMPONENT CONTROLLER
-  │    - 전역 Context
-  │
-  └─ WINDOW
-        ├─ VIEW_A
-        └─ VIEW_B
-```
-
-### 포인트
-
-- 여러 View가 하나의 Window / Component 안에서 동작할 수 있음
-- Controller와 Context 개념이 중요함
-
----
-
-## 3-4) 실습 화면 예시
-
-```
-CARRID : [____]
-CONNID : [____]
-
-[ SEARCH ]
-
-Flight Table
-```
-
-### 포인트
-
-- 입력 필드 + 버튼 + 결과 테이블 구조
-- 전통 Dynpro보다 웹 UI처럼 구성됨
-
----
-
-## 3-5) 데이터 조회 메소드
-
-```
-METHOD GET_FLIGHTS.
-  SELECT *
-    INTO CORRESPONDING FIELDS OF TABLE LT_NT_DATA
-    FROM SFLIGHT
-    WHERE CARRID = LS_NS_COND-CARRID
-      AND CONNID = LS_NS_COND-CONNID.
-ENDMETHOD.
-```
-
-### 의미
-
-- Context의 조건값(`LS_NS_COND`)을 기준으로
-- `SFLIGHT`에서 데이터 조회
-- 결과를 테이블 노드에 채움
-
-### 포인트
-
-- Web Dynpro에서는 조회 로직을 메소드로 분리하는 패턴이 자주 나옴
-- 조건 Context와 결과 Context를 나눠 이해하면 편함
-
----
-
-## 3-6) 버튼 액션 메소드
-
-```
-METHOD ONACTIONSEARCH.
-
-  WD_COMP_CONTROLLER->GET_FLIGHTS( ).
-
-ENDMETHOD.
-```
-
-### 의미
-
-- 사용자가 SEARCH 버튼 클릭
-- Action Method 실행
-- Component Controller의 조회 메소드 호출
-
-### 포인트
-
-- Dynpro의 `OK_CODE` 방식과 달리
-- Web Dynpro는 **Action/Event 방식**으로 동작
-
----
-
-## 3-7) 실행 결과
-
-```
-CARRID : LH
-CONNID : 0400
-
-[ SEARCH ]
-
-LH | 0400 | 2024-01-01 | ...
-LH | 0400 | 2024-01-02 | ...
-```
-
-### 포인트
-
-- 입력값 기준으로 결과 테이블이 웹 화면에 출력
-- SAP GUI Screen보다 웹 애플리케이션처럼 보임
-
----
-
-## 4) Unit 1 / 2 / 3 비교(한 눈에)
-
-| 항목 | Screen Painter / Module Pool | ALV | Web Dynpro ABAP |
+| 항목 | 핵심 기능 | 대표 키워드 | 주의점 |
 | --- | --- | --- | --- |
-| 목적 | 전통 SAP GUI 화면 개발 | 표 형태 리스트 출력 | 웹 기반 SAP UI 개발 |
-| 핵심 개념 | PBO / PAI / OK_CODE | Container / Grid / Internal Table | Component / View / Controller / Context |
-| 데이터 전달 | 화면필드 ↔ 전역변수 자동 transport | 내부테이블 → Grid 출력 | Context 바인딩 |
-| 이벤트 처리 | Function Code | ALV Method/Event | Action Method |
-| 화면 기술 | Dynpro | Dynpro 위 Grid | Browser UI |
+| SORT + DELETE ADJACENT DUPLICATES | 중복 제거 | `SORT`, `DELETE ADJACENT DUPLICATES` | 정렬 없이 쓰면 안 됨 |
+| FOR ALL ENTRIES | 내부테이블 기준 다건 조회 | `FOR ALL ENTRIES IN` | 중복 제거 중요 |
+| SUBMIT | 다른 Report 실행 | `SUBMIT`, `VIA SELECTION-SCREEN`, `AND RETURN` | 선택화면 표시 여부 확인 |
+| RANGE | 조건 집합 전달 | `SIGN`, `OPTION`, `LOW`, `HIGH` | `IN` 과 함께 사용 |
+| BDC | 화면 자동 입력 | `BDCDATA`, `CALL TRANSACTION` | 화면 바뀌면 깨질 수 있음 |
+| ABAP Memory | 프로그램 간 데이터 전달 | `EXPORT/IMPORT TO MEMORY ID` | 같은 세션에서만 가능 |
 
 ---
 
-## 5) 시험 포인트 / 실무 포인트
+## 8) 시험 포인트 / 실무 포인트
 
-### 5-1) 시험 포인트
+### 8-1) 시험 포인트
 
-- **PBO / PAI 데이터 이동 방향**
-- **화면 필드명 = 프로그램 전역 변수명일 때 자동 transport**
-- **TABLES 문 의미**
-- **OK_CODE / SET SCREEN / MOVE-CORRESPONDING**
-- **ALV는 Container 위에 출력된다는 점**
-- **CL_GUI_CUSTOM_CONTAINER / CL_GUI_ALV_GRID 역할**
-- **SET_TABLE_FOR_FIRST_DISPLAY 사용법**
-- **Web Dynpro의 Component / View / Window / Controller 구조**
-- **Dynpro와 Web Dynpro의 이벤트 처리 방식 차이**
+- `DELETE ADJACENT DUPLICATES` 는 **SORT 후 사용**
+- `COMPARING` 필드에 따라 중복 제거 단위가 달라짐
+- `FOR ALL ENTRIES` 는 내부테이블 한 행당 OR 조건 개념
+- `SUBMIT` 에서
+    - `VIA SELECTION-SCREEN`
+    - `AND RETURN`
+        
+        의미 구분
+        
+- `RANGE` 구조:
+    - `SIGN`
+    - `OPTION`
+    - `LOW`
+    - `HIGH`
+- `BDCDATA` 구조 필드 암기
+- `CALL TRANSACTION ... MODE`
+- `EXPORT / IMPORT TO MEMORY ID`
+- Memory ID는 정확히 동일해야 함
 
-### 5-2) 실무 포인트
+### 8-2) 실무 포인트
 
-- 전통 화면에서는 변수명 일치가 중요함
-- ALV는 실무에서 거의 기본 출력 도구처럼 사용됨
-- 화면 출력과 조회 로직을 분리해야 유지보수가 편함
-- Web Dynpro는 SAP GUI와 다른 UI 철학으로 이해해야 함
+- FAE 전 중복 제거는 거의 필수 습관
+- BDC는 가능하면 마지막 수단
+- 프로그램 간 간단한 데이터 전달은 Memory가 편함
+- 세션이 다르면 ABAP Memory 공유 안 됨
 
 ---
 
-## 6) Lesson 13에서 제일 중요한 결론
+## 9) Lesson 13에서 제일 중요한 결론
 
-- **Screen Painter는 Dynpro 화면의 기본이며, PBO/PAI 자동 데이터 이동이 핵심이다**
-- **Module Pool에서는 OK_CODE, SET SCREEN, MOVE-CORRESPONDING 흐름을 확실히 알아야 한다**
-- **ALV는 Container 안에 Grid를 생성해서 내부 테이블을 출력하는 구조다**
-- **Web Dynpro ABAP는 웹 기반 UI 기술로, Component / View / Controller / Context 구조가 핵심이다**
-- **Lesson 13은 ‘전통 화면 → ALV → 웹 UI’로 SAP 화면 기술 흐름을 이해하는 단원이다**
+- **중복 제거는 `SORT → DELETE ADJACENT DUPLICATES` 순서가 핵심이다**
+- **`FOR ALL ENTRIES` 는 OR 조건 기반이므로 기준 테이블 중복 제거가 중요하다**
+- **`SUBMIT` 으로 다른 프로그램을 실행할 수 있고, `VIA SELECTION-SCREEN`, `AND RETURN` 옵션이 중요하다**
+- **`RANGE` 는 `SIGN/OPTION/LOW/HIGH` 구조로 조건 집합을 만든다**
+- **BDC는 화면 자동입력, ABAP Memory는 같은 세션 내 프로그램 간 데이터 전달 방식이다**
