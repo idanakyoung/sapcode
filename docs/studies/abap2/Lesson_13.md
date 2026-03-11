@@ -361,4 +361,307 @@
                 └─────────────────────────────────────┘
                 ```
                 
-                → 지금까지 실습 완료 후 실행 화면 
+                → 지금까지 실습 완료 후 실행 화면
+
+# 🔵 **Unit 3. Web Dynpro ABAP**
+
+1. Web Dynpro ABAP란?
+    1. 웹 브라우저에서 동작하는 SAP의 UI 프레임 워크 SAP GUI 화면 대신 **웹 화면**을 만드는 기술
+    2. Web Dynpro 기본 구성
+        
+        ```text
+        Web Dynpro Component 생성 화면
+
+        ┌──────────────────────────────────────┐
+        │ Web Dynpro Explorer                   │
+        │                                       │
+        │ Component : ZWD_FLIGHT                │
+        │                                       │
+        │  ├─ Component Controller              │
+        │  ├─ Views                             │
+        │  │   └─ MAIN_VIEW                     │
+        │  ├─ Windows                           │
+        │  │   └─ MAIN_WINDOW                   │
+        │  └─ Context                           │
+        │                                       │
+        │ Web Dynpro 기본 구조 생성 화면         │
+        └──────────────────────────────────────┘
+        ```
+        
+        ```text
+        Web Dynpro 개발 화면 구조
+
+        ┌──────────────────────────────────────┐
+        │ Component Structure                  │
+        │                                      │
+        │ Component                            │
+        │   ├─ Component Controller            │
+        │   ├─ Window                          │
+        │   │   └─ View                        │
+        │   │       ├─ Layout                  │
+        │   │       ├─ Context                 │
+        │   │       └─ Methods                 │
+        │                                      │
+        │ SAP Web Dynpro 개발 트리 구조         │
+        └──────────────────────────────────────┘
+        ```
+        
+        ```jsx
+        ┌────────────────────────────────────────────────────┐
+        │                    COMPONENT                       │
+        │                                                    │
+        │  ┌──────────────────────────────────────────────┐  │
+        │  │          COMPONENT CONTROLLER                │  │
+        │  │  - 전역 Context (모든 View가 공유)           │  │
+        │  └──────────────────────────────────────────────┘  │
+        │                                                    │
+        │  ┌──────────────────────────────────────────────┐  │
+        │  │                    WINDOW                    │  │
+        │  │                                              │  │
+        │  │   ┌──────────────┐   ┌──────────────┐        │  │ -> View 내부
+        │  │   │    VIEW_A    │   │    VIEW_B    │   ...  │  │
+        │  │   │  (UI 화면)   │   │  (UI 화면)   │        │  │
+        │  │   └──────────────┘   └──────────────┘        │  │
+        │  │                                              │  │
+        │  │  - 여러 View 포함 가능                       │  │
+        │  │  - Plugs(입·출력) 연결로 Navigation 구현      │  │
+        │  └──────────────────────────────────────────────┘  │
+        │                                                    │
+        └────────────────────────────────────────────────────┘
+        
+        --------------------------------------------------------------
+        
+        ┌──────────────┐
+        │     VIEW     │   ← 실제로 화면에 보이는 버튼/입력필드
+        └──────┬───────┘
+               │ (UI Binding)
+               ↓
+        ┌──────────────┐
+        │ VIEW CONTROLLER │ ← 화면 로직 처리 (버튼 이벤트, 초기화 등)
+        └──────┬────────┘
+               │ (Context API)
+               ↓
+        ┌──────────────┐
+        │    CONTEXT    │ ← 데이터 저장 위치(구조체 + 필드)
+        └──────────────┘
+        ```
+        
+2. Web Dynpro 실습
+    
+    ```text
+    Web Dynpro Component 생성 단계
+
+    ┌──────────────────────────────┐
+    │ SE80 → Create → Web Dynpro   │
+    │                               │
+    │ Component Name : ZWD_FLIGHT  │
+    │                               │
+    │ 생성 후 자동 구조              │
+    │ Component Controller          │
+    │ View                          │
+    │ Window                        │
+    └──────────────────────────────┘
+    ```
+    
+    ```text
+    View Layout Editor
+
+    ┌──────────────────────────────┐
+    │ Layout                       │
+    │                              │
+    │ InputField : CARRID          │
+    │ InputField : CONNID          │
+    │ Button : SEARCH              │
+    │ Table : Flight Data          │
+    └──────────────────────────────┘
+    ```
+    
+    ```text
+    Context Node 생성
+
+    ┌──────────────────────────────┐
+    │ Context                      │
+    │                              │
+    │ NS_COND                      │
+    │   ├─ CARRID                  │
+    │   └─ CONNID                  │
+    │                              │
+    │ NT_DATA                      │
+    │   ├─ CARRID                  │
+    │   ├─ CONNID                  │
+    │   ├─ FLDATE                  │
+    │   └─ PRICE                   │
+    └──────────────────────────────┘
+    ```
+    
+    ```text
+    Context Mapping
+
+    Component Controller Context
+             │
+             ▼
+    View Context
+
+    Data Element Share 기능
+    ```
+    
+    → Context Mapping (Data Element Share 기능) : Context Mapping은 **View ↔ Component Controller** 사이에 데이터를 자동으로 동기화 시키는 기능이다.
+    
+    ```text
+    Context Mapping 설정 화면
+
+    ┌──────────────────────────────┐
+    │ Component Controller Context │
+    │          │                   │
+    │          ▼                   │
+    │        View Context          │
+    │                              │
+    │ Drag & Drop Mapping          │
+    └──────────────────────────────┘
+    ```
+    
+    → Web Dynpro Application 생성
+    
+    ```text
+    Web Dynpro Application 생성
+
+    ┌──────────────────────────────┐
+    │ Create Application           │
+    │                              │
+    │ Name : ZWD_FLIGHT_APP        │
+    │ Component : ZWD_FLIGHT       │
+    │ Interface View : MAIN_VIEW   │
+    └──────────────────────────────┘
+    ```
+    
+    ```text
+    Application 실행 설정
+
+    ┌──────────────────────────────┐
+    │ Web Dynpro Application       │
+    │                              │
+    │ Execute → Browser Launch     │
+    │                              │
+    │ URL 생성 후 실행              │
+    └──────────────────────────────┘
+    ```
+    
+    ```text
+    View UI Layout
+
+    ┌──────────────────────────────────┐
+    │ CARRID : [____]                  │
+    │ CONNID : [____]                  │
+    │                                  │
+    │           [ SEARCH ]              │
+    │                                  │
+    │ Flight Table                      │
+    └──────────────────────────────────┘
+    ```
+    
+    → Content 눌러서 저장
+    
+    ```text
+    Layout Save
+
+    ┌──────────────────────────────┐
+    │ Layout Editor                │
+    │                              │
+    │ [Save]                       │
+    │ [Activate]                   │
+    └──────────────────────────────┘
+    ```
+    
+    → 메소드 추가 
+    
+    ```jsx
+    METHOD GET_FLIGHTS .
+      DATA LO_ND_NS_COND TYPE REF TO IF_WD_CONTEXT_NODE.
+    
+      DATA LO_EL_NS_COND TYPE REF TO IF_WD_CONTEXT_ELEMENT.
+      DATA LS_NS_COND TYPE WD_THIS->ELEMENT_NS_COND.
+    
+    *   navigate from <CONTEXT> to <NS_COND> via lead selection
+      LO_ND_NS_COND = WD_CONTEXT->GET_CHILD_NODE( NAME = WD_THIS->WDCTX_NS_COND ).
+    
+    *   @TODO handle non existant child
+    *   IF lo_nd_ns_cond IS INITIAL.
+    *   ENDIF.
+    
+    *   get element via lead selection
+      LO_EL_NS_COND = LO_ND_NS_COND->GET_ELEMENT( ).
+    *   @TODO handle not set lead selection
+      IF LO_EL_NS_COND IS INITIAL.
+      ENDIF.
+    
+    *   get all declared attributes
+      LO_EL_NS_COND->GET_STATIC_ATTRIBUTES(
+        IMPORTING
+          STATIC_ATTRIBUTES = LS_NS_COND ).
+    
+      DATA LO_ND_NT_DATA TYPE REF TO IF_WD_CONTEXT_NODE.
+    
+      DATA LT_NT_DATA TYPE WD_THIS->ELEMENTS_NT_DATA.
+    
+    *     navigate from <CONTEXT> to <NT_DATA> via lead selection
+      LO_ND_NT_DATA = WD_CONTEXT->GET_CHILD_NODE( NAME = WD_THIS->WDCTX_NT_DATA ).
+    
+      SELECT *
+        INTO CORRESPONDING FIELDS OF TABLE LT_NT_DATA
+        FROM SFLIGHT
+        WHERE CARRID = LS_NS_COND-CARRID
+          AND CONNID = LS_NS_COND-CONNID.
+    
+      LO_ND_NT_DATA->BIND_TABLE( NEW_ITEMS = LT_NT_DATA SET_INITIAL_ELEMENTS = ABAP_TRUE ).
+    
+    ENDMETHOD.
+    ```
+    
+    ```jsx
+      SELECT *
+        INTO CORRESPONDING FIELDS OF TABLE LT_NT_DATA
+        FROM SFLIGHT
+        WHERE CARRID = LS_NS_COND-CARRID
+          AND CONNID = LS_NS_COND-CONNID. *추가*
+    ```
+    
+    ```text
+    Method Editor
+
+    ┌──────────────────────────────┐
+    │ Method : GET_FLIGHTS         │
+    │                              │
+    │ SELECT SFLIGHT               │
+    │ INTO LT_NT_DATA              │
+    │                              │
+    │ Context Binding              │
+    └──────────────────────────────┘
+    ```
+    
+    → 메소드 활성화
+    
+    ```jsx
+    METHOD ONACTIONSEARCH .
+    
+      WD_COMP_CONTROLLER->GET_FLIGHTS( ).
+    
+    ENDMETHOD.
+    ```
+    
+    ```text
+    실행 결과
+
+    ┌──────────────────────────────────┐
+    │ CARRID : LH                      │
+    │ CONNID : 0400                    │
+    │                                  │
+    │ [ SEARCH ]                       │
+    │                                  │
+    │ Flight Table                     │
+    │ LH | 0400 | 2024-01-01 | ...     │
+    │ LH | 0400 | 2024-01-02 | ...     │
+    └──────────────────────────────────┘
+    ```
+    
+    → 실습 완료 화면
+
