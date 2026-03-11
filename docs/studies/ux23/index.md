@@ -117,6 +117,7 @@ body {
 .tbl th, .tbl td {
   padding: .72rem .75rem;
   border-bottom: 1px solid rgba(255, 233, 167, .65);
+  vertical-align: top;
 }
 
 .tbl th {
@@ -130,8 +131,9 @@ body {
 }
 
 .tbl .col-tag {
-  width: 92px;
+  width: 110px;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .tbl a {
@@ -200,33 +202,97 @@ body {
       <a href="{{ '/' | relative_url }}">← SAP CODE 메인으로</a>
     </div>
     <h1>🍋 UX2+3 — Gateway & Fiori</h1>
-    <p>Gateway와 Fiori 개발을 분리하여 학습합니다.<br> OData 서비스 구현과 Fiori Elements 앱 개발 흐름을 배웁니다.</p>
+    <p>Gateway와 UI5 Fiori를 날짜 기준으로 정리한 페이지입니다.</p>
+    <p class="small">기간: 2026.02.09 ~ 2026.03.03</p>
   </div>
 
   <div class="grid">
 
     <!-- LEFT -->
     <div class="card">
-      <h2>🗂️ 학습 구성 <span class="badge">Lesson Index</span></h2>
+      <h2>🗂️ 학습 구성 <span class="badge">Date Index</span></h2>
 
-      <div class="kicker">① Gateway Track</div>
+      <div class="kicker">① Gateway</div>
       <table class="tbl">
-        <tr><td class="col-tag">GW 1</td><td><a href="{{ '/studies/ux2-3/Gateway/Lesson1' | relative_url }}">Lesson 1</a></td><td>OData 기본 개념</td></tr>
-        <tr><td class="col-tag">GW 2</td><td><a href="{{ '/studies/ux2-3/Gateway/Lesson2' | relative_url }}">Lesson 2</a></td><td>RFC 기반 OData</td></tr>
-        <tr><td class="col-tag">GW 3</td><td><a href="{{ '/studies/ux2-3/Gateway/Lesson3' | relative_url }}">Lesson 3</a></td><td>CRUD 구현</td></tr>
-        <tr><td class="col-tag">GW 4</td><td><a href="{{ '/studies/ux2-3/Gateway/Lesson4' | relative_url }}">Lesson 4</a></td><td>Deep Entity</td></tr>
-        <tr><td class="col-tag">GW 5</td><td><a href="{{ '/studies/ux2-3/Gateway/Lesson5' | relative_url }}">Lesson 5</a></td><td>Association / Navigation</td></tr>
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>정리 페이지</th>
+            <th>주제</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-tag">2026.02.09</td>
+            <td><a href="{{ '/studies/ux23/20260209' | relative_url }}">20260209</a></td>
+            <td>ODATA & SAP Gateway Service 개념 및 생성</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.10</td>
+            <td><a href="{{ '/studies/ux23/20260210' | relative_url }}">20260210</a></td>
+            <td>SAP Gateway Association</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.11</td>
+            <td><a href="{{ '/studies/ux23/20260211' | relative_url }}">20260211</a></td>
+            <td>SAP Gateway Association & Filter & Paging</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.12</td>
+            <td><a href="{{ '/studies/ux23/20260212' | relative_url }}">20260212</a></td>
+            <td>SAP Gateway Data Create, Update, Delete</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.19</td>
+            <td><a href="{{ '/studies/ux23/20260219' | relative_url }}">20260219</a></td>
+            <td>SAP Gateway</td>
+          </tr>
+        </tbody>
       </table>
 
       <br>
 
-      <div class="kicker">② Fiori Track</div>
+      <div class="kicker">② UI5 Fiori</div>
       <table class="tbl">
-        <tr><td class="col-tag">Fiori 1</td><td><a href="{{ '/studies/ux2-3/Fiori/Lesson1' | relative_url }}">Lesson 1</a></td><td>Fiori Launchpad 소개</td></tr>
-        <tr><td class="col-tag">Fiori 2</td><td><a href="{{ '/studies/ux2-3/Fiori/Lesson2' | relative_url }}">Lesson 2</a></td><td>Annotation 이해</td></tr>
-        <tr><td class="col-tag">Fiori 3</td><td><a href="{{ '/studies/ux2-3/Fiori/Lesson3' | relative_url }}">Lesson 3</a></td><td>Fiori Elements 앱 구조</td></tr>
-        <tr><td class="col-tag">Fiori 4</td><td><a href="{{ '/studies/ux2-3/Fiori/Lesson4' | relative_url }}">Lesson 4</a></td><td>List Report / Object Page</td></tr>
-        <tr><td class="col-tag">Fiori 5</td><td><a href="{{ '/studies/ux2-3/Fiori/Lesson5' | relative_url }}">Lesson 5</a></td><td>Extension 활용</td></tr>
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>정리 페이지</th>
+            <th>주제</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-tag">2026.02.20</td>
+            <td><a href="{{ '/studies/ux23/20260220' | relative_url }}">20260220</a></td>
+            <td>SAP UI5 BINDING CREATE & UPDATE & DELETE</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.23</td>
+            <td><a href="{{ '/studies/ux23/20260223' | relative_url }}">20260223</a></td>
+            <td>SAP UI5 SearchHelp + Filtering</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.24</td>
+            <td><a href="{{ '/studies/ux23/20260224' | relative_url }}">20260224</a></td>
+            <td>SAP UI5 Popup View</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.26</td>
+            <td><a href="{{ '/studies/ux23/20260226' | relative_url }}">20260226</a></td>
+            <td>SAP UI5 FIORI & CDS VIEW & METADATA EXTENTION</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.02.27</td>
+            <td><a href="{{ '/studies/ux23/20260227' | relative_url }}">20260227</a></td>
+            <td>SAP UI5 FIORI HIDDEN & SELECTIONFIELD & OBJECT PAGE & VALUE HELP & CHART</td>
+          </tr>
+          <tr>
+            <td class="col-tag">2026.03.03</td>
+            <td><a href="{{ '/studies/ux23/20260303' | relative_url }}">20260303</a></td>
+            <td>SAP UI5 FIORI SERVICE_DEFINITION & SERVICE_BINDING & SEARCH_FIELD</td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
@@ -237,30 +303,32 @@ body {
         <h2>📌 주요 개념</h2>
         <ul class="list">
           <li>OData 서비스 구조 및 CRUD 처리</li>
-          <li>Deep Entity / Association 설계</li>
-          <li>Fiori Launchpad 및 App Types</li>
-          <li>Fiori Elements / Annotation 기반 개발</li>
+          <li>Association, Filter, Paging</li>
+          <li>UI5 Binding 및 SearchHelp / Popup View</li>
+          <li>Fiori + CDS View + Metadata Extension</li>
+          <li>Object Page, Value Help, Chart, Service Binding</li>
         </ul>
       </div>
 
       <div class="card">
         <h2>📈 이해도 진행도</h2>
-        <div class="prow"><span>Gateway</span><span class="pct">40%</span></div>
-        <div class="meter"><span style="width:40%"></span></div>
+        <div class="prow"><span>Gateway</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
 
-        <div class="prow"><span>Fiori</span><span class="pct">20%</span></div>
-        <div class="meter"><span style="width:20%"></span></div>
+        <div class="prow"><span>UI5 Fiori</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
       </div>
 
       <div class="card">
         <h2>🪄 이 과정에서 다루는 내용</h2>
         <ul class="list">
-          <li>OData 서비스 구조 및 실습</li>
-          <li>Fiori Launchpad 이해</li>
-          <li>Fiori Elements 기반 앱 구성</li>
+          <li>OData 서비스 생성과 Association, CRUD 구현</li>
+          <li>Filter, Paging 등 Gateway 서비스 확장</li>
+          <li>UI5 Binding과 SearchHelp, Popup View 실습</li>
+          <li>Fiori Elements 및 CDS/Metadata 기반 화면 구성</li>
         </ul>
         <div class="note">
-          <code>Business 사용자 중심의 SAP Fiori UX 앱을 위한 백엔드 ↔ 프론트 연결 학습</code>
+          <code>Gateway 백엔드 서비스와 UI5 Fiori 프론트를 연결해 실제 SAP UX 흐름을 완성하는 단계</code>
         </div>
       </div>
 
