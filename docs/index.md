@@ -175,19 +175,68 @@ body {
       <section class="portal-card">
         <h2>📚 학습 목차</h2>
         <p class="portal-small">각 과정 이름을 클릭하면 상세 정리 페이지로 이동합니다.</p>
-
-        <ul class="portal-list">
-          <li>🎨 <strong>UX1</strong> — <a href="/sapcode/studies/ux1/">UX1 정리</a> · UI5 Programming (HTML / JS / Binding / Routing)</li>
-          <li>⚙️ <strong>ABAP1</strong> — <a href="/sapcode/studies/abap1/">ABAP1 정리</a> · ABAP Overview / Basic Elements / Modularization / FM / BAPI / Internal Table</li>
-          <li>🧱 <strong>ABAP2</strong> — <a href="/sapcode/studies/abap2/">ABAP2 정리</a> · Data Modeling / Open SQL / Dictionary / View / Search Help / Screen / ALV</li>
-          <li>💾 <strong>ABAP3</strong> — <a href="/sapcode/studies/abap3/">ABAP3 정리</a> · Screen Program / Report 개발 / ALV Screen / ALV Grid / Multiple DB Tables</li>
-          <li>🧩 <strong>ABAP4</strong> — <a href="/sapcode/studies/abap4/">ABAP4 정리</a> · BC414 Open SQL / BC401 Objects / Inheritance / Casting / Interface / OO Events</li>
-          <li>🏗 <strong>ABAP5</strong> — <a href="/sapcode/studies/abap5/">ABAP5 정리</a> · HANA / New Open SQL / ADBC / CDS / Association / Input Parameter / POU / New Syntax</li>
-          <li>🌐 <strong>Gateway</strong> — <a href="/sapcode/studies/ux23/">Gateway 정리</a> · OData / Association / Filter / Paging / CRUD</li>
-          <li>🖥 <strong>UI5 Fiori</strong> — <a href="/sapcode/studies/ux23/">UI5 Fiori 정리</a> · Binding / Popup / SearchHelp / Metadata Extension / Object Page / Service Binding</li>
-          <li>🚀 <strong>Project</strong> — <a href="/sapcode/studies/project/">Project 정리</a> · 통합 프로젝트</li>
-          <li>🎓 <strong>Job Fair</strong> — <a href="/sapcode/studies/jobfair/">Job Fair 기록</a> · 수료 / 취업 준비</li>
-        </ul>
+      
+        <table class="portal-table toc-table">
+          <thead>
+            <tr>
+              <th>과정</th>
+              <th>정리 페이지</th>
+              <th>핵심 주제</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🎨 <strong>UX1</strong></td>
+              <td><a href="/sapcode/studies/ux1/">UX1 정리</a></td>
+              <td>UI5 Programming, HTML, JS, Binding, Routing</td>
+            </tr>
+            <tr>
+              <td>⚙️ <strong>ABAP1</strong></td>
+              <td><a href="/sapcode/studies/abap1/">ABAP1 정리</a></td>
+              <td>ABAP Overview, Basic Elements, Modularization, FM, BAPI, Internal Table</td>
+            </tr>
+            <tr>
+              <td>🧱 <strong>ABAP2</strong></td>
+              <td><a href="/sapcode/studies/abap2/">ABAP2 정리</a></td>
+              <td>Data Modeling, Open SQL, Dictionary, View, Search Help, Screen, ALV</td>
+            </tr>
+            <tr>
+              <td>💾 <strong>ABAP3</strong></td>
+              <td><a href="/sapcode/studies/abap3/">ABAP3 정리</a></td>
+              <td>Screen Program, Report 개발, ALV Screen, ALV Grid, Multiple DB Tables</td>
+            </tr>
+            <tr>
+              <td>🧩 <strong>ABAP4</strong></td>
+              <td><a href="/sapcode/studies/abap4/">ABAP4 정리</a></td>
+              <td>Open SQL, Objects, Inheritance, Casting, Interface, OO Events</td>
+            </tr>
+            <tr>
+              <td>🏗 <strong>ABAP5</strong></td>
+              <td><a href="/sapcode/studies/abap5/">ABAP5 정리</a></td>
+              <td>HANA, New Open SQL, ADBC, CDS, Association, Input Parameter, POU</td>
+            </tr>
+            <tr>
+              <td>🌐 <strong>Gateway</strong></td>
+              <td><a href="/sapcode/studies/ux23/">Gateway 정리</a></td>
+              <td>OData, Association, Filter, Paging, CRUD</td>
+            </tr>
+            <tr>
+              <td>🖥 <strong>UI5 Fiori</strong></td>
+              <td><a href="/sapcode/studies/ux23/">UI5 Fiori 정리</a></td>
+              <td>Binding, Popup, SearchHelp, Metadata Extension, Object Page, Service Binding</td>
+            </tr>
+            <tr>
+              <td>🚀 <strong>Project</strong></td>
+              <td><a href="/sapcode/studies/project/">Project 정리</a></td>
+              <td>통합 프로젝트</td>
+            </tr>
+            <tr>
+              <td>🎓 <strong>Job Fair</strong></td>
+              <td><a href="/sapcode/studies/jobfair/">Job Fair 기록</a></td>
+              <td>수료, 취업 준비</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section class="portal-card">
@@ -292,23 +341,6 @@ body {
             3~7월       | 팀 프로젝트 (ABAP + UI5 통합 개발)
             7월         | Job Fair, 최종 발표, 수료식
             </pre>
-          </section>
-
-      <section class="portal-card portal-side-card">
-        <h2>✅ 학습 진행 체크리스트</h2>
-        <ul class="portal-checklist">
-          <li>[ ] UX1 Lesson별 정리 완료</li>
-          <li>[ ] ABAP1 기초 문법 / FM / BAPI / Internal Table 정리</li>
-          <li>[ ] ABAP2 Open SQL / Dictionary / Screen / ALV 정리</li>
-          <li>[ ] ABAP3 Screen Program / ALV Grid / Multi DB Tables 정리</li>
-          <li>[ ] ABAP4 OO ABAP / Inheritance / Interface / Casting 정리</li>
-          <li>[ ] ABAP5 CDS / HANA / New Syntax / POU / 시험 정리</li>
-          <li>[ ] Gateway OData CRUD / Association / Paging 정리</li>
-          <li>[ ] UI5 Fiori Binding / Metadata Extension / Service Binding 정리</li>
-          <li>[ ] 모듈 교육 내용 정리</li>
-          <li>[ ] Project 결과물 문서화</li>
-          <li>[ ] Job Fair 준비 (포트폴리오, 발표 자료)</li>
-        </ul>
       </section>
 
       <section class="portal-card portal-side-card">
