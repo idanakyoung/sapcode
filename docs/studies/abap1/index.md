@@ -1,5 +1,5 @@
 ---
-title: ABAP1 — Foundation & Modularization
+title: ABAP1 — Foundation, Open SQL & Screen Basics
 ---
 
 <style>
@@ -169,9 +169,9 @@ body{
     <div class="topnav">
       <a href="{{ '/' | relative_url }}">← SAP CODE 메인으로</a>
     </div>
-    <h1>⚙️ ABAP1 — Foundation & Modularization</h1>
-    <p>ABAP 입문 단계에서 다룬 기본 문법, 구조화 기법, Function Module, BAPI, Internal Table 중심의 내용을 정리한 과정입니다.</p>
-    <p class="small">기간: 2025.11.14 ~ 2025.11.24</p>
+    <h1>⚙️ ABAP1 — Foundation, Open SQL & Screen Basics</h1>
+    <p>ABAP 입문 단계부터 Open SQL, Dictionary, View, Search Help, Screen, ALV, 1차 시험 정리까지 이어지는 기초 과정을 정리한 페이지입니다.</p>
+    <p class="small">기간: 2025.11.14 ~ 2025.12.12</p>
   </div>
 
   <div class="grid">
@@ -214,7 +214,52 @@ body{
         <tr>
           <td class="col-tag">11/24</td>
           <td><a href="{{ '/studies/abap1/dev-note' | relative_url }}">개발 패턴 노트</a></td>
-          <td>기초 SAP ABAP 개발 패턴 정리</td>
+          <td>기초 SAP ABAP 개발 패턴 노트</td>
+        </tr>
+        <tr>
+          <td class="col-tag">11/25</td>
+          <td><a href="{{ '/studies/abap1/Lesson7' | relative_url }}">Lesson 7</a></td>
+          <td>ABAP Internal Table & Data Modeling and Data Retrieval</td>
+        </tr>
+        <tr>
+          <td class="col-tag">11/26</td>
+          <td><a href="{{ '/studies/abap1/Lesson8' | relative_url }}">Lesson 8</a></td>
+          <td>Open SQL & Inner Join</td>
+        </tr>
+        <tr>
+          <td class="col-tag">11/27</td>
+          <td><a href="{{ '/studies/abap1/Lesson9' | relative_url }}">Lesson 9</a></td>
+          <td>ABAP Dictionary: 프로그래밍 데이터 타입과 활용</td>
+        </tr>
+        <tr>
+          <td class="col-tag">11/28</td>
+          <td><a href="{{ '/studies/abap1/Lesson10' | relative_url }}">Lesson 10</a></td>
+          <td>Performance During Table Access</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/01</td>
+          <td><a href="{{ '/studies/abap1/Lesson11' | relative_url }}">Lesson 11</a></td>
+          <td>Dictionary Object Dependencies & Table Changes & Views and Maintenance Views</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/02</td>
+          <td><a href="{{ '/studies/abap1/Lesson12' | relative_url }}">Lesson 12</a></td>
+          <td>Views & Joins & View Cluster & Search Helps & Screen</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/03</td>
+          <td><a href="{{ '/studies/abap1/Lesson13' | relative_url }}">Lesson 13</a></td>
+          <td>Screen Painter & SAP List Viewer (ALV)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/04~12/12</td>
+          <td><a href="{{ '/studies/abap1/ABAP_1st_Exam' | relative_url }}">ABAP 1st Exam 추가 정리 및 POU</a></td>
+          <td>1차 시험 보충 정리 및 POU</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/04~12/12</td>
+          <td><a href="{{ '/studies/abap1/summary' | relative_url }}">ABAP 실습 파일 요약 및 정리</a></td>
+          <td>실습 파일 요약, 전체 흐름 정리</td>
         </tr>
       </table>
 
@@ -222,32 +267,32 @@ body{
 
       <h2>📈 주요 개념</h2>
 
-      <div class="kicker">① ABAP 기초 문법</div>
+      <div class="kicker">① ABAP Foundation</div>
       <ul class="list">
-        <li>ABAP Overview와 기본 실행 구조</li>
-        <li>DATA 선언, 타입, 조건문, 반복문 등 기본 문법</li>
-        <li>기초적인 프로그램 흐름과 문장 구조 이해</li>
+        <li>ABAP Overview와 기본 문법</li>
+        <li>Modularization, Function Module, BAPI</li>
+        <li>Internal Table을 활용한 기초 데이터 처리</li>
       </ul>
 
-      <div class="kicker">② Modularization</div>
+      <div class="kicker">② Open SQL & Data Retrieval</div>
       <ul class="list">
-        <li>FORM / PERFORM 기반 구조화</li>
-        <li>기능 단위 분리와 재사용 가능한 코드 작성 방식</li>
-        <li>프로그램을 읽기 쉽게 나누는 기본 설계 감각</li>
+        <li>Open SQL 문법과 데이터 조회</li>
+        <li>Inner Join과 데이터 모델링 기초</li>
+        <li>DB 테이블과 프로그램 로직 연결</li>
       </ul>
 
-      <div class="kicker">③ Function Module / BAPI</div>
+      <div class="kicker">③ ABAP Dictionary</div>
       <ul class="list">
-        <li>Function Module 호출 방식</li>
-        <li>BAPI 개념과 SAP 표준 비즈니스 인터페이스 이해</li>
-        <li>재사용 가능한 기능 단위와 비즈니스 로직 연결</li>
+        <li>프로그래밍 데이터 타입과 DDIC 객체</li>
+        <li>Dictionary Object Dependencies</li>
+        <li>Views, Maintenance Views, View Cluster 이해</li>
       </ul>
 
-      <div class="kicker">④ Internal Table</div>
+      <div class="kicker">④ Search Help / Screen / ALV</div>
       <ul class="list">
-        <li>ABAP Internal Table의 개념</li>
-        <li>반복 처리와 데이터 임시 저장 구조</li>
-        <li>실습 중심의 기본 데이터 처리 패턴</li>
+        <li>Search Help를 통한 입력 지원</li>
+        <li>Screen Painter 기반 화면 구성</li>
+        <li>SAP List Viewer(ALV)를 이용한 리스트 출력</li>
       </ul>
 
     </div>
@@ -258,30 +303,30 @@ body{
       <div class="card">
         <h2>💎 이해도 진행도</h2>
 
-        <div class="prow"><span>기초 문법</span><span class="pct">100%</span></div>
+        <div class="prow"><span>기초 문법 / 구조화</span><span class="pct">100%</span></div>
         <div class="meter"><span style="width:100%"></span></div>
 
-        <div class="prow"><span>구조화 기법</span><span class="pct">100%</span></div>
+        <div class="prow"><span>Open SQL / Data Retrieval</span><span class="pct">100%</span></div>
         <div class="meter"><span style="width:100%"></span></div>
 
-        <div class="prow"><span>FM / BAPI</span><span class="pct">100%</span></div>
+        <div class="prow"><span>DDIC / View / Search Help</span><span class="pct">100%</span></div>
         <div class="meter"><span style="width:100%"></span></div>
 
-        <div class="prow"><span>Internal Table</span><span class="pct">100%</span></div>
+        <div class="prow"><span>Screen / ALV</span><span class="pct">100%</span></div>
         <div class="meter"><span style="width:100%"></span></div>
       </div>
 
       <div class="card">
         <h2>💙 이 과정에서 다루는 내용</h2>
         <ul class="list">
-          <li>ABAP Overview와 기초 문법 이해</li>
-          <li>프로그램 구조화와 Modularization 기법</li>
-          <li>Function Module과 BAPI의 역할</li>
-          <li>Internal Table을 활용한 기본 데이터 처리</li>
+          <li>ABAP 기본 문법과 구조화 기법</li>
+          <li>Function Module, BAPI, Internal Table</li>
+          <li>Open SQL, Dictionary, View, Search Help</li>
+          <li>Screen Painter와 ALV 기반 기초 화면 구성</li>
         </ul>
 
         <div class="note">
-          <code>ABAP 언어 자체를 익히고, 이후 SQL / DDIC / Screen / OO / CDS로 넘어가기 위한 기초 단계</code>
+          <code>ABAP 언어 기초부터 데이터 조회, DDIC, 화면 출력까지 한 번에 이어지는 첫 번째 핵심 기초 단계</code>
         </div>
       </div>
 
@@ -289,9 +334,9 @@ body{
         <h2>🌐 개념 / 용어 정리</h2>
         <ul class="list">
           <li><strong>Modularization</strong>: 프로그램을 기능 단위로 분리하는 기법</li>
-          <li><strong>Function Module</strong>: SAP에서 재사용 가능한 기능 블록</li>
-          <li><strong>BAPI</strong>: SAP 비즈니스 객체를 다루는 표준 인터페이스</li>
-          <li><strong>Internal Table</strong>: 메모리상에서 데이터를 처리하는 ABAP 테이블</li>
+          <li><strong>Open SQL</strong>: SAP ABAP에서 사용하는 데이터베이스 접근 SQL</li>
+          <li><strong>DDIC</strong>: SAP 데이터 사전으로, 데이터 구조를 정의하는 저장소</li>
+          <li><strong>ALV</strong>: SAP 표준 리스트 출력 도구</li>
         </ul>
       </div>
 
@@ -300,7 +345,7 @@ body{
         <ul class="list">
           <li><a href="https://help.sap.com" target="_blank">SAP ABAP 공식 문서</a></li>
           <li><a href="https://learning.sap.com" target="_blank">SAP Learning</a></li>
-          <li>ABAP 기초 강의 노트 및 개발 패턴 정리</li>
+          <li>ABAP 기초 강의 노트, 1차 시험 정리, 실습 요약 자료</li>
         </ul>
       </div>
 
