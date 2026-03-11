@@ -285,12 +285,12 @@ body {
         <pre style="font-size:0.85rem; line-height:1.4; background:#111827; color:#e5e7eb; border-radius:10px; padding:0.7rem 0.9rem; border:1px solid #0f172a;">
         10월  | UX1 시작 (UI5 / HTML / JS)
         11월  | ABAP1 병행 시작
-        12월  | ABAP2 진입, ABAP1 마무리 / 멘토링
-        1월   | ABAP3 시작 (CDS, HANA)
-        2월 초 | ABAP4 진행 (Function Module / Enhancement / BAPI)
-        2월 말 | ABAP5 진행 (실전 응용 / 시험 대비 / 프로젝트 연결)
-        3월   | UX2+3 시작 (Fiori / Gateway)
-        4~7월 | 팀 프로젝트 (ABAP + UI5 통합 개발)
+        12월 초 | ABAP2 진입, ABAP1 마무리 / 멘토링
+        12월 중 | ABAP3 시작 (CDS, HANA)
+        12월 말| ABAP4 진행 (Function Module / Enhancement / BAPI)
+        1월 초 | ABAP5 진행 (실전 응용 / 시험 대비 / 프로젝트 연결)
+        2월   | UX2+3 시작 (Fiori / Gateway)
+        3~7월 | 팀 프로젝트 (ABAP + UI5 통합 개발)
         7월   | Job Fair, 최종 발표, 수료식
         </pre>
       </section>---
