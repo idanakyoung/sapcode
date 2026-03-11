@@ -261,22 +261,22 @@ body {
           </tr>
           <tr>
             <td class="col-tag">2026.01.20~28</td>
-            <td><a href="{{ '/studies/abap4/260120-28-pou1' | relative_url }}">260120~28 (POU1)</a></td>
+            <td><a href="{{ '/studies/abap4/260120_28_pou1' | relative_url }}">260120~28 (POU1)</a></td>
             <td>POU (1)</td>
           </tr>
           <tr>
             <td class="col-tag">2026.01.20~28</td>
-            <td><a href="{{ '/studies/abap4/260120-28-pou2' | relative_url }}">260120~28 (POU2)</a></td>
+            <td><a href="{{ '/studies/abap4/260120_28_pou2' | relative_url }}">260120~28 (POU2)</a></td>
             <td>POU (2)</td>
           </tr>
           <tr>
             <td class="col-tag">2026.01.20~28</td>
-            <td><a href="{{ '/studies/abap4/20260129-pou3' | relative_url }}">20260129 (POU3)</a></td>
+            <td><a href="{{ '/studies/abap4/20260129_pou3' | relative_url }}">20260129 (POU3)</a></td>
             <td>POU (3)</td>
           </tr>
           <tr>
             <td class="col-tag">2026.01.20~28</td>
-            <td><a href="{{ '/studies/abap4/260120-28-exam' | relative_url }}">260120~28 (Exam)</a></td>
+            <td><a href="{{ '/studies/abap4/260120_28_exam' | relative_url }}">260120~28 (Exam)</a></td>
             <td>ABAP 2nd Exam 정리</td>
           </tr>
           <tr>
