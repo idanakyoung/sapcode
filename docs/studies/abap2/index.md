@@ -1,5 +1,5 @@
 ---
-title: ABAP2 — Screen & Web Dynpro
+title: ABAP2 — Screen Program & ALV Grid
 ---
 
 <style>
@@ -141,7 +141,6 @@ body{
 
 .pct{ font-weight:850; }
 
-
 .badge {
   font-size: 0.78rem;
   padding: 0.16rem 0.5rem;
@@ -170,8 +169,9 @@ body{
     <div class="topnav">
       <a href="{{ '/' | relative_url }}">← SAP CODE 메인으로</a>
     </div>
-    <h1>🧱 ABAP2 — Screen & Web Dynpro</h1>
-    <p>Classical Screen 심화부터 Web Dynpro ABAP까지 학습하는 과정입니다.</p>
+    <h1>🧱 ABAP2 — Screen Program & ALV Grid</h1>
+    <p>Screen Program 실습부터 전공 리포트 개발, ALV Screen, ALV Grid, Multiple Database Tables까지 이어지는 과정을 정리한 페이지입니다.</p>
+    <p class="small">기간: 2025.12.15 ~ 2025.12.31</p>
   </div>
 
   <div class="grid">
@@ -179,40 +179,105 @@ body{
     <!-- LEFT -->
     <div class="card">
   
-      <h2>🖥️ 학습 구성<span class="badge">Lesson Index</span></h2>
+      <h2>🖥️ 학습 구성 <span class="badge">Lesson Index</span></h2>
       <table class="tbl">
-        <tr><td class="col-tag">L1</td><td><a href="{{ '/studies/abap2/Lesson1' | relative_url }}">Lesson 1</a></td><td>Screen 구조 복습</td></tr>
-        <tr><td class="col-tag">L2</td><td><a href="{{ '/studies/abap2/Lesson2' | relative_url }}">Lesson 2</a></td><td>Subscreen</td></tr>
-        <tr><td class="col-tag">L3</td><td><a href="{{ '/studies/abap2/Lesson3' | relative_url }}">Lesson 3</a></td><td>Tabstrip Control</td></tr>
-        <tr><td class="col-tag">L4</td><td><a href="{{ '/studies/abap2/Lesson4' | relative_url }}">Lesson 4</a></td><td>Screen Flow Logic</td></tr>
-        <tr><td class="col-tag">L5</td><td><a href="{{ '/studies/abap2/Lesson5' | relative_url }}">Lesson 5</a></td><td>Web Dynpro 개요</td></tr>
-        <tr><td class="col-tag">L6</td><td><a href="{{ '/studies/abap2/Lesson6' | relative_url }}">Lesson 6</a></td><td>Component / View</td></tr>
-        <tr><td class="col-tag">L7</td><td><a href="{{ '/studies/abap2/Lesson7' | relative_url }}">Lesson 7</a></td><td>Context / Binding</td></tr>
-        <tr><td class="col-tag">L8</td><td><a href="{{ '/studies/abap2/Lesson8' | relative_url }}">Lesson 8</a></td><td>Event Handling</td></tr>
-        <tr><td class="col-tag">L9</td><td><a href="{{ '/studies/abap2/Lesson9' | relative_url }}">Lesson 9</a></td><td>Navigation</td></tr>
-        <tr><td class="col-tag">L10</td><td><a href="{{ '/studies/abap2/Lesson_10' | relative_url }}">Lesson 10</a></td><td>Mini 실습1</td></tr>
-        <tr><td class="col-tag">L11</td><td><a href="{{ '/studies/abap2/Lesson_11' | relative_url }}">Lesson 11</a></td><td>Mini 실습2</td></tr>
-        <tr><td class="col-tag">L12</td><td><a href="{{ '/studies/abap2/Lesson_12' | relative_url }}">Lesson 12</a></td><td>Mini 실습3</td></tr>
-        <tr><td class="col-tag">L13</td><td><a href="{{ '/studies/abap2/Lesson_13' | relative_url }}">Lesson 13</a></td><td>Mini 실습4</td></tr>
-        <tr><td class="col-tag">TEST</td><td><a href="{{ '/studies/abap2/ABAP_1st_Exam' | relative_url }}">ABAP_1st_Exam</a></td><td>ABAP 1st Exam 추가 정리 및 POU</td></tr>
+        <tr>
+          <td class="col-tag">12/15</td>
+          <td><a href="{{ '/studies/abap2/Lesson1' | relative_url }}">Lesson 1</a></td>
+          <td>Screen Program (1)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/16</td>
+          <td><a href="{{ '/studies/abap2/Lesson2' | relative_url }}">Lesson 2</a></td>
+          <td>Screen Program (2)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/17</td>
+          <td><a href="{{ '/studies/abap2/Lesson3' | relative_url }}">Lesson 3</a></td>
+          <td>Screen Program (3)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/18</td>
+          <td><a href="{{ '/studies/abap2/Lesson4' | relative_url }}">Lesson 4</a></td>
+          <td>Screen Program (4)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/19</td>
+          <td><a href="{{ '/studies/abap2/Lesson5' | relative_url }}">Lesson 5</a></td>
+          <td>프로그래밍 전공 리포트 개발 (1)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/22</td>
+          <td><a href="{{ '/studies/abap2/Lesson6' | relative_url }}">Lesson 6</a></td>
+          <td>프로그래밍 전공 리포트 개발 (2)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/23</td>
+          <td><a href="{{ '/studies/abap2/Lesson7' | relative_url }}">Lesson 7</a></td>
+          <td>ALV Screen 생성 & ALV Functionality</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/24</td>
+          <td><a href="{{ '/studies/abap2/Lesson8' | relative_url }}">Lesson 8</a></td>
+          <td>ALV Grid (1)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/26</td>
+          <td><a href="{{ '/studies/abap2/Lesson9' | relative_url }}">Lesson 9</a></td>
+          <td>ALV Grid (2)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/29</td>
+          <td><a href="{{ '/studies/abap2/Lesson_10' | relative_url }}">Lesson 10</a></td>
+          <td>ALV Grid (3)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/30</td>
+          <td><a href="{{ '/studies/abap2/Lesson_11' | relative_url }}">Lesson 11</a></td>
+          <td>ALV Grid (4)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/31</td>
+          <td><a href="{{ '/studies/abap2/Lesson_12' | relative_url }}">Lesson 12</a></td>
+          <td>Multiple Database Tables (1)</td>
+        </tr>
+        <tr>
+          <td class="col-tag">12/31</td>
+          <td><a href="{{ '/studies/abap2/Lesson_13' | relative_url }}">Lesson 13</a></td>
+          <td>Multiple Database Tables (2)</td>
+        </tr>
       </table>
       
       <br>
 
       <h2>📈 주요 개념</h2>
 
-      <div class="kicker">① Screen Programming 심화</div>
+      <div class="kicker">① Screen Program</div>
       <ul class="list">
-        <li>Dynpro 구조 복습 및 심화</li>
-        <li>Subscreen / Tabstrip</li>
-        <li>Screen Flow Control</li>
+        <li>Screen Program의 기본 구조와 흐름</li>
+        <li>입력/출력 화면과 프로그램 로직 연결</li>
+        <li>실습을 통한 화면 중심 ABAP 프로그램 구성</li>
       </ul>
 
-      <div class="kicker">② Web Dynpro ABAP</div>
+      <div class="kicker">② 리포트 개발</div>
       <ul class="list">
-        <li>Component / View / Window 구조</li>
-        <li>Context / Data Binding</li>
-        <li>Navigation / Event 처리</li>
+        <li>전공 리포트 형식의 프로그램 개발</li>
+        <li>조회 로직과 출력 구조 설계</li>
+        <li>실습형 과제를 통해 프로그램 완성도 높이기</li>
+      </ul>
+
+      <div class="kicker">③ ALV Screen / ALV Grid</div>
+      <ul class="list">
+        <li>ALV Screen 생성과 기본 기능 이해</li>
+        <li>ALV Grid를 이용한 데이터 출력과 제어</li>
+        <li>실무형 리스트 화면 구성 방식 학습</li>
+      </ul>
+
+      <div class="kicker">④ Multiple Database Tables</div>
+      <ul class="list">
+        <li>여러 데이터베이스 테이블을 함께 다루는 방법</li>
+        <li>복합 조회와 데이터 연결 구조 이해</li>
+        <li>프로그램 확장 시 필요한 다중 테이블 처리 감각 익히기</li>
       </ul>
     </div>
 
@@ -222,43 +287,49 @@ body{
       <div class="card">
         <h2>📶 이해도 진행도</h2>
 
-        <div class="prow"><span>Screen</span><span class="pct">40%</span></div>
-        <div class="meter"><span style="width:40%"></span></div>
+        <div class="prow"><span>Screen Program</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
 
-        <div class="prow"><span>Web Dynpro</span><span class="pct">20%</span></div>
-        <div class="meter"><span style="width:20%"></span></div>
+        <div class="prow"><span>리포트 개발</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
+
+        <div class="prow"><span>ALV Screen / Grid</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
+
+        <div class="prow"><span>Multiple DB Tables</span><span class="pct">100%</span></div>
+        <div class="meter"><span style="width:100%"></span></div>
       </div>
 
       <div class="card">
         <h2>🔵 이 과정에서 다루는 내용</h2>
         <ul class="list">
-          <li>Classical Screen 심화</li>
-          <li>복잡한 화면 흐름 제어</li>
-          <li>Web Dynpro ABAP 구조 이해</li>
-          <li>Context 기반 데이터 처리</li>
+          <li>Screen Program 기반 화면 개발</li>
+          <li>리포트 프로그램 설계와 구현</li>
+          <li>ALV Screen / ALV Grid 활용</li>
+          <li>다중 테이블 기반 조회 프로그램 확장</li>
         </ul>
 
         <div class="note">
-          <code>ABAP 기반 GUI → Web 기반 UI로 넘어가는 전환 단계</code>
+          <code>기초 문법과 조회 중심 학습 이후, 실제 화면과 출력 프로그램을 본격적으로 만드는 단계</code>
         </div>
       </div>
 
       <div class="card">
         <h2>🌐 개념 / 용어</h2>
         <ul class="list">
-          <li><strong>Subscreen</strong>: 화면 분할 재사용</li>
-          <li><strong>Tabstrip</strong>: 탭 기반 UI</li>
-          <li><strong>Context</strong>: Web Dynpro 데이터 저장소</li>
-          <li><strong>Binding</strong>: Context ↔ UI 연결</li>
+          <li><strong>Screen Program</strong>: 화면과 ABAP 로직이 결합된 전통적 SAP 프로그램 방식</li>
+          <li><strong>ALV</strong>: 표준 리스트 출력 도구로, 조회 결과를 효율적으로 표시하는 방식</li>
+          <li><strong>ALV Grid</strong>: 사용자가 다루기 쉬운 형태의 인터랙티브 리스트 출력</li>
+          <li><strong>Multiple Database Tables</strong>: 여러 테이블을 연결해 데이터를 조회하는 구조</li>
         </ul>
       </div>
 
       <div class="card">
         <h2>📎 참고 자료</h2>
         <ul class="list">
-          <li>SAP Help — Web Dynpro ABAP</li>
-          <li>BC401 / BC420 교재</li>
-          <li>Screen vs Web Dynpro 비교 자료</li>
+          <li>ABAP Screen Program 실습 자료</li>
+          <li>ALV Screen / Grid 관련 강의 노트</li>
+          <li>다중 테이블 조회 예제 및 전공 리포트 개발 자료</li>
         </ul>
       </div>
 
